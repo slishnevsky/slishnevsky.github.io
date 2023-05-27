@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>My first page</title>
+    <script type="text/javascript">
+        
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-left">
+                    <div class="input-group">
+                        <input type="text" #box class="form-control" placeholder="Search..." (keyup)="onKey($event)" autofocus>
+                        <ul *ngIf="suggestions" class="list-group suggestions" style="width:inherit">
+                            <li *ngFor="let suggestion of suggestions" [class]="suggestion.active?'list-group-item active':'list-group-item'" 
+                            (mouseover)="onMouseOver($event)" (click)="onClick($event, box)">suggestion.text</li>
+                        </ul>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-success" (click)="onEnter(box.value)">Искать</button>
+                        </span>
+                    </div>
+                </form>
+                <span class="navbar-brand"> translation </span>
+                <form class="navbar-form navbar-right">
+                    <button class="btn btn-danger" (click)="isSignedIn?signOut():signIn();">Войти</button>
+                </form>
+                <div class="navbar-brand navbar-right">
+                    <span>currentDate.date&nbsp;</span>
+                    <span style="color: tomato">currentDate.time</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                Welcome
+            </div>
+            <div class="col-md-4">
+                Hello
+            </div>
+            <div class="col-md-4">
+                Preved
+            </div>
+        </div>
+    </div>
+    <script src="https://apis.google.com/js/api.js"></script>
+</body>
+</html>
+
+

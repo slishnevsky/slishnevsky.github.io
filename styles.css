@@ -1,0 +1,53 @@
+/* 
+  Primary:  #337AB7
+  Success:  #5CB85C
+  Danger:   #D9534F
+  Info:     #5BC0DE
+  Warning:  #F0AD4E 
+*/
+
+@media (min-width: 992px) { .col-md-4:nth-of-type(even) { padding-left: 0px; padding-right: 0px; } }
+
+* { border: none !important; text-decoration: none !important; box-shadow: none !important; outline: none !important; }
+
+body { background-color: #567; padding-top: 65px; color: #DDD; }
+
+a { color: #DDD !important; }
+
+.panel { margin-bottom: 15px; border: 2px solid #333 !important; background-color: #444; }
+.panel-body { padding: 8px; }
+.list-group-item { background-color: #444 !important; padding: 8px 12px; margin-bottom: 0px; border-bottom: 1px solid #555 !important; }
+.list-group-item.title { background-color: #333 !important; }
+.list-group-item:last-child { border-bottom: 0px !important; }
+.list-group-item:hover { background-color: #333 !important; }
+.table { margin-bottom: 0px; table-layout: fixed; }
+
+app-navbar .navbar-form { margin-left: -15px; }
+app-navbar .form-control { height: auto; width: 300px !important; }
+app-navbar .input-group-btn { width: auto; }
+app-navbar .suggestions { margin-top: 33px; position: fixed; width: 300px; }
+app-navbar .suggestions .list-group-item { background-color: #FFF !important; color: #777; }
+app-navbar .suggestions .list-group-item.active { background-color: #337AB7 !important; color: #DDD; }
+
+app-weather img { height: 50px; background-color: #EEE; padding: 4px 0px; border-radius: 50%; }
+
+app-bookmarks .nav-tabs > li { margin-bottom: 2px; } 
+app-bookmarks .nav-tabs > li > a { background-color: #333; padding: 8px 12px; border: 2px solid #333 !important; border-radius: 4px; }
+app-bookmarks .nav-tabs > li > a:hover { background-color: #444; }
+app-bookmarks .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { background-color: #444; }
+app-bookmarks img { padding: 1px; background-color: #333; border: 1px solid #EEE !important; margin-right: 10px; float: left; border-radius: 50%; }
+app-bookmarks .label { background-color: #555; padding: 4px 8px; min-width: 60px; font-size: 12px; font-weight: normal; float: right; }
+
+app-calendar td div:hover { background-color: #D06B64; }
+app-calendar .btn-xs { background-color: transparent; }
+app-calendar .btn-xs .glyphicon { color: #DDD; }
+app-calendar .table td div { padding: 4px; margin: -4px; border-radius: 2px; }
+app-calendar .table .today { background-color: #333; border: 1px solid #EEE !important; font-weight: bold; }
+app-calendar .table .weekend { background-color: #555; }
+app-calendar .table .other { color: #666; }
+app-calendar .label { padding: 4px 8px; min-width: 60px; font-size: 12px; font-weight: normal; float: right; }
+
+app-news img { border: 1px solid #EEE !important; margin-right: 10px; height: 50px; width: 74px; float: left; }
+
+app-gmail .btn { text-align: left; display: block; margin-bottom: 15px; white-space: normal; }
+
