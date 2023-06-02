@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Bootstrap Template</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="createCalendar.js"></script>
+  <style>
+    .navbar {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body onload="loadComponents()">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">My Website</a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Column 1</h2>
+        <p>This is the content of column 1.</p>
+        <div id="calendar"></div>
+      </div>
+      <div class="col-md-4">
+        <h2>Column 2</h2>
+        <p>This is the content of column 2.</p>
+      </div>
+      <div class="col-md-4">
+        <h2>Column 3</h2>
+        <p>This is the content of column 3.</p>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  function loadComponents() {
+    var div = document.getElementById('calendar');
+    var calendar = createCalendar(5, 2023);
+    div.appendChild(calendar);
+  }
+  </script>
+</body>
+
+</html>

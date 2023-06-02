@@ -1,4 +1,4 @@
-function generateCalendar(month, year) {
+function createCalendar(month, year) {
   // Create a new date object for the specified month and year
   var date = new Date(year, month - 1, 1);
 
@@ -10,6 +10,7 @@ function generateCalendar(month, year) {
 
   // Create an array of weekday names
   var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   // Create a table element and set its attributes
   var table = document.createElement('table');
@@ -61,8 +62,9 @@ function generateCalendar(month, year) {
   table.appendChild(tbody);
 
   // Append the table to the document body or any other desired element
-  document.body.appendChild(table);
+  // document.body.appendChild(table);
+  return table;
 }
 
 // Example usage: generate a calendar for May 2023
-generateCalendar(5, 2023);
+createCalendar(5, 2023);
