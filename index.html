@@ -6,8 +6,16 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="createCalendar.js"></script>
+  <script src="weather.js"></script>
+  <script src="calendar.js"></script>
+  <script src="bookmarks.js"></script>
+  <script src="news.js"></script>
+  <script src="clock.js"></script>
   <style>
+    body {
+      padding-top: 70px;
+      padding-bottom: 30px;
+    }
     .navbar {
       margin-bottom: 20px;
     }
@@ -36,7 +44,7 @@
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search">
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-success">Search</button>
         </form>
       </div>
     </div>
@@ -44,25 +52,55 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <h2>Column 1</h2>
-        <p>This is the content of column 1.</p>
-        <div id="calendar"></div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Weather</div>
+          <div id="weather" class="panel-body">Weather content</div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Calendar</div>
+          <div id="calendar" class="panel-body">Calendar content</div>
+        </div>
       </div>
       <div class="col-md-4">
-        <h2>Column 2</h2>
-        <p>This is the content of column 2.</p>
+        <div class="panel panel-default">
+          <div class="panel-heading">Bookmarks</div>
+          <div id="bookmarks" class="panel-body">Bookmarks content</div>
+        </div>
       </div>
       <div class="col-md-4">
-        <h2>Column 3</h2>
-        <p>This is the content of column 3.</p>
+        <div class="panel panel-default">
+          <div class="panel-heading">News</div>
+          <div id="news" class="panel-body">News content</div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Clock</div>
+          <div id="clock" class="panel-body">Clock content</div>
+        </div>
       </div>
     </div>
   </div>
   <script type="text/javascript">
   function loadComponents() {
-    var div = document.getElementById('calendar');
-    var calendar = createCalendar(5, 2023);
-    div.appendChild(calendar);
+    var weather1 = document.getElementById('weather');
+    var calendar1 = document.getElementById('calendar');
+    var bookmarks1 = document.getElementById('bookmarks');
+    var news1 = document.getElementById('news');
+    var clock1 = document.getElementById('clock');
+
+    // var weather = createWeather();
+    // weather1.appendChild(weather);
+
+    var calendar = createCalendar(6, 2023);
+    calendar1.appendChild(calendar);
+
+    // var bookmarks = createBookmarks();
+    // bookmarks1.appendChild(bookmarks);
+
+    // var news = fetchRSSFeed('https://news.knopka.ca/rss');
+    // news1.appendChild(news);
+
+    // var clock = createClock();
+    // clock1.appendChild(clock);
   }
   </script>
 </body>

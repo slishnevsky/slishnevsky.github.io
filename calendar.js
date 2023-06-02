@@ -2,6 +2,8 @@ function createCalendar(month, year) {
   // Create a new date object for the specified month and year
   var date = new Date(year, month - 1, 1);
 
+  var today = new Date();
+
   // Get the number of days in the specified month
   var daysInMonth = new Date(year, month, 0).getDate();
 
@@ -9,13 +11,14 @@ function createCalendar(month, year) {
   var firstDayIndex = date.getDay();
 
   // Create an array of weekday names
-  var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  // var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  var weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   // Create a table element and set its attributes
   var table = document.createElement('table');
-  table.setAttribute('border', '1');
-  table.setAttribute('cellspacing', '0');
+  // table.setAttribute('border', '1');
+  // table.setAttribute('cellspacing', '0');
+  table.setAttribute('class', 'table table-bordered')
 
   // Create the table header row
   var thead = document.createElement('thead');
@@ -45,10 +48,14 @@ function createCalendar(month, year) {
     for (var j = 0; j < 7; j++) {
       var cell = document.createElement('td');
 
+
+
       // Add the day number to the cell if it falls within the current month
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
+        if (day === today.getDate()) cell.setAttribute('class', 'danger');
+
         cell.textContent = day;
         day++;
       }
@@ -67,4 +74,4 @@ function createCalendar(month, year) {
 }
 
 // Example usage: generate a calendar for May 2023
-createCalendar(5, 2023);
+// createCalendar(5, 2023);
