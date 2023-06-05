@@ -16,6 +16,7 @@
       padding-top: 70px;
       padding-bottom: 30px;
     }
+
     .navbar {
       margin-bottom: 20px;
     }
@@ -80,28 +81,28 @@
     </div>
   </div>
   <script type="text/javascript">
-  function loadComponents() {
-    var weather1 = document.getElementById('weather');
-    var calendar1 = document.getElementById('calendar');
-    var bookmarks1 = document.getElementById('bookmarks');
-    var news1 = document.getElementById('news');
-    var clock1 = document.getElementById('clock');
+    function loadComponents() {
+      var weather1 = document.getElementById('weather');
+      var calendar1 = document.getElementById('calendar');
+      var bookmarks1 = document.getElementById('bookmarks');
+      var news1 = document.getElementById('news');
+      var clock1 = document.getElementById('clock');
 
-    // var weather = createWeather();
-    // weather1.appendChild(weather);
+      // var weather = createWeather();
+      // weather1.appendChild(weather);
 
-    var calendar = createCalendar(6, 2023);
-    calendar1.appendChild(calendar);
+      var calendar = createCalendar(6, 2023);
+      calendar1.appendChild(calendar);
 
-    // var bookmarks = createBookmarks();
-    // bookmarks1.appendChild(bookmarks);
+      // var bookmarks = createBookmarks();
+      // bookmarks1.appendChild(bookmarks);
 
-    // var news = fetchRSSFeed('https://news.knopka.ca/rss');
-    // news1.appendChild(news);
+      var news = fetchRSSFeed('https://news.knopka.ca/rss', container);
+      news1.appendChild(news);
 
-    // var clock = createClock();
-    // clock1.appendChild(clock);
-  }
+      // var clock = createClock();
+      // clock1.appendChild(clock);
+    }
   </script>
 </body>
 

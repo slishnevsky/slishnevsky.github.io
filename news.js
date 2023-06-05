@@ -27,7 +27,7 @@ function fetchRSSFeed(url) {
 
 // Function to display the results in HTML
 function displayResults(results) {
-  // const container = document.getElementById("rss-container");
+  const container = document.createElement('ul');
   var eventItem = document.createElement('li');
 
   results.forEach(result => {
@@ -39,6 +39,8 @@ function displayResults(results) {
     listItem.appendChild(link);
 
     container.appendChild(listItem);
+
+    return container;
   });
 }
 
