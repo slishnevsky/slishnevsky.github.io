@@ -18,17 +18,20 @@
     <div id="date" style="font-size: 18pt"></div>
   </div>
   <script type="text/javascript">
-  function getDateTime(argument) {
-    var date = new Date();
-    var print1 = date.toLocaleString('en-En', { timeStyle: 'medium', hour12: true });
-    var print2 = date.toLocaleString('ru-RU', { dateStyle: 'full' });
-    document.getElementById("time").innerHTML = print1;
-    document.getElementById("date").innerHTML = print2;
-  }
-  var time_div = document.getElementById("time");
-  var date_div = document.getElementById("date");
-  getDateTime();
-  setInterval(() => { getDateTime(); }, 1000); // refresh time every minute
+    String.prototype.toTitleCase = function () {
+      return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+    function getDateTime(argument) {
+      var date = new Date();
+      var print1 = date.toLocaleString('en-En', { timeStyle: 'medium', hour12: true });
+      var print2 = date.toLocaleString('ru-RU', { dateStyle: 'full' });
+      document.getElementById("time").innerHTML = print1;
+      document.getElementById("date").innerHTML = print2.toTitleCase();
+    }
+    var time_div = document.getElementById("time");
+    var date_div = document.getElementById("date");
+    getDateTime();
+    setInterval(() => { getDateTime(); }, 1000); // refresh time every minute
   // generateCalendar(5, 2023);
   // Load the Google Calendar API and generate calendar with events
   // loadCalendarAPI(function () {
@@ -37,4 +40,5 @@
   // });
   </script>
 </body>
+
 </html>
