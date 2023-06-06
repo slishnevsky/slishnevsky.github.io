@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RSS Parser</title>
+</head>
+<body>
+  <div id="rss-feed"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xml2js/0.4.23/xml2js.min.js"></script>
+  <script>
+    // RSS feed URL
+    const rssUrl = 'https://cors-anywhere.herokuapp.com/https://news.knopka.ca/rss';
+
+    // Fetch the RSS feed
+    fetch(rssUrl)
+      .then(response => response.text())
+      .then(xmlText => {
+        // Parse the XML into JavaScript object
+        const parser = new window.DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+
+        // Get the <item> elements from the RSS feed
+        const items = xmlDoc.getElementsByTagName('item');
+
+        // Loop through each item and display its title and link
+        for (let i = 0; i < items.length; i++) {
+          const title = items[i].getElementsByTagName('title')[0].textContent;
+          const link = items[i].getElementsByTagName('link')[0].textContent;
+          const enclosure = items[i].getElementsByTagName('enclosure')[0].attributes['url'].textContent;
+
+          // Create HTML elements for each item
+          const itemContainer = document.createElement('div');
+          const itemTitle = document.createElement('h3');
+          const itemLink = document.createElement('a');
+          const itemEnclosure = document.createElement('img');
+
+          // Set the content for each element
+          itemTitle.textContent = title;
+          itemLink.textContent = title;
+          itemLink.href = link;
+          itemLink.target = '_blank';
+          itemEnclosure.src = enclosure;
+
+          // Append the elements to the container div
+          itemContainer.appendChild(itemTitle);
+          itemContainer.appendChild(itemLink);
+          itemContainer.appendChild(itemEnclosure);
+
+          // Append the container div to the RSS feed div
+          document.getElementById('rss-feed').appendChild(itemContainer);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching RSS feed:', error);
+      });
+  </script>
+</body>
+</html>
