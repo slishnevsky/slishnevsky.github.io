@@ -1,0 +1,175 @@
+﻿{
+  "Магазины": [
+    {
+      "title": "No Frills Canada Flyers",
+      "link": "http://www.nofrills.ca",
+      "flyer": "http://flyers.smartcanucks.ca/no-frills-canada"
+    },
+    {
+      "title": "FreshCo Canada Flyers",
+      "link": "http://www.freshco.com",
+      "flyer": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada"
+    },
+    {
+      "title": "Walmart Canada Flyers",
+      "link": "http://www.walmart.ca",
+      "flyer": "http://flyers.smartcanucks.ca/walmart-canada"
+    },
+    {
+      "title": "Coppa's Canada Flyers",
+      "link": "http://www.coppas.com",
+      "flyer": "http://flyers.smartcanucks.ca/coppas-fresh-market-canada"
+    },
+    {
+      "title": "Superstore Canada Flyers",
+      "link": "http://www.superstore.ca",
+      "flyer": "http://flyers.smartcanucks.ca/real-canadian-superstore-canada"
+    },
+    {
+      "title": "Shoppers Drugmart Canada Flyers",
+      "link": "http://www.shoppersdrugmart.ca",
+      "flyer": "http://flyers.smartcanucks.ca/shoppers-drug-mart-canada"
+    },
+    {
+      "title": "Canadian Tire Canada Flyers",
+      "link": "http://www.canadiantire.ca",
+      "flyer": "http://flyers.smartcanucks.ca/canadian-tire-canada"
+    },
+    {
+      "title": "Homedepot Canada Flyers",
+      "link": "http://www.homedepot.ca",
+      "flyer": "http://flyers.smartcanucks.ca/home-depot-canada"
+    },
+    {
+      "title": "Best Buy Canada Flyers",
+      "link": "http://www.bestbuy.ca",
+      "flyer": "http://flyers.smartcanucks.ca/best-buy-canada"
+    },
+    {
+      "title": "Staples Canada Flyers",
+      "link": "https://www.staples.ca",
+      "flyer": "https://flyers.smartcanucks.ca/staples-canada"
+    },
+    {
+      "title": "Amazon Canada Flyers",
+      "link": "http://www.amazon.ca",
+      "flyer": "https://www.amazon.ca/gp/goldbox"
+    }
+  ],
+  "Сервисы": [
+    {
+      "title": "Government of Canada (Official Website)",
+      "link": "https://www.canada.ca/"
+    },    
+    {
+      "title": "Canada Revenue Agency (CRA)",
+      "link": "https://www.canada.ca/en/revenue-agency.html"
+    },
+    {
+      "title": "Service Canada (Programs for Canadians)",
+      "link": "https://www.canada.ca/en/employment-social-development/corporate/portfolio/service-canada.html"
+    },
+    {
+      "title": "Government of Ontario (Provincial Services)",
+      "link": "http://www.ontario.ca/government/services"
+    },
+    {
+      "title": "York Region (Regional Services)",
+      "link": "https://www.york.ca/"
+    },
+    {
+      "title": "City of Vaughan (Residential Services)",
+      "link": "https://www.vaughan.ca"
+    },
+    {
+      "title": "Allstate Insurance (Home and Auto Insurance)",
+      "link": "http://www.allstate.ca"
+    },
+    {
+      "title": "Alectra Utilities (Home Electricity)",
+      "link": "https://www.powerstream.ca"
+    },
+    {
+      "title": "PowerStream Energy Services (Condo)",
+      "link": "http://www.powerstreamenergy.com"
+    },
+    {
+      "title": "Enbridge (Home Gas Services)",
+      "link": "https://www.enbridgegas.com"
+    },
+    {
+      "title": "Coextro (Internet Provider)",
+      "link": "https://www.coextro.com/"
+    },
+    {
+      "title": "TekSavvy (Internet Provider)",
+      "link": "http://www.teksavvy.com"
+    },
+    {
+      "title": "Fido (Mobile Phone Provider)",
+      "link": "https://www.fido.ca"
+    },
+    {
+      "title": "VOIP.ms (VOIP Phone Provider)",
+      "link": "http://voip.ms"
+    }
+  ],
+  "Работа": [
+    {
+      "title": "Stack Overflow Community",
+      "link": "https://stackoverflow.com/users/610422/monstro"
+    },
+    {
+      "title": "ASP.NET Documentation",
+      "link": "https://docs.microsoft.com/en-us/aspnet/core"
+    },
+    {
+      "title": "Angular Documentation",
+      "link": "https://angular.io/docs"
+    },
+    {
+      "title": "TypeScript Documentation",
+      "link": "http://www.typescriptlang.org"
+    },
+    {
+      "title": "Azure Documentation",
+      "link": "https://docs.microsoft.com/en-us/azure"
+    },
+    {
+      "title": "Visual Studio Code Documentation",
+      "link": "https://code.visualstudio.com/docs"
+    },
+    {
+      "title": "Bootstrap Documentation",
+      "link": "https://getbootstrap.com/docs/3.4"
+    },
+    {
+      "title": "Google Developers Console",
+      "link": "https://console.cloud.google.com/apis/credentials?project=homepage-307915"
+    },
+    {
+      "title": "Google Identity Platform",
+      "link": "https://developers.google.com/identity"
+    },
+    {
+      "title": "Google API Explorer",
+      "link": "https://developers.google.com/apis-explorer"
+    },
+    {
+      "title": "Gmail API Reference",
+      "link": "https://developers.google.com/gmail/api/reference/rest"
+    },
+    {
+      "title": "Calendar API Reference",
+      "link": "https://developers.google.com/calendar/api/v3/reference"
+    },
+    {
+      "title": "YouTube API Reference",
+      "link": "https://developers.google.com/youtube/v3/docs"
+    },
+    {
+      "title": "Pluralsight Video Tutorials",
+      "link": "https://app.pluralsight.com/library"
+    }
+  ]
+}

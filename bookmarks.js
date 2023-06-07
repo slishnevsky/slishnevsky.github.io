@@ -7,20 +7,22 @@
 // ]
 
 // Function to create the HTML list
-function createList(jsonData) {
+function createList(jsonData, container) {
   // Get the container element where the list will be placed
-  const container = document.getElementById('list-container');
+  // const container = document.getElementById('list-container');
 
   // Create an unordered list element
   const ul = document.createElement('ul');
+  ul.setAttribute('class', 'list-group');
 
   // Iterate over the JSON data and create list items
-  for (let i = 0; i < jsonData.length; i++) {
-    const item = jsonData[i];
+  for (let i = 0; i < jsonData['Магазины'].length; i++) {
+    const item = jsonData['Магазины'][i];
 
     // Create a list item element
     const li = document.createElement('li');
-    li.textContent = item.name;
+    li.setAttribute('class', 'list-group-item');
+    li.textContent = item.title;
 
     // Append the list item to the unordered list
     ul.appendChild(li);
@@ -30,8 +32,11 @@ function createList(jsonData) {
   container.appendChild(ul);
 }
 
-// Fetch the JSON data from a file
-fetch('data.json')
-  .then(response => response.json())
-  .then(data => createList(data))
-  .catch(error => console.error(error));
+function createBookmarks(container) {
+  // Fetch the JSON data from a file
+  fetch('bookmarks.json')
+    .then(response => response.json())
+    .then(data => createList(data, container))
+    .catch(error => console.error(error));
+}
+
