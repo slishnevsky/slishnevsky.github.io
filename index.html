@@ -16,6 +16,7 @@
     body {
       padding-top: 70px;
       padding-bottom: 30px;
+      background: #556677 url("bg2.jpg") no-repeat fixed center
     }
 
     .navbar {
@@ -64,8 +65,12 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div id="bookmarks" class="panel panel-default">
-          <div class="panel-heading">Bookmarks</div>
+        <div id="bookmarks1" class="panel panel-default">
+          <div class="panel-heading">Магазины</div>
+          <!-- Bookmarks list inserted here -->
+        </div>
+        <div id="bookmarks2" class="panel panel-default">
+          <div class="panel-heading">Сервисы</div>
           <!-- Bookmarks list inserted here -->
         </div>
       </div>
@@ -85,7 +90,8 @@
     function loadComponents() {
       var weather1 = document.getElementById('weather');
       var calendar1 = document.getElementById('calendar');
-      var bookmarks1 = document.getElementById('bookmarks');
+      var bookmarks1 = document.getElementById('bookmarks1');
+      var bookmarks2 = document.getElementById('bookmarks2');
       var news1 = document.getElementById('news');
       var clock1 = document.getElementById('clock');
 
@@ -97,7 +103,8 @@
       // calendar = generateCalendar();
       // calendar1.appendChild(calendar);
 
-      createBookmarks(bookmarks1);
+      createBookmarks(bookmarks1, 'Магазины');
+      createBookmarks(bookmarks2, 'Сервисы');
 
       // var news = fetchRSSFeed('https://news.knopka.ca/rss', container);
       // news1.appendChild(news);
