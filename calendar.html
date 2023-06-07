@@ -22,7 +22,7 @@
         <li class="list-group-item">Porta ac consectetur ac</li>
         <li class="list-group-item">Vestibulum at eros</li>
       </ul>
-      <ul id="eventList"></ul>
+      <ul id="eventContainer"></ul>
     </div>
   </div>
   <!-- Include the Google API library -->
@@ -39,7 +39,7 @@
     var SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
     var authorizeButton = document.getElementById('authorize-button');
-    var eventList = document.getElementById('eventList');
+    var eventContainer = document.getElementById('eventContainer');
 
     // Load the API client and authenticate the user
     function handleClientLoad() {
@@ -91,14 +91,18 @@
         'orderBy': 'startTime'
       }).then(function (response) {
         var events = response.result.items;
+        var eventList = document.createElement('ul');
+        eventList.setAttribute('class', 'list-group');
 
         if (events.length > 0) {
           for (var i = 0; i < events.length; i++) {
             var event = events[i];
             var eventItem = document.createElement('li');
+            eventItem.setAttribute('class', 'list-group-item');
             eventItem.appendChild(document.createTextNode(event.summary));
             eventList.appendChild(eventItem);
           }
+          eventContainer.appendChild(eventList);
         } else {
           eventList.appendChild(document.createTextNode('No upcoming events found.'));
         }
