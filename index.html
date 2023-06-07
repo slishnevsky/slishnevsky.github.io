@@ -58,15 +58,15 @@
           <div class="panel-heading">Weather</div>
           <div id="weather" class="panel-body">Weather content</div>
         </div>
-        <div class="panel panel-default">
+        <div id="calendar" class="panel panel-default">
           <div class="panel-heading">Calendar</div>
-          <div id="calendar" class="panel-body">Calendar content</div>
+          <!-- Calendar table inserted here -->
         </div>
       </div>
       <div class="col-md-4">
         <div id="bookmarks" class="panel panel-default">
           <div class="panel-heading">Bookmarks</div>
-          <!-- Bookmarks ul list-group inserted here -->
+          <!-- Bookmarks list inserted here -->
         </div>
       </div>
       <div class="col-md-4">
@@ -92,14 +92,12 @@
       // var weather = createWeather();
       // weather1.appendChild(weather);
 
-      var calendar = createCalendar(6, 2023);
-      calendar1.appendChild(calendar);
+      createCalendar(6, 2023, calendar1);
       
       // calendar = generateCalendar();
       // calendar1.appendChild(calendar);
 
       createBookmarks(bookmarks1);
-      // bookmarks1.appendChild(bookmarks);
 
       // var news = fetchRSSFeed('https://news.knopka.ca/rss', container);
       // news1.appendChild(news);

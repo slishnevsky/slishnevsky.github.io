@@ -1,4 +1,4 @@
-function createCalendar(month, year) {
+function createCalendar(month, year, container) {
   // Create a new date object for the specified month and year
   var date = new Date(year, month - 1, 1);
 
@@ -48,8 +48,6 @@ function createCalendar(month, year) {
     for (var j = 0; j < 7; j++) {
       var cell = document.createElement('td');
 
-
-
       // Add the day number to the cell if it falls within the current month
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
@@ -70,7 +68,7 @@ function createCalendar(month, year) {
 
   // Append the table to the document body or any other desired element
   // document.body.appendChild(table);
-  return table;
+  container.appendChild(table);
 }
 
 // Example usage: generate a calendar for May 2023
