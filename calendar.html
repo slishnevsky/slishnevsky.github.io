@@ -85,13 +85,13 @@
       }).then(function (response) {
         var events = response.result.items;
         var eventList = document.createElement('ul');
-        eventList.setAttribute('class', 'list-group');
+        eventList.className = 'list-group';
 
         if (events.length > 0) {
           for (var i = 0; i < events.length; i++) {
             var event = events[i];
             var eventItem = document.createElement('li');
-            eventItem.setAttribute('class', 'list-group-item');
+            eventItem.className = 'list-group-item';
             eventItem.appendChild(document.createTextNode(event.summary));
             eventList.appendChild(eventItem);
           }

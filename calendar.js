@@ -16,9 +16,7 @@ function createCalendar(container, month, year) {
 
   // Create a table element and set its attributes
   var table = document.createElement('table');
-  // table.setAttribute('border', '1');
-  // table.setAttribute('cellspacing', '0');
-  table.setAttribute('class', 'table table-bordered')
+  table.className = 'table table-bordered';
 
   // Create the table header row
   var thead = document.createElement('thead');
@@ -52,8 +50,7 @@ function createCalendar(container, month, year) {
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
-        if (day === today.getDate()) cell.setAttribute('class', 'danger');
-
+        if (day === today.getDate()) cell.className = 'danger';
         cell.textContent = day;
         day++;
       }

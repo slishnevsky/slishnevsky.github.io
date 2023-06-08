@@ -3,7 +3,8 @@ function createBookmarks(container, data, category) {
 
   // Create an unordered list element
   const listGroup = document.createElement('div');
-  listGroup.setAttribute('class', 'list-group');
+  listGroup.className = 'list-group';
+
 
   // Iterate over the JSON data and create list items
   for (let i = 0; i < data[category].length; i++) {
@@ -11,9 +12,9 @@ function createBookmarks(container, data, category) {
 
     // Create a list item element
     const listItem = document.createElement('a');
-    listItem.setAttribute('class', 'list-group-item');
-    listItem.setAttribute('href', item.flyer);
-    listItem.setAttribute('target', 'blank');
+    listItem.className = 'list-group-item';
+    listItem.href = item.flyer;
+    listItem.target = 'blank';
     listItem.textContent = item.title;
 
     // Append the list item to the unordered list
