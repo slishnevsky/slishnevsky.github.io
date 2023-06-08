@@ -1,7 +1,5 @@
 // Function to create the HTML list
 function createList(container, data, category) {
-  // Get the container element where the list will be placed
-  // const container = document.getElementById('list-container');
 
   // Create an unordered list element
   const listGroup = document.createElement('div');
