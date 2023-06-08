@@ -1,4 +1,4 @@
-function createCalendar(month, year, container) {
+function createCalendar(container, month, year) {
   // Create a new date object for the specified month and year
   var date = new Date(year, month - 1, 1);
 

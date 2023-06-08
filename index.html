@@ -6,12 +6,12 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="weather.js"></script>
+  <!-- <script src="weather.js"></script> -->
   <script src="calendar.js"></script>
-  <script src="calendar2.js"></script>
+  <!-- <script src="calendar2.js"></script> -->
   <script src="bookmarks.js"></script>
   <script src="news.js"></script>
-  <script src="clock.js"></script>
+  <!-- <script src="clock.js"></script> -->
   <style>
     body {
       padding-top: 70px;
@@ -78,9 +78,9 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="panel panel-default">
+        <div id="news" class="panel panel-default">
           <div class="panel-heading">News</div>
-          <div id="news" class="panel-body">News content</div>
+          <!-- News list inserted here -->
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">Clock</div>
@@ -101,15 +101,15 @@
       // var weather = createWeather();
       // weather1.appendChild(weather);
 
-      createCalendar(6, 2023, calendar1);
+      createCalendar(calendar1, 6, 2023);
       
       // calendar = generateCalendar();
       // calendar1.appendChild(calendar);
 
-      createBookmarks(bookmarks1, 'Магазины');
-      createBookmarks(bookmarks2, 'Сервисы');
+      getBookmarks(bookmarks1, 'Магазины');
+      getBookmarks(bookmarks2, 'Сервисы');
 
-      createNews(news1, 'https://news.knopka.ca/rss');
+      getNews(news1, 'https://corsproxy.io/?https://news.knopka.ca/rss');
 
       // var clock = createClock();
       // clock1.appendChild(clock);

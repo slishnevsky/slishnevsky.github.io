@@ -1,5 +1,5 @@
 
-function createList(container, data) {
+function createNews(container, data) {
     // Parse the XML into JavaScript object
     const parser = new window.DOMParser();
     const xmlDoc = parser.parseFromString(data, 'text/xml');
@@ -8,7 +8,7 @@ function createList(container, data) {
     const items = xmlDoc.getElementsByTagName('item');
 
     const listGroup = document.createElement('div');
-    listGroup.setAttribute('class', 'list-group');
+    listGroup.className = 'list-group';
 
     // Loop through each item and display its title and link
     for (let i = 0; i < items.length; i++) {
@@ -18,14 +18,18 @@ function createList(container, data) {
 
         const img = document.createElement('img');
         img.src = enclosure;
+        img.className = 'pull-left';
+
+        const span = document.createElement('span');
+        span.textContent = title;
 
         // Create a list item element
         const listItem = document.createElement('a');
-        listItem.className = 'list-group-item';
+        listItem.className = 'list-group-item clearfix';
         listItem.href = link;
         listItem.target = 'blank';
-        listItem.textContent = title;
         listItem.appendChild(img);
+        listItem.appendChild(span);
 
         // Append the container div to the RSS feed div
         listGroup.appendChild(listItem);
@@ -35,11 +39,10 @@ function createList(container, data) {
     container.appendChild(listGroup);
 }
 
-function createNews(container, url) {
-    url = 'https://cors-anywhere.herokuapp.com/' + url;
-    // Fetch the JSON data from a file
+function getNews(container, url) {
+    // Fetch the RSS data
     fetch(url)
-        .then(response => response.json())
-        .then(data => createList(container, data))
+        .then(response => response.text())
+        .then(data => createNews(container, data))
         .catch(error => console.error(error));
 }

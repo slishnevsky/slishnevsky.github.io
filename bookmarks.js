@@ -1,5 +1,5 @@
 // Function to create the HTML list
-function createList(container, data, category) {
+function createBookmarks(container, data, category) {
 
   // Create an unordered list element
   const listGroup = document.createElement('div');
@@ -24,11 +24,11 @@ function createList(container, data, category) {
   container.appendChild(listGroup);
 }
 
-function createBookmarks(container, category) {
+function getBookmarks(container, category) {
   // Fetch the JSON data from a file
   fetch('bookmarks.json')
     .then(response => response.json())
-    .then(data => createList(container, data, category))
+    .then(data => createBookmarks(container, data, category))
     .catch(error => console.error(error));
 }
 
