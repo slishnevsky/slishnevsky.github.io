@@ -13,7 +13,7 @@ function createBookmarks(container, data, category) {
     // Create a list item element
     const listItem = document.createElement('a');
     listItem.className = 'list-group-item';
-    listItem.href = item.flyer;
+    listItem.href = item.link;
     listItem.target = 'blank';
     listItem.textContent = item.title;
 

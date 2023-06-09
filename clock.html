@@ -25,8 +25,8 @@
       var date = new Date();
       var print1 = date.toLocaleString('en-En', { timeStyle: 'medium', hour12: true });
       var print2 = date.toLocaleString('ru-RU', { dateStyle: 'full' });
-      document.getElementById("time").innerHTML = print1;
-      document.getElementById("date").innerHTML = print2.toTitleCase();
+      document.getElementById("time").textContent = print1;
+      document.getElementById("date").textContent = print2.toTitleCase();
     }
     var time_div = document.getElementById("time");
     var date_div = document.getElementById("date");
