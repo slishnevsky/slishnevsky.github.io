@@ -13,68 +13,68 @@ var eventContainer = document.getElementById('eventContainer');
 
 // Load the API client and authenticate the user
 function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
+  gapi.load('client:auth2', initClient);
 }
 
 function initClient() {
-    gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-    }).then(function () {
-        // Listen for sign-in state changes
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+  gapi.client.init({
+    apiKey: API_KEY,
+    clientId: CLIENT_ID,
+    discoveryDocs: DISCOVERY_DOCS,
+    scope: SCOPES
+  }).then(function () {
+    // Listen for sign-in state changes
+    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-        // Handle the initial sign-in state
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    // Handle the initial sign-in state
+    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
 
-        authorizeButton.onclick = handleAuthClick;
-    });
+    authorizeButton.onclick = handleAuthClick;
+  });
 }
 
 function updateSigninStatus(isSignedIn) {
-    if (isSignedIn) {
-        authorizeButton.style.display = 'none';
-        listUpcomingEvents();
-    } else {
-        authorizeButton.style.display = 'block';
-    }
+  if (isSignedIn) {
+    authorizeButton.style.display = 'none';
+    listUpcomingEvents();
+  } else {
+    authorizeButton.style.display = 'block';
+  }
 }
 
 function handleAuthClick() {
-    gapi.auth2.getAuthInstance().signIn();
+  gapi.auth2.getAuthInstance().signIn();
 }
 
 function handleSignoutClick() {
-    gapi.auth2.getAuthInstance().signOut();
+  gapi.auth2.getAuthInstance().signOut();
 }
 
 // Retrieve and display the upcoming calendar events
 function listUpcomingEvents() {
-    gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
-    }).then(function (response) {
-        var events = response.result.items;
-        var eventList = document.createElement('ul');
-        eventList.className = 'list-group';
+  gapi.client.calendar.events.list({
+    'calendarId': 'primary',
+    'timeMin': (new Date()).toISOString(),
+    'showDeleted': false,
+    'singleEvents': true,
+    'maxResults': 10,
+    'orderBy': 'startTime'
+  }).then(function (response) {
+    var events = response.result.items;
+    var eventList = document.createElement('ul');
+    eventList.className = 'list-group';
 
-        if (events.length > 0) {
-            for (var i = 0; i < events.length; i++) {
-                var event = events[i];
-                var eventItem = document.createElement('li');
-                eventItem.className = 'list-group-item';
-                eventItem.appendChild(document.createTextNode(event.summary));
-                eventList.appendChild(eventItem);
-            }
-            eventContainer.appendChild(eventList);
-        } else {
-            eventList.appendChild(document.createTextNode('No upcoming events found.'));
-        }
-    });
+    if (events.length > 0) {
+      for (var i = 0; i < events.length; i++) {
+        var event = events[i];
+        var eventItem = document.createElement('li');
+        eventItem.className = 'list-group-item';
+        eventItem.appendChild(document.createTextNode(event.summary));
+        eventList.appendChild(eventItem);
+      }
+      eventContainer.appendChild(eventList);
+    } else {
+      eventList.appendChild(document.createTextNode('No upcoming events found.'));
+    }
+  });
 }

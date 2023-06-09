@@ -65,6 +65,7 @@
       <div class="col-md-4">
         <div id="weather" class="panel panel-default">
           <div class="panel-heading">Погода</div>
+          <!-- Weather table inserted here -->
         </div>
         <div id="calendar" class="panel panel-default">
           <div class="panel-heading">Календарь</div>
@@ -91,20 +92,20 @@
   </div>
   <script type="text/javascript">
     function loadComponents() {
-      var datetime1 = document.getElementById('datetime');
-      var weather1 = document.getElementById('weather');
-      var calendar1 = document.getElementById('calendar');
-      var bookmarks1 = document.getElementById('bookmarks1');
-      var bookmarks2 = document.getElementById('bookmarks2');
-      var news1 = document.getElementById('news');
+      const datetime1 = document.getElementById('datetime');
+      const weather1 = document.getElementById('weather');
+      const calendar1 = document.getElementById('calendar');
+      const bookmarks1 = document.getElementById('bookmarks1');
+      const bookmarks2 = document.getElementById('bookmarks2');
+      const news1 = document.getElementById('news');
 
       getDateTime(datetime1);
-      getWeather(weather1, 'https://corsproxy.io/?http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=L4J2S6');
+      getWeather(weather1);
       createCalendar(calendar1, 6, 2023);
       // getEvents(calendar1);
       getBookmarks(bookmarks1, 'Магазины');
       getBookmarks(bookmarks2, 'Сервисы');
-      getNews(news1, 'https://corsproxy.io/?https://news.knopka.ca/rss');
+      getNews(news1);
     }
   </script>
 </body>

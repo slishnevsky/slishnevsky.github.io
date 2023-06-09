@@ -2,66 +2,79 @@
 
 // Function to create the HTML list
 function createWeather(container, data) {
-    // Parse the HTML into a document object
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(data, 'text/html');
+  // Parse the HTML into a document object
+  const parser = new DOMParser();
+  const document = parser.parseFromString(data, 'text/html');
 
-    // Get the <item> elements from the RSS feed
-    const items = xmlDoc.getElementsByTagName('item');
+  const elements = new Array();
+  parseHtml(document, elements);
 
-    // Create a table element and set its attributes
-    var table = document.createElement('table');
-    table.className = 'table table-bordered';
+  // Create a table
+  const table = document.createElement('table');
+  table.className = 'table table-bordered';
 
-    // Create the table header row
-    var thead = document.createElement('thead');
-    var tr = document.createElement('tr');
+  // Create a table header
+  const thead = document.createElement('thead');
+  const hrow = document.createElement('tr');
 
-    // Loop through each item and display its title and link
-    for (let i = 0; i < items.length - 1; i++) {
-        const title = items[i].getElementsByTagName('title')[0].textContent;
+  // Create table header with day names
+  for (let i = 0; i < elements.length; i++) {
+    const cell = document.createElement('th');
+    cell.appendChild(elements[i].day);
+    hrow.appendChild(cell);
+  }
 
-        // Create a list item element
-        var th = document.createElement('th');
-        th.style = 'text-align: center';
-        th.textContent = title;
+  // Append the table header to the table
+  thead.appendChild(hrow);
+  table.appendChild(thead);
 
-        // Append the container div to the RSS feed div
-        tr.appendChild(th);
-    }
+  const tbody = document.createElement('tbody');
+  const row = document.createElement('tr');
 
-    thead.appendChild(tr);
-    table.appendChild(thead);
+  // Create the weekday name cells
+  for (let i = 0; i < elements.length; i++) {
+    const cell = document.createElement('td');
+    cell.appendChild(elements[i].img);
+    cell.appendChild(elements[i].temperature);
+    row.appendChild(cell);
+  }
 
-    // Create the table body
-    var tbody = document.createElement('tbody');
-    var tr = document.createElement('tr');
+  // Append the table header to the table
+  tbody.appendChild(row);
+  table.appendChild(tbody);
 
-    // Loop through each item and display its title and link
-    for (let i = 0; i < items.length - 1; i++) {
-        const description = items[i].getElementsByTagName('description')[0].textContent;
-
-        // Create a list item element
-        var td = document.createElement('td');
-        td.style = 'text-align: center';
-        td.innerHTML = description;
-
-        // Append cell to row
-        tr.appendChild(td);
-    }
-
-    tbody.appendChild(tr);
-
-    table.appendChild(tbody);
-
-    // Append the unordered list to the container element
-    container.appendChild(table);
+  container.appendChild(table);
 }
 
-function getWeather(container, url) {
-    // Fetch the RSS data
-    fetch(url)
-        .then(response => response.text())
-        .then(data => createWeather(container, data))
-        .catch(error => console.error(error));
+function parseHtml(document, elements) {
+
+  let day = document.createTextNode('Today');
+  let img = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > img');
+  img.src = img.src.replace(document.baseURI, 'https://weather.gc.ca/');
+  let temperature = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > p > span');
+
+  elements.push({ day: day, img: img, temperature: temperature });
+
+  const table = document.querySelector('#mainContent > details.mrgn-tp-lg.panel.panel-default.wxo-fcst.hidden-details-print-close > div.hidden-xs > div');
+
+  for (let i = 2; i < 5; i++) {
+    let day = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row1.div-row-head > strong');
+    day = document.createTextNode(day.textContent);
+    let img = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > img');
+    img.src = img.src.replace(document.baseURI, 'https://weather.gc.ca/');
+    let temperature = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong > span:nth-child(1)');
+
+    elements.push({ day: day, img: img, temperature: temperature });
+  }
+}
+
+function getWeather(container) {
+  // const url = 'https://corsproxy.io/?http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=L4J2S6';
+  const url = 'https://corsproxy.io/?https://weather.gc.ca/city/pages/on-143_metric_e.html';
+
+  // Fetch the RSS data
+  fetch(url)
+    .then(response => response.text())
+    .then(data => createWeather(container, data))
+    .catch(error => console.error(error));
 }
