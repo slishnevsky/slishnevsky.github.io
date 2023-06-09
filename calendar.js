@@ -48,7 +48,7 @@ function createCalendar(container, month, year) {
 
       // Add the day number to the cell if it falls within the current month
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
-        cell.textContent = '&nbsp;'; // Add a non-breaking space if the cell is empty
+        cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
         if (day === today.getDate()) cell.className = 'danger';
         cell.textContent = day;
