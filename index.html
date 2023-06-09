@@ -4,19 +4,22 @@
 <head>
   <title>Bootstrap Template</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <!-- <script src="weather.js"></script> -->
-  <script src="calendar.js"></script>
-  <!-- <script src="calendar2.js"></script> -->
-  <script src="bookmarks.js"></script>
-  <script src="news.js"></script>
-  <script src="datetime.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/calendar.events.js"></script>
+  <script src="js/bookmarks.js"></script>
+  <script src="js/news.js"></script>
+  <script src="js/datetime.js"></script>
+  <!-- <script src="https://apis.google.com/js/api.js"></script> -->
+  <!-- <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script> -->
   <style>
     body {
       padding-top: 70px;
       padding-bottom: 30px;
-      background: #556677 url("background.jpg") no-repeat fixed center
+      background: #556677 url("assets/background.jpg") no-repeat fixed center
     }
     .navbar {
       margin-bottom: 20px;
@@ -60,9 +63,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <div class="panel panel-default">
+        <div id="weather" class="panel panel-default">
           <div class="panel-heading">Погода</div>
-          <div id="weather" class="panel-body">Weather content</div>
         </div>
         <div id="calendar" class="panel panel-default">
           <div class="panel-heading">Календарь</div>
@@ -97,7 +99,7 @@
       var news1 = document.getElementById('news');
 
       getDateTime(datetime1);
-      // getWeather(weather1);
+      getWeather(weather1, 'https://corsproxy.io/?http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=L4J2S6');
       createCalendar(calendar1, 6, 2023);
       // getEvents(calendar1);
       getBookmarks(bookmarks1, 'Магазины');

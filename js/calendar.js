@@ -14,22 +14,23 @@ function createCalendar(container, month, year) {
   // var weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   var weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  // Create a table element and set its attributes
+  // Create a table
   var table = document.createElement('table');
   table.className = 'table table-bordered';
 
-  // Create the table header row
+  // Create a table header
   var thead = document.createElement('thead');
-  var headerRow = document.createElement('tr');
+  var tr = document.createElement('tr');
 
   // Create the weekday name cells
   for (var i = 0; i < 7; i++) {
     var th = document.createElement('th');
     th.textContent = weekdays[i];
-    headerRow.appendChild(th);
+    tr.appendChild(th);
   }
-
-  thead.appendChild(headerRow);
+  
+  // Append the table header to the table
+  thead.appendChild(tr);
   table.appendChild(thead);
 
   // Create the table body
@@ -40,31 +41,31 @@ function createCalendar(container, month, year) {
   var day = 1; // Initialize the day counter
 
   for (var i = 0; i < numRows; i++) {
-    var row = document.createElement('tr');
+    // Create table row
+    var tr = document.createElement('tr');
 
     // Create the cells for each row
     for (var j = 0; j < 7; j++) {
-      var cell = document.createElement('td');
+      var td = document.createElement('td');
 
       // Add the day number to the cell if it falls within the current month
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
-        cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
+        td.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
-        if (day === today.getDate()) cell.className = 'danger';
-        cell.textContent = day;
+        if (day === today.getDate()) td.className = 'danger';
+        td.textContent = day;
         day++;
       }
-
-      row.appendChild(cell);
+      // Append the cell to table row
+      tr.appendChild(td);
     }
-
-    tbody.appendChild(row);
+    // Append the row to table body
+    tbody.appendChild(tr);
   }
 
   table.appendChild(tbody);
 
-  // Append the table to the document body or any other desired element
-  // document.body.appendChild(table);
+  // Append the table to the container
   container.appendChild(table);
 }
 

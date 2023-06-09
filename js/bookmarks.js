@@ -27,7 +27,7 @@ function createBookmarks(container, data, category) {
 
 function getBookmarks(container, category) {
   // Fetch the JSON data from a file
-  fetch('bookmarks.json')
+  fetch('js/bookmarks.json')
     .then(response => response.json())
     .then(data => createBookmarks(container, data, category))
     .catch(error => console.error(error));
