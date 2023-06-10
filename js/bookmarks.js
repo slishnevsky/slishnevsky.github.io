@@ -22,6 +22,12 @@ function createBookmarks(container, data, category) {
       listItem.textContent = item.title;
     }
 
+    let img = document.createElement('img');
+    img.className = 'icon pull-left';
+    img.src = 'https://s2.googleusercontent.com/s2/favicons?domain=' + item.link;
+
+    listItem.appendChild(img);
+
     // Append the list item to the unordered list
     listGroup.appendChild(listItem);
   }

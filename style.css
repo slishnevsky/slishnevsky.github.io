@@ -1,0 +1,29 @@
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background: #556677 url("assets/background.jpg") no-repeat fixed center
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  color: salmon !important;
+}
+
+.panel-heading {
+  font-weight: bold;
+}
+
+td,
+th {
+  text-align: center;
+}
+
+.icon {
+  margin-right: 10px;
+  border-radius: 4px;
+  padding: 2px;
+  border: 1px solid #BBB;
+}
