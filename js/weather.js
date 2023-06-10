@@ -70,7 +70,9 @@ function parseHtml(document, elements) {
     let temp = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong');
     let temperature = document.createElement('h4');
     temperature.textContent = temp.textContent;
-    let conditions = document.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p:nth-child(4)');
+    let cond = document.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p:nth-child(4)');
+    let conditions = document.createElement('span');
+    conditions.textContent= cond.textContent;
     conditions.style = 'font-size: smaller';
 
     elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
