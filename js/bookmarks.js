@@ -15,7 +15,12 @@ function createBookmarks(container, data, category) {
     listItem.className = 'list-group-item';
     listItem.href = item.link;
     listItem.target = 'blank';
-    listItem.textContent = item.title;
+    const splitstring = 'Canada Flyers';
+    if (item.title.includes(splitstring)) {
+      listItem.innerHTML = '<strong>' + item.title.split(splitstring)[0] + '</strong>' + splitstring;  
+    } else {
+      listItem.textContent = item.title;
+    }
 
     // Append the list item to the unordered list
     listGroup.appendChild(listItem);

@@ -36,6 +36,7 @@ function createWeather(container, data) {
     const cell = document.createElement('td');
     cell.appendChild(elements[i].img);
     cell.appendChild(elements[i].temperature);
+    cell.appendChild(elements[i].conditions);
     row.appendChild(cell);
   }
 
@@ -51,9 +52,13 @@ function parseHtml(document, elements) {
   let day = document.createTextNode('Today');
   let img = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > img');
   img.src = img.src.replace(document.baseURI, 'https://weather.gc.ca/');
-  let temperature = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > p > span');
+  let temp = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > p > span');
+  let temperature = document.createElement('h4');
+  temperature.textContent = temp.textContent;
+  let conditions = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-10.text-center.currcond-height.hidden-print > div:nth-child(2) > dl > dd:nth-child(2) > span');
+  conditions.style = 'font-size: smaller';
 
-  elements.push({ day: day, img: img, temperature: temperature });
+  elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
 
   const table = document.querySelector('#mainContent > details.mrgn-tp-lg.panel.panel-default.wxo-fcst.hidden-details-print-close > div.hidden-xs > div');
 
@@ -62,16 +67,18 @@ function parseHtml(document, elements) {
     day = document.createTextNode(day.textContent);
     let img = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > img');
     img.src = img.src.replace(document.baseURI, 'https://weather.gc.ca/');
-    let temperature = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong > span:nth-child(1)');
+    let temp = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong');
+    let temperature = document.createElement('h4');
+    temperature.textContent = temp.textContent;
+    let conditions = document.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p:nth-child(4)');
+    conditions.style = 'font-size: smaller';
 
-    elements.push({ day: day, img: img, temperature: temperature });
+    elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
   }
 }
 
 function getWeather(container) {
-  // const url = 'https://corsproxy.io/?http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=L4J2S6';
   const url = 'https://corsproxy.io/?https://weather.gc.ca/city/pages/on-143_metric_e.html';
-
   // Fetch the RSS data
   fetch(url)
     .then(response => response.text())
