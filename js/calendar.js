@@ -1,18 +1,16 @@
-function createCalendar(container, month, year) {
+function createCalendar(container) {
   // Create a new date object for the specified month and year
-  const date = new Date(year, month - 1, 1);
-
   const today = new Date();
+  const date = new Date(today.getFullYear(), today.getMonth(), 1);
 
   // Get the number of days in the specified month
-  const daysInMonth = new Date(year, month, 0).getDate();
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
 
   // Get the index of the first day of the month (0 - Sunday, 1 - Monday, etc.)
   const firstDayIndex = date.getDay();
 
   // Create an array of weekday names
-  // const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   // Create a table
   const table = document.createElement('table');
@@ -28,7 +26,7 @@ function createCalendar(container, month, year) {
     cell.textContent = weekdays[i];
     row.appendChild(cell);
   }
-  
+
   // Append the table header to the table
   thead.appendChild(row);
   table.appendChild(thead);
@@ -52,7 +50,11 @@ function createCalendar(container, month, year) {
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
-        if (day === today.getDate()) cell.className = 'danger';
+        if (day === today.getDate()) {
+          cell.className = 'danger';
+          cell.style = 'font-weight: bold';
+        }
+
         cell.textContent = day;
         day++;
       }
