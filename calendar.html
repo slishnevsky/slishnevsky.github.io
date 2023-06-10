@@ -54,7 +54,7 @@
         // Handle the initial sign-in state
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
 
-        signinButton.onclick = handleAuthClick;
+        signinButton.onclick = handleSigninClick;
         signoutButton.onclick = handleSignoutClick;
       });
     }
@@ -62,13 +62,15 @@
     function updateSigninStatus(isSignedIn) {
       if (isSignedIn) {
         signinButton.style.display = 'none';
+        signoutButton.style.display = 'block';
         listUpcomingEvents();
       } else {
         signinButton.style.display = 'block';
+        signoutButton.style.display = 'none';
       }
     }
 
-    function handleAuthClick() {
+    function handleSigninClick() {
       gapi.auth2.getAuthInstance().signIn();
     }
 
