@@ -12,7 +12,8 @@
   <div class="container">
     <div class="row">
       <h1>Google Calendar Events</h1>
-      <button id="authorize-button">authorize</button>
+      <button id="signinButton">Sign In</button>
+      <button id="signoutButton">Sign Out</button>
       <br>
       <br>
       <div id="eventContainer"></div>
@@ -31,7 +32,8 @@
     // Authorization scopes required by the API
     var SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
-    var authorizeButton = document.getElementById('authorize-button');
+    var signinButton = document.getElementById('signinButton');
+    var signoutButton = document.getElementById('signoutButton');
     var eventContainer = document.getElementById('eventContainer');
 
     // Load the API client and authenticate the user
@@ -52,16 +54,17 @@
         // Handle the initial sign-in state
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
 
-        authorizeButton.onclick = handleAuthClick;
+        signinButton.onclick = handleAuthClick;
+        signoutButton.onclick = handleSignoutClick;
       });
     }
 
     function updateSigninStatus(isSignedIn) {
       if (isSignedIn) {
-        authorizeButton.style.display = 'none';
+        signinButton.style.display = 'none';
         listUpcomingEvents();
       } else {
-        authorizeButton.style.display = 'block';
+        signinButton.style.display = 'block';
       }
     }
 
