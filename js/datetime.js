@@ -4,7 +4,7 @@ String.prototype.toTitleCase = function () {
 
 function getDateTime(container) {
   const date = new Date();
-  const day = date.toLocaleString('ru-RU', { dateStyle: 'full' });
+  const day = date.toLocaleString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long' });
   const time = date.toLocaleString('en-En', { hour12: true, hour: '2-digit', minute:'2-digit' });
 
   container.textContent = day.toTitleCase() + ' ' + time;
