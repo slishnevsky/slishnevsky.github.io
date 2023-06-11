@@ -21,6 +21,7 @@ function createNews(container, data) {
     img.src = enclosure;
     img.className = 'pull-left';
     img.style.width = '100px';
+    img.style.height = '70px';
     img.style.margin = '-10px 10px -10px -15px';
 
     const div = document.createElement('div');
