@@ -9,6 +9,6 @@ function getDateTime(container) {
 
   container.textContent = day.toTitleCase() + ' ' + time;
 
-  setInterval(() => { getDateTime(container); }, 1000); // refresh time every minute
+  setInterval(() => { getDateTime(container); }, 60000); // refresh time every minute
 }
 
