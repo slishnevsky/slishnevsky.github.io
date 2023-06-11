@@ -34,6 +34,7 @@ function createWeather(container, data) {
   // Create the weekday name cells
   for (let i = 0; i < elements.length; i++) {
     const cell = document.createElement('td');
+    cell.style.textAlign = 'center';
     cell.appendChild(elements[i].img);
     cell.appendChild(elements[i].temperature);
     cell.appendChild(elements[i].conditions);
@@ -56,7 +57,7 @@ function parseHtml(document, elements) {
   let temperature = document.createElement('h4');
   temperature.textContent = temp.textContent;
   let conditions = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-10.text-center.currcond-height.hidden-print > div:nth-child(2) > dl > dd:nth-child(2) > span');
-  conditions.style = 'font-size: smaller';
+  conditions.style.fontSize = 'smaller';
 
   elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
 
@@ -73,7 +74,8 @@ function parseHtml(document, elements) {
     let cond = document.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p:nth-child(4)');
     let conditions = document.createElement('span');
     conditions.textContent= cond.textContent;
-    conditions.style = 'font-size: smaller';
+    conditions.style.fontSize = 'smaller';
+
 
     elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
   }

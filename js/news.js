@@ -20,7 +20,8 @@ function createNews(container, data) {
     const img = document.createElement('img');
     img.src = enclosure;
     img.className = 'pull-left';
-    img.style = 'width: 100px; margin: -10px 10px -10px -15px';
+    img.style.width = '100px';
+    img.style.margin = '-10px 10px -10px -15px';
 
     const div = document.createElement('div');
     div.textContent = title;
@@ -28,7 +29,7 @@ function createNews(container, data) {
     // Create a list item element
     const listItem = document.createElement('a');
     listItem.className = 'list-group-item clearfix';
-    listItem.style = 'font-size: smaller';
+    listItem.style.fontSize = 'smaller';
     listItem.href = link;
     listItem.target = 'blank';
     listItem.appendChild(img);

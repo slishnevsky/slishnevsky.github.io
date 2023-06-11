@@ -45,6 +45,7 @@ function createCalendar(container) {
     // Create the cells for each row
     for (let j = 0; j < 7; j++) {
       const cell = document.createElement('td');
+      cell.style.textAlign = 'right';
 
       // Add the day number to the cell if it falls within the current month
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
@@ -52,7 +53,8 @@ function createCalendar(container) {
       } else {
         if (day === today.getDate()) {
           cell.className = 'danger';
-          cell.style = 'font-weight: bold';
+          cell.style.textAlign = 'right';
+          cell.style.fontWeight = 'bold';
         }
 
         cell.textContent = day;

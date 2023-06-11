@@ -23,7 +23,7 @@ function createWeather(container, data) {
 
     // Create a list item element
     const cell = document.createElement('th');
-    cell.style = 'text-align: center';
+    cell.style.textAlign = 'center';
     cell.textContent = title;
 
     // Append the container div to the RSS feed div
@@ -43,7 +43,7 @@ function createWeather(container, data) {
 
     // Create a list item element
     const cell = document.createElement('td');
-    cell.style = 'text-align: center';
+    cell.style.textAlign = 'center';
     cell.innerHTML = description;
 
     // Append cell to row
