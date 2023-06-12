@@ -57,6 +57,10 @@
           <div class="panel-heading">Календарь</div>
           <!-- Calendar table inserted here -->
         </div>
+        <div id="events" class="panel panel-default">
+          <div class="panel-heading">Запланированные события</div>
+          <!-- Events list inserted here -->
+        </div>
       </div>
       <div class="col-md-4">
         <div id="bookmarks1" class="panel panel-default">
@@ -81,6 +85,7 @@
       const datetime1 = document.getElementById('datetime');
       const weather1 = document.getElementById('weather');
       const calendar1 = document.getElementById('calendar');
+      const events1 = document.getElementById('events');
       const bookmarks1 = document.getElementById('bookmarks1');
       const bookmarks2 = document.getElementById('bookmarks2');
       const news1 = document.getElementById('news');
@@ -88,7 +93,7 @@
       getDateTime(datetime1);
       getWeather(weather1);
       createCalendar(calendar1);
-      getEvents(calendar1);
+      getEvents(events1);
       getBookmarks(bookmarks1, 'Магазины');
       getBookmarks(bookmarks2, 'Сервисы');
       getNews(news1);
