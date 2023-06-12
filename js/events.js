@@ -32,7 +32,7 @@ function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
     listUpcomingEvents();
   } else {
-    eventContainer.innerHTML = '';
+    // eventContainer.innerHTML = '';
   }
 }
 
