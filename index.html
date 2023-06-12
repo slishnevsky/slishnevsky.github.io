@@ -127,15 +127,15 @@
     // function handleSignoutClick() {
     //   gapi.auth2.getAuthInstance().signOut();
     // }
+    const datetime1 = document.getElementById('datetime');
+    const weather1 = document.getElementById('weather');
+    const calendar1 = document.getElementById('calendar');
+    const events1 = document.getElementById('events');
+    const bookmarks1 = document.getElementById('bookmarks1');
+    const bookmarks2 = document.getElementById('bookmarks2');
+    const news1 = document.getElementById('news');
 
     function loadComponents() {
-      const datetime1 = document.getElementById('datetime');
-      const weather1 = document.getElementById('weather');
-      const calendar1 = document.getElementById('calendar');
-      const events1 = document.getElementById('events');
-      const bookmarks1 = document.getElementById('bookmarks1');
-      const bookmarks2 = document.getElementById('bookmarks2');
-      const news1 = document.getElementById('news');
 
       getDateTime(datetime1);
       getWeather(weather1);
