@@ -10,7 +10,7 @@ function createCalendar(container) {
   const firstDayIndex = date.getDay();
 
   // Create an array of weekday names
-    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   // Create a table
   const table = document.createElement('table');
@@ -73,6 +73,40 @@ function createCalendar(container) {
   container.appendChild(table);
 }
 
+function createEventsList(container, response) {
+  const events = response.result.items;
+  const eventList = document.createElement('div');
+  eventList.className = 'list-group';
+
+  if (events.length > 0) {
+    for (let i = 0; i < events.length; i++) {
+      const eventItem = document.createElement('a');
+      eventItem.className = 'list-group-item';
+      eventItem.href = events[i].htmlLink;
+      eventItem.target = 'blank';
+      let eventDate;
+      let eventStart = document.createElement('span');
+      eventStart.className = 'badge';
+
+      if (events[i].start.dateTime === undefined) {
+        eventDate = new Date(events[i].start.date);
+        eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
+      } else {
+        eventDate = new Date(events[i].start.dateTime);
+        eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
+      }
+
+      eventItem.appendChild(eventStart);
+      eventSummary = events[i].summary;
+      eventItem.appendChild(document.createTextNode(eventSummary));
+
+      eventList.appendChild(eventItem);
+    }
+
+    container.appendChild(eventList);
+  }
+}
+
 function getEvents(container) {
   gapi.client.calendar.events.list({
     'calendarId': 'primary',
@@ -81,37 +115,5 @@ function getEvents(container) {
     'singleEvents': true,
     'maxResults': 10,
     'orderBy': 'startTime'
-  }).then(function (response) {
-    const events = response.result.items;
-    const eventList = document.createElement('div');
-    eventList.className = 'list-group';
-
-    if (events.length > 0) {
-      for (let i = 0; i < events.length; i++) {
-        const eventItem = document.createElement('a');
-        eventItem.className = 'list-group-item';
-        eventItem.href = events[i].htmlLink;
-        eventItem.target = 'blank';
-        let eventDate;
-        let eventStart = document.createElement('span');
-        eventStart.className = 'badge';
-
-        if (events[i].start.dateTime === undefined) {
-          eventDate = new Date(events[i].start.date);
-          eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
-        } else {
-          eventDate = new Date(events[i].start.dateTime);
-          eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute:'2-digit' });
-        }
-        
-        eventItem.appendChild(eventStart);
-        eventSummary = events[i].summary;
-        eventItem.appendChild(document.createTextNode(eventSummary));
-
-        eventList.appendChild(eventItem);
-      }
-      
-      container.appendChild(eventList);
-    } 
-  });
+  }).then(response => createEventsList(container, response));
 }
