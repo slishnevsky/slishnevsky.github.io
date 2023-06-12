@@ -73,9 +73,6 @@ function createCalendar(container) {
   container.appendChild(table);
 }
 
-// Example usage: generate a calendar for May 2023
-// createCalendar(5, 2023);
-
 function getEvents(container) {
   gapi.client.calendar.events.list({
     'calendarId': 'primary',
@@ -86,14 +83,31 @@ function getEvents(container) {
     'orderBy': 'startTime'
   }).then(function (response) {
     const events = response.result.items;
-    const eventList = document.createElement('ul');
+    const eventList = document.createElement('div');
     eventList.className = 'list-group';
 
     if (events.length > 0) {
       for (let i = 0; i < events.length; i++) {
-        const eventItem = document.createElement('li');
+        const eventItem = document.createElement('a');
         eventItem.className = 'list-group-item';
-        eventItem.appendChild(document.createTextNode(events[i].summary));
+        eventItem.href = events[i].htmlLink;
+        eventItem.target = 'blank';
+        let eventDate;
+        let eventStart = document.createElement('span');
+        eventStart.className = 'badge';
+
+        if (events[i].start.dateTime === undefined) {
+          eventDate = new Date(events[i].start.date);
+          eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
+        } else {
+          eventDate = new Date(events[i].start.dateTime);
+          eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute:'2-digit' });
+        }
+        
+        eventItem.appendChild(eventStart);
+        eventSummary = events[i].summary;
+        eventItem.appendChild(document.createTextNode(eventSummary));
+
         eventList.appendChild(eventItem);
       }
       

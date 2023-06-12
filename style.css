@@ -26,3 +26,8 @@ th {
   padding: 2px;
   border: 1px solid #BBB;
 }
+
+.badge {
+  background-color: lightslategray;
+  border-radius: 4px;
+}
