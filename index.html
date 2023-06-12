@@ -81,6 +81,15 @@
     </div>
   </div>
   <script type="text/javascript">
+    const datetime1 = document.getElementById('datetime');
+    const weather1 = document.getElementById('weather');
+    const calendar1 = document.getElementById('calendar');
+    const events1 = document.getElementById('events');
+    const bookmarks1 = document.getElementById('bookmarks1');
+    const bookmarks2 = document.getElementById('bookmarks2');
+    const news1 = document.getElementById('news');
+
+
     // Client ID and API key from the Google API Console
     const CLIENT_ID = '84522859201-slrv8op1uu6h1v48kl9emla38ft78ois.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyBCIyH5szmkAwnMtNqGsjdruUvmnCEdSH8';
@@ -113,8 +122,13 @@
 
     function updateSigninStatus(isSignedIn) {
       if (isSignedIn) {
-        // listUpcomingEvents();
-        loadComponents();
+        getDateTime(datetime1);
+        getWeather(weather1);
+        createCalendar(calendar1);
+        getEvents(events1);
+        getBookmarks(bookmarks1, 'Магазины');
+        getBookmarks(bookmarks2, 'Сервисы');
+        getNews(news1);
       } else {
         gapi.auth2.getAuthInstance().signIn();
       }
@@ -127,24 +141,7 @@
     // function handleSignoutClick() {
     //   gapi.auth2.getAuthInstance().signOut();
     // }
-    const datetime1 = document.getElementById('datetime');
-    const weather1 = document.getElementById('weather');
-    const calendar1 = document.getElementById('calendar');
-    const events1 = document.getElementById('events');
-    const bookmarks1 = document.getElementById('bookmarks1');
-    const bookmarks2 = document.getElementById('bookmarks2');
-    const news1 = document.getElementById('news');
 
-    function loadComponents() {
-
-      getDateTime(datetime1);
-      getWeather(weather1);
-      createCalendar(calendar1);
-      getEvents(events1);
-      getBookmarks(bookmarks1, 'Магазины');
-      getBookmarks(bookmarks2, 'Сервисы');
-      getNews(news1);
-    }
   </script>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </body>
