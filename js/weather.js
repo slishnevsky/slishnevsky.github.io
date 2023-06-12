@@ -52,7 +52,7 @@ function parseHtml(document, elements) {
 
   let day = document.createTextNode('Today');
   let img = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > img');
-  img.src = img.src.replace(document.baseURI, 'https://weather.gc.ca/');
+  img.src = img.src.replace(window.location.host, 'https://weather.gc.ca/');
   let temp = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > p > span');
   let temperature = document.createElement('h4');
   temperature.textContent = temp.textContent;
@@ -67,7 +67,7 @@ function parseHtml(document, elements) {
     let day = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row1.div-row-head > strong');
     day = document.createTextNode(day.textContent);
     let img = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > img');
-    img.src = img.src.replace(document.baseURI, 'https://weather.gc.ca/');
+    img.src = img.src.replace(window.location.host, 'https://weather.gc.ca/');
     let temp = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong');
     let temperature = document.createElement('h4');
     temperature.textContent = temp.textContent;
