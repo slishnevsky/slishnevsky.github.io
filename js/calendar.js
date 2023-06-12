@@ -75,3 +75,29 @@ function createCalendar(container) {
 
 // Example usage: generate a calendar for May 2023
 // createCalendar(5, 2023);
+
+function getEvents(container) {
+  gapi.client.calendar.events.list({
+    'calendarId': 'primary',
+    'timeMin': (new Date()).toISOString(),
+    'showDeleted': false,
+    'singleEvents': true,
+    'maxResults': 10,
+    'orderBy': 'startTime'
+  }).then(function (response) {
+    const events = response.result.items;
+    const eventList = document.createElement('ul');
+    eventList.className = 'list-group';
+
+    if (events.length > 0) {
+      for (let i = 0; i < events.length; i++) {
+        const eventItem = document.createElement('li');
+        eventItem.className = 'list-group-item';
+        eventItem.appendChild(document.createTextNode(events[i].summary));
+        eventList.appendChild(eventItem);
+      }
+      
+      container.appendChild(eventList);
+    } 
+  });
+}
