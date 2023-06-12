@@ -17,9 +17,10 @@
   <script src="js/datetime.js"></script>
   <script src="https://apis.google.com/js/api.js"></script>
   <!-- <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script> -->
+  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </head>
 
-<body style="display: none;">
+<body style="display: none">
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -43,7 +44,6 @@
           </div>
           <button type="submit" class="btn btn-success">Search</button>
         </form>
-        <button onclick="handleSignoutClick()">Sign Out</button>
       </div>
     </div>
   </nav>
@@ -90,7 +90,6 @@
     const bookmarks2 = document.getElementById('bookmarks2');
     const news1 = document.getElementById('news');
 
-
     // Client ID and API key from the Google API Console
     const CLIENT_ID = '84522859201-slrv8op1uu6h1v48kl9emla38ft78ois.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyBCIyH5szmkAwnMtNqGsjdruUvmnCEdSH8';
@@ -123,6 +122,7 @@
 
     function updateSigninStatus(isSignedIn) {
       if (isSignedIn) {
+        document.body.style.display = 'block';
         getDateTime(datetime1);
         getWeather(weather1);
         createCalendar(calendar1);
@@ -130,22 +130,21 @@
         getBookmarks(bookmarks1, 'Магазины');
         getBookmarks(bookmarks2, 'Сервисы');
         getNews(news1);
-        document.body.style.display = 'block';
       } else {
-        handleSigninClick();
+        handleSignin();
       }
     }
 
-    function handleSigninClick() {
+    function handleSignin() {
       gapi.auth2.getAuthInstance().signIn();
     }
 
-    function handleSignoutClick() {
+    function handleSignout() {
       gapi.auth2.getAuthInstance().signOut();
     }
 
   </script>
-  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  
 </body>
 
 </html>
