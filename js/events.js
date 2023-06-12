@@ -25,8 +25,6 @@ function initClient() {
 
     // Handle the initial sign-in state
     updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-
-    // gapi.auth2.getAuthInstance().signIn();
   });
 }
 
@@ -77,5 +75,8 @@ function listUpcomingEvents() {
 
 function getEvents(container) {
   eventContainer = container;
-  handleSigninClick();
+  if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+    handleSigninClick();
+  }
+
 }
