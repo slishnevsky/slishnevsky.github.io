@@ -1,12 +1,12 @@
 // Client ID and API key from the Google API Console
-var CLIENT_ID = '84522859201-slrv8op1uu6h1v48kl9emla38ft78ois.apps.googleusercontent.com';
-var API_KEY = 'AIzaSyBCIyH5szmkAwnMtNqGsjdruUvmnCEdSH8';
+const CLIENT_ID = '84522859201-slrv8op1uu6h1v48kl9emla38ft78ois.apps.googleusercontent.com';
+const API_KEY = 'AIzaSyBCIyH5szmkAwnMtNqGsjdruUvmnCEdSH8';
 
 // Array of API discovery doc URLs for APIs used
-var DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
+const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
 
 // Authorization scopes required by the API
-var SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
 // Load the API client and authenticate the user
 function handleClientLoad() {
@@ -54,16 +54,15 @@ function listUpcomingEvents() {
     'maxResults': 10,
     'orderBy': 'startTime'
   }).then(function (response) {
-    var events = response.result.items;
-    var eventList = document.createElement('ul');
+    const events = response.result.items;
+    const eventList = document.createElement('ul');
     eventList.className = 'list-group';
 
     if (events.length > 0) {
-      for (var i = 0; i < events.length; i++) {
-        var event = events[i];
-        var eventItem = document.createElement('li');
+      for (let i = 0; i < events.length; i++) {
+        const eventItem = document.createElement('li');
         eventItem.className = 'list-group-item';
-        eventItem.appendChild(document.createTextNode(event.summary));
+        eventItem.appendChild(document.createTextNode(events[i].summary));
         eventList.appendChild(eventItem);
       }
       eventContainer.appendChild(eventList);
@@ -75,7 +74,8 @@ function listUpcomingEvents() {
 
 function getEvents(container) {
   eventContainer = container;
-  if (!gapi.auth2.getAuthInstance().isSignedIn.get()) {
+  const isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+  if (!isSignedIn) {
     handleSigninClick();
   }
 
