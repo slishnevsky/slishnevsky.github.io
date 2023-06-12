@@ -19,7 +19,7 @@
   <!-- <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script> -->
 </head>
 
-<body onload="loadComponents()">
+<body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -43,6 +43,7 @@
           </div>
           <button type="submit" class="btn btn-success">Search</button>
         </form>
+        <button onclick="handleSignoutClick()">Sign Out</button>
       </div>
     </div>
   </nav>
@@ -130,17 +131,17 @@
         getBookmarks(bookmarks2, 'Сервисы');
         getNews(news1);
       } else {
-        gapi.auth2.getAuthInstance().signIn();
+        handleSigninClick();
       }
     }
 
-    // function handleSigninClick() {
-    //   gapi.auth2.getAuthInstance().signIn();
-    // }
+    function handleSigninClick() {
+      gapi.auth2.getAuthInstance().signIn();
+    }
 
-    // function handleSignoutClick() {
-    //   gapi.auth2.getAuthInstance().signOut();
-    // }
+    function handleSignoutClick() {
+      gapi.auth2.getAuthInstance().signOut();
+    }
 
   </script>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
