@@ -75,7 +75,7 @@ function listUpcomingEvents() {
 
 function getEvents(container) {
   eventContainer = container;
-  if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
+  if (!gapi.auth2.getAuthInstance().isSignedIn.get()) {
     handleSigninClick();
   }
 
