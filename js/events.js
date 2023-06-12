@@ -31,8 +31,6 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
     listUpcomingEvents();
-  } else {
-    // eventContainer.innerHTML = '';
   }
 }
 
