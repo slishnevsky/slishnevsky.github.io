@@ -8,7 +8,8 @@ var DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/
 // Authorization scopes required by the API
 var SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
-var authorizeButton = document.getElementById('authorize-button');
+var signinButton = document.getElementById('signinButton');
+var signoutButton = document.getElementById('signoutButton');
 var eventContainer = document.getElementById('eventContainer');
 
 // Load the API client and authenticate the user
@@ -29,20 +30,28 @@ function initClient() {
     // Handle the initial sign-in state
     updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
 
-    authorizeButton.onclick = handleAuthClick;
+    signinButton.onclick = handleSigninClick;
+    signoutButton.onclick = handleSignoutClick;
+    gapi.auth2.getAuthInstance().signIn(); // Testing this line to see if it triggers sign in windows
   });
 }
 
+let container1;
+
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
-    authorizeButton.style.display = 'none';
+    signinButton.style.display = 'none';
+    signoutButton.style.display = 'block';
     listUpcomingEvents();
   } else {
-    authorizeButton.style.display = 'block';
+    signinButton.style.display = 'block';
+    signoutButton.style.display = 'none';
+    eventContainer.innerHTML = '';
   }
 }
 
-function handleAuthClick() {
+function handleSigninClick(container) {
+  container1 = container
   gapi.auth2.getAuthInstance().signIn();
 }
 
@@ -77,4 +86,8 @@ function listUpcomingEvents() {
       eventList.appendChild(document.createTextNode('No upcoming events found.'));
     }
   });
+}
+
+function getEvents(container) {
+  handleSigninClick(container);
 }

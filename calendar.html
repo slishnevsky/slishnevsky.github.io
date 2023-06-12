@@ -57,7 +57,8 @@
 
         signinButton.onclick = handleSigninClick;
         signoutButton.onclick = handleSignoutClick;
-        gapi.auth2.getAuthInstance().signIn(); // Testing this line to see if it triggers sign in windows
+
+        handleSigninClick();
       });
     }
 

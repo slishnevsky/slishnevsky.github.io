@@ -4,18 +4,18 @@
 <head>
   <title>Homepage</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style.css">
   <script src="js/weather.js"></script>
   <script src="js/calendar.js"></script>
-  <!-- <script src="js/events.js"></script> -->
+  <script src="js/events.js"></script>
   <script src="js/bookmarks.js"></script>
   <script src="js/news.js"></script>
   <script src="js/datetime.js"></script>
-  <!-- <script src="https://apis.google.com/js/api.js"></script> -->
+  <script src="https://apis.google.com/js/api.js"></script>
   <!-- <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script> -->
 </head>
 
@@ -88,12 +88,13 @@
       getDateTime(datetime1);
       getWeather(weather1);
       createCalendar(calendar1);
-      // getEvents(calendar1);
+      getEvents(calendar1);
       getBookmarks(bookmarks1, 'Магазины');
       getBookmarks(bookmarks2, 'Сервисы');
       getNews(news1);
     }
   </script>
+  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </body>
 
 </html>
