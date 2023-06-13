@@ -93,7 +93,7 @@ function createEventList(container, response) {
         eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
       } else {
         eventDate = new Date(events[i].start.dateTime);
-        eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
+        eventStart.textContent = eventDate.toLocaleString('en-En', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
       }
 
       eventItem.appendChild(eventStart);
