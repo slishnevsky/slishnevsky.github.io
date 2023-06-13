@@ -73,7 +73,7 @@ function createCalendar(container) {
   container.appendChild(table);
 }
 
-function createEventsList(container, response) {
+function createEventList(container, response) {
   const events = response.result.items;
   const eventList = document.createElement('div');
   eventList.className = 'list-group';
@@ -115,5 +115,7 @@ function getEvents(container) {
     'singleEvents': true,
     'maxResults': 10,
     'orderBy': 'startTime'
-  }).then(response => createEventsList(container, response));
+  }).then(response => {
+    createEventList(container, response);
+  });
 }
