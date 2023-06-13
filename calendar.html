@@ -12,10 +12,8 @@
   <div class="container">
     <div class="row">
       <h1>Google Calendar Events</h1>
-      <h2>Verion 2</h2>
-      <button id="signinButton">Sign In</button>
-      <button id="signoutButton">Sign Out</button>
-      <br>
+      <button id="signinButton" class="btn btn-success" style="display: none;">Sign In</button>
+      <button id="signoutButton" class="btn btn-danger" style="display: none;">Sign Out</button>
       <br>
       <div id="eventContainer"></div>
     </div>
@@ -57,8 +55,6 @@
 
         signinButton.onclick = handleSigninClick;
         signoutButton.onclick = handleSignoutClick;
-
-        handleSigninClick();
       });
     }
 
@@ -66,7 +62,7 @@
       if (isSignedIn) {
         signinButton.style.display = 'none';
         signoutButton.style.display = 'block';
-        listUpcomingEvents();
+        getEvents(eventContainer);
       } else {
         signinButton.style.display = 'block';
         signoutButton.style.display = 'none';
@@ -83,33 +79,77 @@
     }
 
     // Retrieve and display the upcoming calendar events
-    function listUpcomingEvents() {
-      gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
-      }).then(function (response) {
-        var events = response.result.items;
-        var eventList = document.createElement('ul');
-        eventList.className = 'list-group';
 
-        if (events.length > 0) {
-          for (var i = 0; i < events.length; i++) {
-            var event = events[i];
-            var eventItem = document.createElement('li');
-            eventItem.className = 'list-group-item';
-            eventItem.appendChild(document.createTextNode(event.summary));
-            eventList.appendChild(eventItem);
+    function createEventList(container, events) {
+      const eventList = document.createElement('div');
+      eventList.className = 'list-group';
+
+      if (events.length > 0) {
+        for (let i = 0; i < events.length; i++) {
+          const eventItem = document.createElement('a');
+          eventItem.className = 'list-group-item';
+          eventItem.href = events[i].htmlLink;
+          eventItem.target = 'blank';
+          let eventDate;
+          let eventStart = document.createElement('span');
+          eventStart.className = 'badge';
+
+          if (events[i].start.hasOwnProperty('dateTime')) {
+            eventDate = new Date(events[i].start.dateTime);
+            eventStart.textContent = eventDate.toLocaleString('en-En', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
+          } else {
+            eventDate = new Date(events[i].start.date);
+            eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
           }
-          eventContainer.appendChild(eventList);
-        } else {
-          eventList.appendChild(document.createTextNode('No upcoming events found.'));
+
+          eventItem.appendChild(eventStart);
+          eventSummary = events[i].summary;
+          eventItem.appendChild(document.createTextNode(eventSummary));
+
+          eventList.appendChild(eventItem);
         }
-      });
+
+        container.appendChild(eventList);
+      }
     }
+
+    function compareDates(a, b) {
+      let date1 = (a.start.hasOwnProperty('dateTime')) ? new Date(a.start.dateTime) : new Date(a.start.date);
+      let date2 = (b.start.hasOwnProperty('dateTime')) ? new Date(b.start.dateTime) : new Date(b.start.date);
+      return date1 - date2;
+    }
+
+    function getEvents(container) {
+      gapi.client.calendar.calendarList.list()
+        .then(response => {
+          const calendars = response.result.items;
+          const requests = [];
+          calendars.forEach(calendar => {
+            requests.push(
+              gapi.client.calendar.events.list({
+                'calendarId': calendar.id, // 'primary' for only my personal calendar
+                'timeMin': (new Date()).toISOString(),
+                'showDeleted': false,
+                'singleEvents': true,
+                'maxResults': 10,
+                'orderBy': 'startTime'
+              }));
+          });
+
+          Promise.all(requests)
+            .then(calendars => {
+              let events = [];
+              calendars.forEach(calendar => {
+                events = events.concat(calendar.result.items);
+              });
+
+              // Sorting events by date and taking first (most recent) 10 events
+              events = events.sort(compareDates).slice(0, 10); 
+
+              createEventList(container, events);
+            })
+        });
+    };
   </script>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </body>

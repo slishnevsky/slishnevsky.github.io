@@ -73,8 +73,9 @@ function createCalendar(container) {
   container.appendChild(table);
 }
 
-function createEventList(container, response) {
-  const events = response.result.items;
+// Retrieve and display the upcoming calendar events
+
+function createEventList(container, events) {
   const eventList = document.createElement('div');
   eventList.className = 'list-group';
 
@@ -88,12 +89,12 @@ function createEventList(container, response) {
       let eventStart = document.createElement('span');
       eventStart.className = 'badge';
 
-      if (events[i].start.dateTime === undefined) {
-        eventDate = new Date(events[i].start.date);
-        eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
-      } else {
+      if (events[i].start.hasOwnProperty('dateTime')) {
         eventDate = new Date(events[i].start.dateTime);
         eventStart.textContent = eventDate.toLocaleString('en-En', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
+      } else {
+        eventDate = new Date(events[i].start.date);
+        eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
       }
 
       eventItem.appendChild(eventStart);
@@ -107,15 +108,40 @@ function createEventList(container, response) {
   }
 }
 
-function getEvents(container) {
-  gapi.client.calendar.events.list({
-    'calendarId': 'primary',
-    'timeMin': (new Date()).toISOString(),
-    'showDeleted': false,
-    'singleEvents': true,
-    'maxResults': 10,
-    'orderBy': 'startTime'
-  }).then(response => {
-    createEventList(container, response);
-  });
+function compareDates(a, b) {
+  let date1 = (a.start.hasOwnProperty('dateTime')) ? new Date(a.start.dateTime) : new Date(a.start.date);
+  let date2 = (b.start.hasOwnProperty('dateTime')) ? new Date(b.start.dateTime) : new Date(b.start.date);
+  return date1 - date2;
 }
+
+function getEvents(container) {
+  gapi.client.calendar.calendarList.list()
+    .then(response => {
+      const calendars = response.result.items;
+      const requests = [];
+      calendars.forEach(calendar => {
+        requests.push(
+          gapi.client.calendar.events.list({
+            'calendarId': calendar.id, // 'primary' for only my personal calendar
+            'timeMin': (new Date()).toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'maxResults': 10,
+            'orderBy': 'startTime'
+          }));
+      });
+
+      Promise.all(requests)
+        .then(calendars => {
+          let events = [];
+          calendars.forEach(calendar => {
+            events = events.concat(calendar.result.items);
+          });
+
+          // Sorting events by date and taking first (most recent) 10 events
+          events = events.sort(compareDates).slice(0, 10);
+
+          createEventList(container, events);
+        })
+    });
+};

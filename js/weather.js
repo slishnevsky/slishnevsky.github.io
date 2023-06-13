@@ -6,7 +6,7 @@ function createWeather(container, data) {
   const parser = new DOMParser();
   const document = parser.parseFromString(data, 'text/html');
 
-  const elements = new Array();
+  const elements = [];
   parseHtml(document, elements);
 
   // Create a table
