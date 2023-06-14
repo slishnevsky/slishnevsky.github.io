@@ -7,30 +7,28 @@ function createBookmarks(container, data, category) {
 
 
   // Iterate over the JSON data and create list items
-  for (let i = 0; i < data[category].length; i++) {
-    const item = data[category][i];
 
+  data[category].forEach(bookmark => {
     // Create a list item element
     const listItem = document.createElement('a');
     listItem.className = 'list-group-item';
-    listItem.href = item.link;
+    listItem.href = bookmark.link;
     listItem.target = 'blank';
     const splitstring = 'Canada Flyers';
-    if (item.title.includes(splitstring)) {
-      listItem.innerHTML = '<strong>' + item.title.split(splitstring)[0] + '</strong>' + splitstring;  
+    if (bookmark.title.includes(splitstring)) {
+      listItem.innerHTML = '<strong>' + bookmark.title.split(splitstring)[0] + '</strong>' + splitstring;  
     } else {
-      listItem.textContent = item.title;
+      listItem.textContent = bookmark.title;
     }
-
+  
     let img = document.createElement('img');
     img.className = 'icon pull-left';
-    img.src = 'https://s2.googleusercontent.com/s2/favicons?domain=' + item.link;
-
+    img.src = 'https://s2.googleusercontent.com/s2/favicons?domain=' + bookmark.link;
     listItem.appendChild(img);
-
+  
     // Append the list item to the unordered list
     listGroup.appendChild(listItem);
-  }
+  });
 
   // Append the unordered list to the container element
   container.appendChild(listGroup);

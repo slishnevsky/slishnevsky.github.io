@@ -79,33 +79,32 @@ function createEventList(container, events) {
   const eventList = document.createElement('div');
   eventList.className = 'list-group';
 
-  if (events.length > 0) {
-    for (let i = 0; i < events.length; i++) {
-      const eventItem = document.createElement('a');
-      eventItem.className = 'list-group-item';
-      eventItem.href = events[i].htmlLink;
-      eventItem.target = 'blank';
-      let eventDate;
-      let eventStart = document.createElement('span');
-      eventStart.className = 'badge';
+  events.forEach(event => {
+    const eventItem = document.createElement('a');
+    eventItem.className = 'list-group-item';
+    eventItem.href = event.htmlLink;
+    eventItem.target = 'blank';
+    let eventDate;
+    let eventStart = document.createElement('span');
+    eventStart.className = 'badge';
 
-      if (events[i].start.hasOwnProperty('dateTime')) {
-        eventDate = new Date(events[i].start.dateTime);
-        eventStart.textContent = eventDate.toLocaleString('en-En', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
-      } else {
-        eventDate = new Date(events[i].start.date);
-        eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
-      }
-
-      eventItem.appendChild(eventStart);
-      eventSummary = events[i].summary;
-      eventItem.appendChild(document.createTextNode(eventSummary));
-
-      eventList.appendChild(eventItem);
+    if (event.start.hasOwnProperty('dateTime')) {
+      eventDate = new Date(event.start.dateTime);
+      eventStart.textContent = eventDate.toLocaleString('en-En', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
+    } else {
+      eventDate = new Date(event.start.date);
+      eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
     }
 
-    container.appendChild(eventList);
-  }
+    eventItem.appendChild(eventStart);
+    eventSummary = event.summary;
+    eventItem.appendChild(document.createTextNode(eventSummary));
+
+    eventList.appendChild(eventItem);
+
+  });
+
+  container.appendChild(eventList);
 }
 
 function compareDates(a, b) {

@@ -18,11 +18,12 @@ function createWeather(container, data) {
   const hrow = document.createElement('tr');
 
   // Create table header with day names
-  for (let i = 0; i < elements.length; i++) {
+  elements.forEach(element => {
     const cell = document.createElement('th');
-    cell.appendChild(elements[i].day);
+    cell.appendChild(element.day);
     hrow.appendChild(cell);
-  }
+    
+  });
 
   // Append the table header to the table
   thead.appendChild(hrow);
@@ -32,14 +33,15 @@ function createWeather(container, data) {
   const row = document.createElement('tr');
 
   // Create the weekday name cells
-  for (let i = 0; i < elements.length; i++) {
+  elements.forEach(element => {
     const cell = document.createElement('td');
     cell.style.textAlign = 'center';
-    cell.appendChild(elements[i].img);
-    cell.appendChild(elements[i].temperature);
-    cell.appendChild(elements[i].conditions);
+    cell.appendChild(element.img);
+    cell.appendChild(element.temperature);
+    cell.appendChild(element.conditions);
     row.appendChild(cell);
-  }
+    
+  });
 
   // Append the table header to the table
   tbody.appendChild(row);
@@ -75,7 +77,6 @@ function parseHtml(document, elements) {
     let conditions = document.createElement('span');
     conditions.textContent= cond.textContent;
     conditions.style.fontSize = 'smaller';
-
 
     elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
   }
