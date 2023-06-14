@@ -22,7 +22,7 @@ function createWeather(container, data) {
     const cell = document.createElement('th');
     cell.appendChild(element.day);
     hrow.appendChild(cell);
-    
+
   });
 
   // Append the table header to the table
@@ -40,7 +40,7 @@ function createWeather(container, data) {
     cell.appendChild(element.temperature);
     cell.appendChild(element.conditions);
     row.appendChild(cell);
-    
+
   });
 
   // Append the table header to the table
@@ -51,13 +51,22 @@ function createWeather(container, data) {
 }
 
 function parseHtml(document, elements) {
+  const names = [
+    { 'eng': 'Mon', 'rus': 'Понедельник' },
+    { 'eng': 'Tue', 'rus': 'Вторник' },
+    { 'eng': 'Wed', 'rus': 'Среда' },
+    { 'eng': 'Thu', 'rus': 'Четверг' },
+    { 'eng': 'Fri', 'rus': 'Пятница' },
+    { 'eng': 'Sat', 'rus': 'Суббота' },
+    { 'eng': 'Sun', 'rus': 'Воскресенье' }
+  ];
 
-  let day = document.createTextNode('Today');
+  let day = document.createTextNode('Сегодня');
   let img = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > img');
   img.src = img.src.replace(window.location.host, 'weather.gc.ca');
   let temp = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > p > span');
   let temperature = document.createElement('h4');
-  temperature.textContent = temp.textContent;
+  temperature.textContent = temp.textContent + 'C';
   let conditions = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-10.text-center.currcond-height.hidden-print > div:nth-child(2) > dl > dd:nth-child(2) > span');
   conditions.style.fontSize = 'smaller';
 
@@ -67,7 +76,7 @@ function parseHtml(document, elements) {
 
   for (let i = 2; i < 5; i++) {
     let day = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row1.div-row-head > strong');
-    day = document.createTextNode(day.textContent);
+    day = document.createTextNode(names.find(item => item.eng === day.textContent).rus);
     let img = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > img');
     img.src = img.src.replace(window.location.host, 'weather.gc.ca');
     let temp = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong');
@@ -75,7 +84,7 @@ function parseHtml(document, elements) {
     temperature.textContent = temp.textContent;
     let cond = document.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p:nth-child(4)');
     let conditions = document.createElement('span');
-    conditions.textContent= cond.textContent;
+    conditions.textContent = cond.textContent;
     conditions.style.fontSize = 'smaller';
 
     elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });

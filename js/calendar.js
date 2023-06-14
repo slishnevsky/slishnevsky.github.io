@@ -10,7 +10,7 @@ function createCalendar(container) {
   const firstDayIndex = date.getDay();
 
   // Create an array of weekday names
-  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
   // Create a table
   const table = document.createElement('table');
@@ -90,10 +90,10 @@ function createEventList(container, events) {
 
     if (event.start.hasOwnProperty('dateTime')) {
       eventDate = new Date(event.start.dateTime);
-      eventStart.textContent = eventDate.toLocaleString('en-En', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
+      eventStart.textContent = eventDate.toLocaleString('ru-Ru', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
     } else {
       eventDate = new Date(event.start.date);
-      eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
+      eventStart.textContent = eventDate.toLocaleString('ru-Ru', { timeZone: 'UTC', day: '2-digit', month: 'long' });
     }
 
     eventItem.appendChild(eventStart);
