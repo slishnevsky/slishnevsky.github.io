@@ -20,9 +20,9 @@ function createWeather(container, data) {
   // Create table header with day names
   elements.forEach(element => {
     const cell = document.createElement('th');
+    cell.style.width = '25%';
     cell.appendChild(element.day);
     hrow.appendChild(cell);
-
   });
 
   // Append the table header to the table

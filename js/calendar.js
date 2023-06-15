@@ -10,7 +10,8 @@ function createCalendar(container) {
   const firstDayIndex = date.getDay();
 
   // Create an array of weekday names
-  const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+  // const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+  const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
   // Create a table
   const table = document.createElement('table');
@@ -43,20 +44,19 @@ function createCalendar(container) {
     const row = document.createElement('tr');
 
     // Create the cells for each row
-    for (let j = 0; j < 7; j++) {
+    for (let j = 1; j <= 7; j++) {
       const cell = document.createElement('td');
       cell.style.textAlign = 'right';
+      if (j == 6 || j == 7) cell.className = 'text-danger';
 
       // Add the day number to the cell if it falls within the current month
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
         if (day === today.getDate()) {
-          cell.className = 'danger';
-          cell.style.textAlign = 'right';
+          cell.className = 'success';
           cell.style.fontWeight = 'bold';
         }
-
         cell.textContent = day;
         day++;
       }
