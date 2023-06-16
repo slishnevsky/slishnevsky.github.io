@@ -51,17 +51,8 @@ function createWeather(container, data) {
 }
 
 function parseHtml(document, elements) {
-  const names = [
-    { 'eng': 'Mon', 'rus': 'Понедельник' },
-    { 'eng': 'Tue', 'rus': 'Вторник' },
-    { 'eng': 'Wed', 'rus': 'Среда' },
-    { 'eng': 'Thu', 'rus': 'Четверг' },
-    { 'eng': 'Fri', 'rus': 'Пятница' },
-    { 'eng': 'Sat', 'rus': 'Суббота' },
-    { 'eng': 'Sun', 'rus': 'Воскресенье' }
-  ];
 
-  let day = document.createTextNode('Сегодня');
+  let day = document.createTextNode('Now');
   let img = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > img');
   img.src = img.src.replace(window.location.host, 'weather.gc.ca');
   let temp = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > p > span');
@@ -76,7 +67,7 @@ function parseHtml(document, elements) {
 
   for (let i = 2; i < 5; i++) {
     let day = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row1.div-row-head > strong');
-    day = document.createTextNode(names.find(item => item.eng === day.textContent).rus);
+    day = document.createTextNode(day.textContent);
     let img = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > img');
     img.src = img.src.replace(window.location.host, 'weather.gc.ca');
     let temp = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong');
