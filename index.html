@@ -37,9 +37,10 @@
         </ul>
         <form class="navbar-form navbar-right">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input type="text" id="search" class="form-control" onkeypress="return onKeyPress(event)"
+              placeholder="Search">
           </div>
-          <button type="submit" class="btn btn-success">Search</button>
+          <button type="button" class="btn btn-success" onclick="onClick(value)">Search</button>
         </form>
       </div>
     </div>
@@ -138,6 +139,29 @@
 
     function handleSignout() {
       gapi.auth2.getAuthInstance().signOut();
+    }
+
+    // function removeAllContent() {
+    //   const panels = document.getElementsByClassName('panel');
+    //   for (let index = 0; index < panels.length; index++) {
+    //     const panel = panels[index];
+    //     while (panel.childNodes.length > 1) {
+    //       panel.removeChild(panel.lastChild);
+    //     }
+    //   }
+    // }
+
+    function onKeyPress(event) {
+      if (event.key === 'Enter') {
+        if (event.target.value === '') return false;
+        onClick(event.target.value);
+        return false;
+      }
+    }
+
+    function onClick(value) {
+      window.open('https://www.google.com/search?q=' + value);
+      return false;
     }
 
   </script>
