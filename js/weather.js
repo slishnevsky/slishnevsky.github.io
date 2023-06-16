@@ -4,8 +4,7 @@ function createWeather(container, data) {
   const parser = new DOMParser();
   const document = parser.parseFromString(data, 'text/html');
 
-  const items = [];
-  parseHtml(document, items);
+  const items = parseHtml(document);
 
   // Create a table
   const table = document.createElement('table');
@@ -55,24 +54,28 @@ function createWeather(container, data) {
   container.appendChild(table);
 }
 
-function parseHtml(document, items) {
+function parseHtml(document) {
+
+  const items = [];
+
   const xpath = '//*[@id="mainContent"]/details[1]/div[1]';
-  let day = 'Now';
-  let img = document.evaluate(xpath + '/div[1]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
-  let temp = document.evaluate(xpath + '/div[1]/p/span', document).iterateNext().textContent + 'C';
-  let cond = document.evaluate(xpath + '/div[2]/div[1]/dl/dd[1]/span', document).iterateNext().textContent;
+  const day = 'Now';
+  const img = document.evaluate(xpath + '/div[1]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
+  const temp = document.evaluate(xpath + '/div[1]/p/span', document).iterateNext().textContent + 'C';
+  const cond = document.evaluate(xpath + '/div[2]/div[1]/dl/dd[1]/span', document).iterateNext().textContent;
 
   items.push({ day: day, img: img, temp: temp, cond: cond });
 
   for (let i = 2; i < 5; i++) {
     const xpath = '//*[@id="mainContent"]/details[2]/div[1]/div/div[' + i + ']';
-    let day = document.evaluate(xpath + '/div[1]/strong', document).iterateNext().textContent;
-    let img = document.evaluate(xpath + '/div[2]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
-    let temp = document.evaluate(xpath + '/div[2]/p[1]/strong/span[1]', document).iterateNext().textContent + '°C';
-    let cond = document.evaluate(xpath + '/div[2]/p[3]', document).iterateNext().textContent;
+    const day = document.evaluate(xpath + '/div[1]/strong', document).iterateNext().textContent;
+    const img = document.evaluate(xpath + '/div[2]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
+    const temp = document.evaluate(xpath + '/div[2]/p[1]/strong/span[1]', document).iterateNext().textContent + '°C';
+    const cond = document.evaluate(xpath + '/div[2]/p[3]', document).iterateNext().textContent;
 
     items.push({ day: day, img: img, temp: temp, cond: cond });
   }
+  return items;
 }
 
 function getWeather(container) {
