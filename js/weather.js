@@ -1,13 +1,11 @@
-// Code to come
-
 // Function to create the HTML list
 function createWeather(container, data) {
   // Parse the HTML into a document object
   const parser = new DOMParser();
   const document = parser.parseFromString(data, 'text/html');
 
-  const elements = [];
-  parseHtml(document, elements);
+  const items = [];
+  parseHtml(document, items);
 
   // Create a table
   const table = document.createElement('table');
@@ -18,10 +16,10 @@ function createWeather(container, data) {
   const hrow = document.createElement('tr');
 
   // Create table header with day names
-  elements.forEach(element => {
+  items.forEach(item => {
     const cell = document.createElement('th');
     cell.style.width = '25%';
-    cell.appendChild(element.day);
+    cell.textContent = item.day;
     hrow.appendChild(cell);
   });
 
@@ -33,12 +31,19 @@ function createWeather(container, data) {
   const row = document.createElement('tr');
 
   // Create the weekday name cells
-  elements.forEach(element => {
+  items.forEach(item => {
     const cell = document.createElement('td');
     cell.style.textAlign = 'center';
-    cell.appendChild(element.img);
-    cell.appendChild(element.temperature);
-    cell.appendChild(element.conditions);
+    let img = document.createElement('img');
+    img.src = item.img;
+    let temp = document.createElement('h4');
+    temp.textContent = item.temp;
+    let cond = document.createElement('span');
+    cond.textContent = item.cond;
+
+    cell.appendChild(img);
+    cell.appendChild(temp);
+    cell.appendChild(cond);
     row.appendChild(cell);
 
   });
@@ -50,41 +55,29 @@ function createWeather(container, data) {
   container.appendChild(table);
 }
 
-function parseHtml(document, elements) {
+function parseHtml(document, items) {
+  const xpath = '//*[@id="mainContent"]/details[1]/div[1]';
+  let day = 'Now';
+  let img = document.evaluate(xpath + '/div[1]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
+  let temp = document.evaluate(xpath + '/div[1]/p/span', document).iterateNext().textContent + 'C';
+  let cond = document.evaluate(xpath + '/div[2]/div[1]/dl/dd[1]/span', document).iterateNext().textContent;
 
-  let day = document.createTextNode('Now');
-  let img = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > img');
-  img.src = img.src.replace(window.location.host, 'weather.gc.ca');
-  let temp = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-2.brdr-rght.text-center.currcond-height.hidden-print > p > span');
-  let temperature = document.createElement('h4');
-  temperature.textContent = temp.textContent + 'C';
-  let conditions = document.querySelector('#mainContent > details.panel.panel-default.wxo-obs.hidden-details-print-close > div.hidden-xs.row.no-gutters > div.col-sm-10.text-center.currcond-height.hidden-print > div:nth-child(2) > dl > dd:nth-child(2) > span');
-  conditions.style.fontSize = 'smaller';
-
-  elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
-
-  const table = document.querySelector('#mainContent > details.mrgn-tp-lg.panel.panel-default.wxo-fcst.hidden-details-print-close > div.hidden-xs > div');
+  items.push({ day: day, img: img, temp: temp, cond: cond });
 
   for (let i = 2; i < 5; i++) {
-    let day = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row1.div-row-head > strong');
-    day = document.createTextNode(day.textContent);
-    let img = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > img');
-    img.src = img.src.replace(window.location.host, 'weather.gc.ca');
-    let temp = table.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p.mrgn-bttm-0.high > strong');
-    let temperature = document.createElement('h4');
-    temperature.textContent = temp.textContent;
-    let cond = document.querySelector('div:nth-child(' + i + ') > div.div-row.div-row2.div-row-data > p:nth-child(4)');
-    let conditions = document.createElement('span');
-    conditions.textContent = cond.textContent;
-    conditions.style.fontSize = 'smaller';
+    const xpath = '//*[@id="mainContent"]/details[2]/div[1]/div/div[' + i + ']';
+    let day = document.evaluate(xpath + '/div[1]/strong', document).iterateNext().textContent;
+    let img = document.evaluate(xpath + '/div[2]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
+    let temp = document.evaluate(xpath + '/div[2]/p[1]/strong/span[1]', document).iterateNext().textContent + '°C';
+    let cond = document.evaluate(xpath + '/div[2]/p[3]', document).iterateNext().textContent;
 
-    elements.push({ day: day, img: img, temperature: temperature, conditions: conditions });
+    items.push({ day: day, img: img, temp: temp, cond: cond });
   }
 }
 
 function getWeather(container) {
+  // Fetch the HTML page from Weather forecast
   const url = 'https://corsproxy.io/?https://weather.gc.ca/city/pages/on-143_metric_e.html';
-  // Fetch the RSS data
   fetch(url)
     .then(response => response.text())
     .then(data => createWeather(container, data))
