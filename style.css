@@ -2,6 +2,7 @@ body {
   padding-top: 70px;
   padding-bottom: 30px;
   background: #445577 url("assets/background.jpg") no-repeat fixed center;
+  display: none;
 }
 
 .navbar {
@@ -28,6 +29,22 @@ th {
 }
 
 .badge {
-  background-color: lightslategray;
+  background-color: #778899;
   border-radius: 4px;
+}
+
+#suggestions {
+  position: absolute;
+  z-index: 1;
+}
+
+#suggestions .list-group-item {
+  background-color: #778899;
+  color: white;
+  cursor: pointer;
+}
+
+#suggestions .list-group-item:hover {
+  background-color: #667788;
+  color: white;
 }

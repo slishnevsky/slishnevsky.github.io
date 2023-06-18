@@ -17,7 +17,7 @@
   <script src="js/news.js"></script>
 </head>
 
-<body style="display: none">
+<body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
@@ -36,10 +36,9 @@
         </ul>
         <form class="navbar-form navbar-right">
           <div class="form-group">
-            <input type="text" id="search" class="form-control" onkeypress="return onKeyPress(event)"
-              placeholder="Search">
+            <input type="text" id="search" class="form-control" onkeyup="onKeyUp(event)" onkeypress="return onKeyPress(event)" placeholder="Search" autofocus>
           </div>
-          <button type="button" class="btn btn-success" onclick="onClick(value)">Search</button>
+          <button type="button" class="btn btn-success" onclick="searchGoogle()">Search</button>
         </form>
       </div>
     </div>
@@ -71,6 +70,9 @@
         </div>
       </div>
       <div class="col-md-4">
+        <div id="suggestions" class="panel panel-default">
+          <!-- Suggestion list inserted here -->
+        </div>
         <div id="news" class="panel panel-default">
           <div class="panel-heading">Последние новости</div>
           <!-- News list inserted here -->
@@ -86,15 +88,15 @@
     const bookmarks1 = document.getElementById('bookmarks1');
     const bookmarks2 = document.getElementById('bookmarks2');
     const news1 = document.getElementById('news');
+    const suggestions1 = document.getElementById('suggestions');
+    const search1 = document.getElementById('search');
 
     // Client ID and API key from the Google API Console
+    // Array of API discovery doc URLs for APIs used
+    // Authorization scopes required by the API
     const CLIENT_ID = '84522859201-slrv8op1uu6h1v48kl9emla38ft78ois.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyBCIyH5szmkAwnMtNqGsjdruUvmnCEdSH8';
-
-    // Array of API discovery doc URLs for APIs used
     const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
-
-    // Authorization scopes required by the API
     const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
     // Load the API client and authenticate the user
@@ -152,18 +154,56 @@
       document.body.style.display = 'none';
     }
 
+    function onKeyUp(event) {
+      getSuggestions(event.target.value);
+    }
+
     function onKeyPress(event) {
       if (event.key === 'Enter') {
         if (event.target.value === '') return false;
-        onClick(event.target.value);
+        searchGoogle();
         return false;
       }
     }
 
-    function onClick(value) {
-      window.open('https://www.google.com/search?q=' + value);
+    function searchGoogle() {
+      window.open('https://www.google.com/search?q=' + search1.value);
       return false;
     }
+
+    function getSuggestions(text) {
+      // Fetch the JSON data
+      const url = `https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(text)}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => createSuggestions(data[1]))
+        .catch(error => console.error(error));
+    }
+
+    function createSuggestions(items) {
+      document.body.onclick = function() {
+        suggestions1.innerHTML = '';
+      }
+
+      // Create a list of suggestions
+      suggestions1.innerHTML = '';
+      const listGroup = document.createElement('div');
+      listGroup.className = 'list-group';
+      for (let i = 0; i < items.length; i++) {
+        const listItem = document.createElement('a');
+        listItem.className = 'list-group-item';
+        listItem.textContent = items[i];
+        listItem.onclick = function(event) {
+          suggestions1.innerHTML = '';
+          search1.value = event.target.text;
+          searchGoogle(search1.value);
+        };
+
+        listGroup.appendChild(listItem);
+      }
+
+      suggestions1.appendChild(listGroup);
+    };
 
   </script>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
