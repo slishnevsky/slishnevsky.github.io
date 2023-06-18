@@ -32,7 +32,6 @@ function createWeather(container, data) {
   // Create the weekday name cells
   items.forEach(item => {
     const cell = document.createElement('td');
-    cell.style.textAlign = 'center';
     let img = document.createElement('img');
     img.src = item.img;
     let temp = document.createElement('h4');
