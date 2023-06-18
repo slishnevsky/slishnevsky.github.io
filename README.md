@@ -1,6 +1,6 @@
 # Homepage
 ## Personal dashboard website
-**Writen using HTML, Javascript, Bootstrap 3 and Google API**
+**Written using HTML, Javascript, Bootstrap 3 and Google API**
 
 
 External resources utilized:
@@ -11,7 +11,7 @@ https://corsproxy.io/?[rss-url]
 Knopka RSS:
 https://cors-anywhere.herokuapp.com/https://news.knopka.ca/rss
 
-CORS Resolver syntaxsis:
+CORS Resolver demo:
 https://corsproxy.io/?https://news.knopka.ca/rss
 
 Weather source page:
