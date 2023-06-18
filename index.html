@@ -10,7 +10,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://apis.google.com/js/api.js"></script>
-  <script src="js/datetime.js"></script>
+  <script src="js/index.js"></script>
   <script src="js/weather.js"></script>
   <script src="js/calendar.js"></script>
   <script src="js/bookmarks.js"></script>
@@ -37,9 +37,9 @@
         <form class="navbar-form navbar-right">
           <div class="form-group">
             <input type="text" id="search" class="form-control" onkeyup="onKeyUp(event)"
-            onkeypress="return onKeyPress(event)" placeholder="Search" autofocus>
+              onkeypress="return onKeyPress(event)" placeholder="Search" autofocus>
           </div>
-          <button type="button" class="btn btn-success" onclick="searchGoogle()">Search</button>
+          <button type="button" class="btn btn-success" onclick="onClick()">Search</button>
           <div id="suggestions" class="panel panel-default">
             <!-- Suggestion list inserted here -->
           </div>
@@ -52,29 +52,29 @@
       <div class="col-md-4">
         <div id="weather" class="panel panel-default">
           <div class="panel-heading">Погода</div>
-            <!-- Weather table inserted here -->
+          <!-- Weather table inserted here -->
         </div>
         <div id="calendar" class="panel panel-default">
           <div class="panel-heading">Календарь</div>
-            <!-- Calendar table inserted here -->
+          <!-- Calendar table inserted here -->
         </div>
         <div id="events" class="panel panel-default">
           <div class="panel-heading">Запланированные события</div>
-            <!-- Events list inserted here -->
+          <!-- Events list inserted here -->
         </div>
       </div>
       <div class="col-md-4">
         <div id="bookmarks1" class="panel panel-default">
           <div class="panel-heading">Магазины</div>
-            <!-- Bookmarks list inserted here -->
+          <!-- Bookmarks list inserted here -->
         </div>
         <div id="bookmarks2" class="panel panel-default">
           <div class="panel-heading">Сервисы</div>
-            <!-- Bookmarks list inserted here -->
+          <!-- Bookmarks list inserted here -->
         </div>
       </div>
       <div class="col-md-4">
- 
+
         <div id="news" class="panel panel-default">
           <div class="panel-heading">Последние новости</div>
           <!-- News list inserted here -->
@@ -130,6 +130,14 @@
       }
     }
 
+    function handleSignin() {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function handleSignout() {
+      gapi.auth2.getAuthInstance().signOut();
+    }
+
     function createAllContent() {
       document.body.style.display = 'block';
       getDateTime(datetime1);
@@ -139,14 +147,6 @@
       getBookmarks(bookmarks1, 'Магазины');
       getBookmarks(bookmarks2, 'Сервисы');
       getNews(news1);
-    }
-
-    function handleSignin() {
-      gapi.auth2.getAuthInstance().signIn();
-    }
-
-    function handleSignout() {
-      gapi.auth2.getAuthInstance().signOut();
     }
 
     function removeAllContent() {
@@ -161,60 +161,21 @@
     }
 
     function onKeyUp(event) {
-      getSuggestions(event.target.value);
+      getSuggestions(suggestions1, search1);
     }
 
     function onKeyPress(event) {
       if (event.key === 'Enter') {
-        if (event.target.value === '') return false;
-        searchGoogle();
+        if (search1.value === '') return false;
+        searchGoogle(search1.value);
         return false;
       }
     }
 
-    function searchGoogle() {
-      window.open('https://www.google.com/search?q=' + search1.value);
-      return false;
+    function onClick() {
+      if (search1.value === '') return false;
+      searchGoogle(search1.value);
     }
-
-    function getSuggestions(text) {
-      // Fetch the JSON data
-      const url = `https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURIComponent(text)}`;
-      fetch(url)
-        .then(response => response.json())
-        .then(data => createSuggestions(data[1]))
-        .catch(error => console.error(error));
-    }
-
-    function createSuggestions(items) {
-      document.body.onclick = function () {
-        suggestions1.innerHTML = '';
-        suggestions1.style.display = 'none';
-      }
-      
-      suggestions1.innerHTML = '';
-      suggestions1.style.display = 'none';
-      if (items.length === 0) return;
-      
-      // Create a list of suggestions
-      const listGroup = document.createElement('div');
-      listGroup.className = 'list-group';
-      for (let i = 0; i < items.length; i++) {
-        const listItem = document.createElement('a');
-        listItem.className = 'list-group-item';
-        listItem.textContent = items[i];
-        listItem.onclick = function (event) {
-          suggestions1.innerHTML = '';
-          search1.value = event.target.text;
-          searchGoogle(search1.value);
-        };
-
-        listGroup.appendChild(listItem);
-      }
-
-      suggestions1.appendChild(listGroup);
-      suggestions1.style.display = 'block';
-    };
 
   </script>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
