@@ -1,4 +1,4 @@
-function createCalendar(container) {
+function getCalendar(container) {
   // Create a new date object for the specified month and year
   const today = new Date();
   const date = new Date(today.getFullYear(), today.getMonth(), 1);

@@ -36,9 +36,13 @@
         </ul>
         <form class="navbar-form navbar-right">
           <div class="form-group">
-            <input type="text" id="search" class="form-control" onkeyup="onKeyUp(event)" onkeypress="return onKeyPress(event)" placeholder="Search" autofocus>
+            <input type="text" id="search" class="form-control" onkeyup="onKeyUp(event)"
+            onkeypress="return onKeyPress(event)" placeholder="Search" autofocus>
           </div>
           <button type="button" class="btn btn-success" onclick="searchGoogle()">Search</button>
+          <div id="suggestions" class="panel panel-default">
+            <!-- Suggestion list inserted here -->
+          </div>
         </form>
       </div>
     </div>
@@ -70,9 +74,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div id="suggestions" class="panel panel-default">
-          <!-- Suggestion list inserted here -->
-        </div>
+ 
         <div id="news" class="panel panel-default">
           <div class="panel-heading">Последние новости</div>
           <!-- News list inserted here -->
@@ -121,18 +123,22 @@
 
     function updateSigninStatus(isSignedIn) {
       if (isSignedIn) {
-        document.body.style.display = 'block';
-        getDateTime(datetime1);
-        getWeather(weather1);
-        createCalendar(calendar1);
-        getEvents(events1);
-        getBookmarks(bookmarks1, 'Магазины');
-        getBookmarks(bookmarks2, 'Сервисы');
-        getNews(news1);
+        createAllContent();
       } else {
         removeAllContent();
         handleSignin();
       }
+    }
+
+    function createAllContent() {
+      document.body.style.display = 'block';
+      getDateTime(datetime1);
+      getWeather(weather1);
+      getCalendar(calendar1);
+      getEvents(events1);
+      getBookmarks(bookmarks1, 'Магазины');
+      getBookmarks(bookmarks2, 'Сервисы');
+      getNews(news1);
     }
 
     function handleSignin() {
@@ -181,19 +187,23 @@
     }
 
     function createSuggestions(items) {
-      document.body.onclick = function() {
+      document.body.onclick = function () {
         suggestions1.innerHTML = '';
+        suggestions1.style.display = 'none';
       }
-
-      // Create a list of suggestions
+      
       suggestions1.innerHTML = '';
+      suggestions1.style.display = 'none';
+      if (items.length === 0) return;
+      
+      // Create a list of suggestions
       const listGroup = document.createElement('div');
       listGroup.className = 'list-group';
       for (let i = 0; i < items.length; i++) {
         const listItem = document.createElement('a');
         listItem.className = 'list-group-item';
         listItem.textContent = items[i];
-        listItem.onclick = function(event) {
+        listItem.onclick = function (event) {
           suggestions1.innerHTML = '';
           search1.value = event.target.text;
           searchGoogle(search1.value);
@@ -203,6 +213,7 @@
       }
 
       suggestions1.appendChild(listGroup);
+      suggestions1.style.display = 'block';
     };
 
   </script>
