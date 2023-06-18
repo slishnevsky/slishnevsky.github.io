@@ -1,15 +1,22 @@
-"# Digital clock and date"
+# Homepage
+## Personal dashboard website
+**Writen using HTML, Javascript, Bootstrap 3 and Google API**
 
-Weather RSS from accuweather.com
-http://rss.accuweather.com/rss/liveweather_rss.asp?locCode=55488
 
-CORS Resolver
-https://cors-anywhere.herokuapp.com/[rss-url]
+External resources utilized:
+
+CORS Resolver:
 https://corsproxy.io/?[rss-url]
 
-Alternatives: https://alternativeto.net/software/cors-anywhere/
-
-Knopka RSS
+Knopka RSS:
 https://cors-anywhere.herokuapp.com/https://news.knopka.ca/rss
 
+CORS Resolver syntaxsis:
 https://corsproxy.io/?https://news.knopka.ca/rss
+
+Weather source page:
+https://weather.gc.ca/city/pages/on-143_metric_e.html
+
+Google Suggest API:
+https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=[text]
+
