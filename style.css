@@ -17,7 +17,8 @@ body {
   font-weight: bold;
 }
 
-th, td {
+th,
+td {
   text-align: center;
 }
 
@@ -56,4 +57,8 @@ th, td {
 
 #suggestions .list-group-item:hover {
   background-color: #667788;
+}
+
+input[type=text]:focus {
+  border: 1px solid #ccc !important;
 }
