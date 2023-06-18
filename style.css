@@ -1,7 +1,7 @@
 body {
   padding-top: 70px;
   padding-bottom: 30px;
-  background: #445577 url("assets/background.jpg") no-repeat fixed center;
+  background: url("assets/background.jpg") no-repeat fixed center;
   display: none;
 }
 
