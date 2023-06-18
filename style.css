@@ -28,6 +28,14 @@ th {
   border: 1px solid #BBB;
 }
 
+.today {
+  border-radius: 30px;
+  background-color: #5CB85C;
+  color: white;
+  padding: 5px 6px;
+  margin: -5px -6px;
+}
+
 .badge {
   background-color: #778899;
   border-radius: 4px;
@@ -46,5 +54,4 @@ th {
 
 #suggestions .list-group-item:hover {
   background-color: #667788;
-  color: white;
 }

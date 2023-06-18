@@ -46,7 +46,7 @@ function createCalendar(container) {
     // Create the cells for each row
     for (let j = 1; j <= 7; j++) {
       const cell = document.createElement('td');
-      cell.style.textAlign = 'right';
+      cell.style.textAlign = 'center';
       if (j == 6 || j == 7) cell.className = 'text-danger';
 
       // Add the day number to the cell if it falls within the current month
@@ -54,10 +54,13 @@ function createCalendar(container) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
         if (day === today.getDate()) {
-          cell.className = 'success';
-          cell.style.fontWeight = 'bold';
+          const span = document.createElement('span');
+          span.className = 'today';
+          span.textContent = day;
+          cell.appendChild(span);
+        } else {
+          cell.textContent = day;
         }
-        cell.textContent = day;
         day++;
       }
       // Append the cell to table row
