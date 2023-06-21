@@ -1,10 +1,10 @@
-function getCalendar(container) {
+function createCalendar(container, events) {
   // Create a new date object for the specified month and year
   const today = new Date();
   const date = new Date(today.getFullYear(), today.getMonth(), 1);
 
   // Get the number of days in the specified month
-  const daysInMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
   // Get the index of the first day of the month (0 - Sunday, 1 - Monday, etc.)
   const firstDayIndex = date.getDay();
@@ -52,11 +52,17 @@ function getCalendar(container) {
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
+        const thisDate = new Date(today.getFullYear(), today.getMonth(), day);
         if (day === today.getDate()) {
-          const span = document.createElement('span');
-          span.className = 'today';
-          span.textContent = day;
-          cell.appendChild(span);
+          const div = document.createElement('div');
+          div.className = 'today';
+          div.textContent = day;
+          cell.appendChild(div);
+        } else if (isEventDay(thisDate, events)) {
+          const div = document.createElement('div');
+          div.className = 'event';
+          div.textContent = day;
+          cell.appendChild(div);
         } else {
           cell.textContent = day;
         }
@@ -73,6 +79,15 @@ function getCalendar(container) {
 
   // Append the table to the container
   container.appendChild(table);
+}
+
+function isEventDay(thisDate, events) {
+  return events.find(event => {
+    const eventDate = (event.start.hasOwnProperty('dateTime')) ? new Date(event.start.dateTime) : new Date(event.start.date);
+    // const eventUtcDate = new Date(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000); // not needed
+    if (thisDate.toISOString().split('T')[0] === eventDate.toISOString().split('T')[0])
+      return true;
+  });
 }
 
 // Retrieve and display the upcoming calendar events
@@ -115,7 +130,7 @@ function compareDates(a, b) {
   return date1 - date2;
 }
 
-function getEvents(container) {
+function getEvents(container1, container2) {
   gapi.client.calendar.calendarList.list()
     .then(response => {
       const calendars = response.result.items;
@@ -142,7 +157,8 @@ function getEvents(container) {
           // Sorting events by date and taking first (most recent) 10 events
           events = events.sort(compareDates).slice(0, 10);
 
-          createEventList(container, events);
+          createCalendar(container1, events);
+          createEventList(container2, events);
         })
     });
 };
