@@ -92,7 +92,7 @@ function isEventDay(thisDate, events) {
 
 // Retrieve and display the upcoming calendar events
 
-function createEventList(container, events) {
+function createEvents(container, events) {
   const eventList = document.createElement('div');
   eventList.className = 'list-group';
 
@@ -130,7 +130,7 @@ function compareDates(a, b) {
   return date1 - date2;
 }
 
-function getEvents(container1, container2) {
+function getCalendar(container1, container2) {
   gapi.client.calendar.calendarList.list()
     .then(response => {
       const calendars = response.result.items;
@@ -158,7 +158,7 @@ function getEvents(container1, container2) {
           events = events.sort(compareDates).slice(0, 10);
 
           createCalendar(container1, events);
-          createEventList(container2, events);
+          createEvents(container2, events);
         })
     });
 };
