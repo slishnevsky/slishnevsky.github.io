@@ -1,3 +1,11 @@
+function getNews(container) {
+  // Fetch the RSS data
+  const url = 'https://corsproxy.io/?https://news.knopka.ca/rss';
+  fetch(url)
+    .then(response => response.text())
+    .then(data => createNews(container, data))
+    .catch(error => console.error(error));
+}
 
 function createNews(container, data) {
   // Parse the XML into JavaScript object
@@ -44,11 +52,3 @@ function createNews(container, data) {
   container.appendChild(listGroup);
 }
 
-function getNews(container) {
-  // Fetch the RSS data
-  const url = 'https://corsproxy.io/?https://news.knopka.ca/rss';
-  fetch(url)
-    .then(response => response.text())
-    .then(data => createNews(container, data))
-    .catch(error => console.error(error));
-}

@@ -1,4 +1,12 @@
-// Function to create the HTML list
+function getWeather(container) {
+  // Fetch the HTML page from Weather forecast
+  const url = 'https://corsproxy.io/?https://weather.gc.ca/city/pages/on-143_metric_e.html';
+  fetch(url)
+    .then(response => response.text())
+    .then(data => createWeather(container, data))
+    .catch(error => console.error(error));
+}
+
 function createWeather(container, data) {
   // Parse the HTML into a document object
   const parser = new DOMParser();
@@ -77,11 +85,3 @@ function parseHtml(document) {
   return items;
 }
 
-function getWeather(container) {
-  // Fetch the HTML page from Weather forecast
-  const url = 'https://corsproxy.io/?https://weather.gc.ca/city/pages/on-143_metric_e.html';
-  fetch(url)
-    .then(response => response.text())
-    .then(data => createWeather(container, data))
-    .catch(error => console.error(error));
-}

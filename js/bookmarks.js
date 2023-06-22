@@ -1,4 +1,11 @@
-// Function to create the HTML list
+function getBookmarks(container, category) {
+  // Fetch the JSON data from a file
+  fetch('js/bookmarks.json')
+    .then(response => response.json())
+    .then(data => createBookmarks(container, data, category))
+    .catch(error => console.error(error));
+}
+
 function createBookmarks(container, data, category) {
 
   // Create an unordered list element
@@ -32,13 +39,5 @@ function createBookmarks(container, data, category) {
 
   // Append the unordered list to the container element
   container.appendChild(listGroup);
-}
-
-function getBookmarks(container, category) {
-  // Fetch the JSON data from a file
-  fetch('js/bookmarks.json')
-    .then(response => response.json())
-    .then(data => createBookmarks(container, data, category))
-    .catch(error => console.error(error));
 }
 
