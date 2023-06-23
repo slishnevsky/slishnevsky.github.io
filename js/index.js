@@ -54,7 +54,7 @@ function getTranslation(container, text) {
     .then(response => response.json())
     .then(data => {
       const sl = data[2]; // Detected sorce text language
-      const tl = (sl === 'ru') ? 'en' : 'ru';
+      const tl = (sl === 'en') ? 'ru' : 'en';
       const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&dt=t&dt=t&tl=${tl}&q=${encodeURIComponent(text)}`;
       fetch(url)
         .then(response => response.json())
