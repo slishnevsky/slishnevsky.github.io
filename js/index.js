@@ -12,6 +12,42 @@ function getDateTime(container) {
   setInterval(() => { getDateTime(container); }, 60000); // refresh time every minute
 }
 
+function getTranslation(container, text) {
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&q=${encodeURIComponent(text)}`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const sl = data[2]; // Detected sorce text language
+      const tl = (sl === 'en') ? 'ru' : 'en';
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&dt=t&dt=t&tl=${tl}&q=${encodeURIComponent(text)}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          createTranslation(container, data[0][0][0]);
+        })
+        .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
+}
+
+function createTranslation(container, translation) {
+  const listItem = document.createElement('a');
+  listItem.className = 'list-group-item translation';
+  listItem.textContent = translation;
+  listItem.onclick = function (event) { searchGoogle(event.target.text); };
+  if (container.firstChild === null) {
+    const listGroup = document.createElement('div');
+    listGroup.className = 'list-group';
+    listGroup.appendChild(listItem);
+    container.appendChild(listGroup);
+    container.style.display = 'block';
+  } else {
+    const firstItem = container.firstChild.firstChild;
+    // Insert translation item as a first element of suggestions
+    container.firstChild.insertBefore(listItem, firstItem); // container.firstChild is a listGroup element
+  }
+}
+
 function getSuggestions(container, text) {
   // Fetch the JSON data
   const url = 'https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=' + text;
@@ -46,40 +82,6 @@ function createSuggestions(container, items) {
 
   container.appendChild(listGroup);
   container.style.display = 'block';
-}
-
-function getTranslation(container, text) {
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&q=${encodeURIComponent(text)}`;
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      const sl = data[2]; // Detected sorce text language
-      const tl = (sl === 'en') ? 'ru' : 'en';
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&dt=t&dt=t&tl=${tl}&q=${encodeURIComponent(text)}`;
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          const translation = data[0][0][0]; // Get the translation
-          console.log(translation);
-          const listItem = document.createElement('a');
-          listItem.className = 'list-group-item translation';
-          listItem.textContent = translation;
-          listItem.onclick = function (event) { searchGoogle(event.target.text); };
-          if (container.firstChild === null) {
-            const listGroup = document.createElement('div');
-            listGroup.className = 'list-group';
-            listGroup.appendChild(listItem);
-            container.appendChild(listGroup);
-            container.style.display = 'block';
-          } else {
-            const firstItem = container.firstChild.firstChild;
-            // Insert translation item as a first element of suggestions
-            container.firstChild.insertBefore(listItem, firstItem); // container.firstChild is a listGroup element
-          }
-        })
-        .catch(error => console.error(error));
-    })
-    .catch(error => console.error(error));
 }
 
 function searchGoogle(text) {
