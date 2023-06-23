@@ -34,10 +34,11 @@
           <li class="active"><a href="#">Home</a></li>
           <li><a href="#" onclick="handleSignout()">Sign out</a></li>
         </ul>
-        <form class="navbar-form navbar-right">
+        <form class="navbar-form navbar-right" onsubmit="return false">
           <div class="form-group">
-            <input type="text" id="search" class="form-control" onkeyup="onKeyUp(event)"
-              onkeypress="return onKeyPress(event)" placeholder="Search" autofocus>
+            <!-- <input type="text" id="search" class="form-control" onkeyup="onKeyUp(event)"
+              onkeypress="return onKeyPress(event)" placeholder="Search" autofocus> -->
+            <input type="text" id="search" class="form-control" onkeyup="onKeyUp(event)" placeholder="Search" autofocus>
           </div>
           <button type="button" class="btn btn-success" onclick="onClick()">Search</button>
           <div id="suggestions" class="panel panel-default">
@@ -160,19 +161,26 @@
     }
 
     function onKeyUp(event) {
-      getSuggestions(suggestions1, search1);
-    }
-
-    function onKeyPress(event) {
-      if (event.key === 'Enter') {
-        if (search1.value === '') return false;
-        searchGoogle(search1.value);
-        return false;
+      if (search1.value === '') {
+        suggestions1.innerHTML = '';
+        suggestions1.style.display = 'none';
+        return;
+      }
+      switch (event.key) {
+        case 'Enter':
+          searchGoogle(search1.value);
+          break;
+        case ' ':
+          getSuggestions(suggestions1, search1.value);
+          getTranslation(suggestions1, search1.value);
+          break;
+        default:
+          getSuggestions(suggestions1, search1.value);
+          break;
       }
     }
 
     function onClick() {
-      if (search1.value === '') return false;
       searchGoogle(search1.value);
     }
 

@@ -53,6 +53,10 @@ td {
   display: none;
 }
 
+.translation {
+  background-color: #337AB7 !important;
+}
+
 #suggestions .list-group-item {
   background-color: #778899;
   color: white;

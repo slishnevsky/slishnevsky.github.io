@@ -5,46 +5,42 @@ String.prototype.toTitleCase = function () {
 function getDateTime(container) {
   const date = new Date();
   const day = date.toLocaleString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long' });
-  const time = date.toLocaleString('en-En', { hour12: true, hour: '2-digit', minute:'2-digit' });
+  const time = date.toLocaleString('en-En', { hour12: true, hour: '2-digit', minute: '2-digit' });
 
   container.textContent = day.toTitleCase() + ' ' + time;
 
   setInterval(() => { getDateTime(container); }, 60000); // refresh time every minute
 }
 
-function getSuggestions(container, field) {
+function getSuggestions(container, text) {
   // Fetch the JSON data
-  const url = 'https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=' + field.value;
+  const url = 'https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=' + text;
   fetch(url)
     .then(response => response.json())
-    .then(data => createSuggestions(container, field, data[1]))
+    .then(data => createSuggestions(container, data[1]))
     .catch(error => console.error(error));
 }
 
-function createSuggestions(container, field, items) {
+function createSuggestions(container, items) {
   document.body.onclick = function () {
     container.innerHTML = '';
     container.style.display = 'none';
   }
-  
+
   container.innerHTML = '';
   container.style.display = 'none';
-  if (items.length === 0) return;
   
+  if (items.length === 0) return;
+
   // Create a list of suggestions
   const listGroup = document.createElement('div');
   listGroup.className = 'list-group';
+
   for (let i = 0; i < items.length; i++) {
     const listItem = document.createElement('a');
     listItem.className = 'list-group-item';
     listItem.textContent = items[i];
-    listItem.onclick = function (event) {
-      container.innerHTML = '';
-      container.style.display = 'none';
-      field.value = event.target.text; 
-      searchGoogle(field.value);
-    };
-
+    listItem.onclick = function (event) { searchGoogle(event.target.text); };
     listGroup.appendChild(listItem);
   }
 
@@ -52,7 +48,33 @@ function createSuggestions(container, field, items) {
   container.style.display = 'block';
 }
 
+function getTranslation(container, text) {
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&q=${encodeURIComponent(text)}`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const sl = data[2]; // Detected sorce text language
+      const tl = (sl === 'ru') ? 'en' : 'ru';
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&dt=t&dt=t&tl=${tl}&q=${encodeURIComponent(text)}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const translation = data[0][0][0]; // Get the translation
+          console.log(translation);
+          const listItem = document.createElement('a');
+          listItem.className = 'list-group-item translation';
+          listItem.textContent = translation;
+          listItem.onclick = function (event) { searchGoogle(event.target.text); };
+          const firstItem = container.firstChild.firstChild;
+          // Insert translation item as a first element of suggestions
+          container.firstChild.insertBefore(listItem, firstItem); // container.firstChild is a listGroup element
+        })
+        .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
+}
+
 function searchGoogle(text) {
   window.open('https://www.google.com/search?q=' + text);
-  return false;
 }
+
