@@ -65,9 +65,17 @@ function getTranslation(container, text) {
           listItem.className = 'list-group-item translation';
           listItem.textContent = translation;
           listItem.onclick = function (event) { searchGoogle(event.target.text); };
-          const firstItem = container.firstChild.firstChild;
-          // Insert translation item as a first element of suggestions
-          container.firstChild.insertBefore(listItem, firstItem); // container.firstChild is a listGroup element
+          if (container.firstChild === null) {
+            const listGroup = document.createElement('div');
+            listGroup.className = 'list-group';
+            listGroup.appendChild(listItem);
+            container.appendChild(listGroup);
+            container.style.display = 'block';
+          } else {
+            const firstItem = container.firstChild.firstChild;
+            // Insert translation item as a first element of suggestions
+            container.firstChild.insertBefore(listItem, firstItem); // container.firstChild is a listGroup element
+          }
         })
         .catch(error => console.error(error));
     })
