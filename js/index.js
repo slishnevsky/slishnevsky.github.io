@@ -100,6 +100,7 @@ function getUserProfile(container) {
   
   const listItem = document.createElement('div');
   listItem.className = 'list-group-item clearfix';
+  listItem.style.backgroundColor = 'darksalmon';
 
   const image = document.createElement('img');
   image.className = 'img-rounded pull-right ';
