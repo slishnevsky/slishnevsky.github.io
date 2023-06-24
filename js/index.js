@@ -88,3 +88,37 @@ function searchGoogle(text) {
   window.open('https://www.google.com/search?q=' + text);
 }
 
+function getUserProfile(container) {
+  const auth2 = gapi.auth2.getAuthInstance();
+  const profile = auth2.currentUser.get().getBasicProfile();
+  while (container.hasChildNodes()) {
+    container.removeChild(container.lastChild);
+  }
+
+  const listGroup = document.createElement('div');
+  listGroup.className = 'list-group';
+  
+  const listItem = document.createElement('div');
+  listItem.className = 'list-group-item clearfix';
+
+  const image = document.createElement('img');
+  image.className = 'img-rounded pull-right ';
+  image.style.width = '80px';
+  image.src = profile.getImageUrl();
+  
+  const name = document.createElement('h4');
+  name.textContent = profile.getName();
+
+  const button = document.createElement('button');
+  button.className = 'btn btn-primary';
+  button.textContent = 'Sign out';
+  button.onclick = handleSignout;
+
+  listItem.appendChild(image);
+  listItem.appendChild(name);
+  listItem.appendChild(button);
+
+  listGroup.appendChild(listItem);
+  container.appendChild(listGroup);
+}
+
