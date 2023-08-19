@@ -151,12 +151,16 @@
       document.body.style.display = 'none';
     }
 
+    let index = search1.attributes['index'] = -1;
+    let element;
+
     function onKeyUp(event) {
       if (search1.value === '') {
         suggestions1.innerHTML = '';
         suggestions1.style.display = 'none';
         return;
       }
+
       switch (event.key) {
         case 'Enter':
           searchGoogle(search1.value);
@@ -164,6 +168,26 @@
         case ' ':
           getSuggestions(suggestions1, search1.value);
           getTranslation(suggestions1, search1.value);
+          break;
+        case 'ArrowUp':
+          index--;
+          if (index < 0) index = 9;
+          element = suggestions1.firstChild.children[index];
+          for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
+            suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
+          }
+          element.style.backgroundColor = '#667788';
+          search1.value = element.textContent;
+          break;
+        case 'ArrowDown':
+          index++;
+          if (index > 9) index = 0;
+          element = suggestions1.firstChild.children[index];
+          for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
+            suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
+          }
+          element.style.backgroundColor = '#667788';
+          search1.value = element.textContent;
           break;
         default:
           getSuggestions(suggestions1, search1.value);

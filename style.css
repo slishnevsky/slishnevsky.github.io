@@ -71,6 +71,8 @@ td {
 
 #suggestions .list-group-item:hover {
   background-color: #667788;
+  color: white;
+  cursor: pointer;
 }
 
 input[type=text]:focus {
