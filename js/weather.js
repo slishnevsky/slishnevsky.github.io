@@ -40,22 +40,17 @@ function createWeather(container, data) {
   // Create the weekday name cells
   items.forEach(item => {
     const cell = document.createElement('td');
-    const link = document.createElement('a');
-    link.href = 'https://weather.gc.ca/forecast/hourly/on-143_metric_e.html';
-    link.target = 'blank';
     let img = document.createElement('img');
     img.src = item.img;
-    link.appendChild(img);
     let temp = document.createElement('h4');
     temp.textContent = item.temp;
     let cond = document.createElement('span');
     cond.textContent = item.cond;
 
-    cell.appendChild(link);
+    cell.appendChild(img);
     cell.appendChild(temp);
     cell.appendChild(cond);
     row.appendChild(cell);
-
   });
 
   // Append the table header to the table

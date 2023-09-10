@@ -23,6 +23,11 @@ body {
   font-weight: bold;
 }
 
+.panel-heading a {
+  text-decoration: none;
+  color: #333;
+}
+
 th,
 td {
   text-align: center;
