@@ -1,6 +1,7 @@
 function getNews(container) {
   // Fetch the RSS data
-  const url = 'https://corsproxy.io/?https://news.knopka.ca/rss';
+  const url = 'https://corsproxy.io/?' + encodeURIComponent('https://news.knopka.ca/rss');
+
   fetch(url)
     .then(response => response.text())
     .then(data => createNews(container, data))

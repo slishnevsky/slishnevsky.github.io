@@ -7,16 +7,10 @@ External resources utilized:
 
 CORS Resolver:
 https://corsproxy.io/?[rss-url]
+const url = 'https://corsproxy.io/?' + encodeURIComponent('https://api.domain.com/...');
 
 Knopka RSS:
 https://cors-anywhere.herokuapp.com/https://news.knopka.ca/rss
 
-CORS Resolver demo:
-https://corsproxy.io/?https://news.knopka.ca/rss
 
-Weather source page:
-https://weather.gc.ca/city/pages/on-143_metric_e.html
-
-Google Suggest API:
-https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=[text]
 

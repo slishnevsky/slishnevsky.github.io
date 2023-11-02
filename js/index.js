@@ -50,7 +50,8 @@ function createTranslation(container, translation) {
 
 function getSuggestions(container, text) {
   // Fetch the JSON data
-  const url = 'https://corsproxy.io/?https://suggestqueries.google.com/complete/search?client=firefox&q=' + text;
+  const url = 'https://corsproxy.io/?' + encodeURIComponent('https://suggestqueries.google.com/complete/search?client=firefox&q=' + text);
+
   fetch(url)
     .then(response => response.json())
     .then(data => createSuggestions(container, data[1]))

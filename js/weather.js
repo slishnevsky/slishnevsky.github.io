@@ -1,6 +1,7 @@
 function getWeather(container) {
   // Fetch the HTML page from Weather forecast
-  const url = 'https://corsproxy.io/?https://weather.gc.ca/city/pages/on-143_metric_e.html';
+  const url = 'https://corsproxy.io/?' + encodeURIComponent('https://weather.gc.ca/city/pages/on-143_metric_e.html');
+
   fetch(url)
     .then(response => response.text())
     .then(data => createWeather(container, data))
