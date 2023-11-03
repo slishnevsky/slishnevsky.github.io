@@ -1,6 +1,7 @@
 function getWeather(container) {
   // Fetch the HTML page from Weather forecast
-  const url = 'https://corsproxy.io/?' + encodeURIComponent('https://www.theweathernetwork.com/ca/weather/ontario/toronto');
+  const url = 'https://corsproxy.io/?' + encodeURIComponent('https://weather.gc.ca/city/pages/on-143_metric_e.html');
+  // const url = 'https://corsproxy.io/?' + encodeURIComponent('https://www.theweathernetwork.com/ca/weather/ontario/toronto');
 
   fetch(url)
     .then(response => response.text())
@@ -13,7 +14,7 @@ function createWeather(container, data) {
   const parser = new DOMParser();
   const document = parser.parseFromString(data, 'text/html');
 
-  const items = parseHtml(document);
+  const items = parseHtml1(document);
 
   // Create a table
   const table = document.createElement('table');
@@ -61,12 +62,38 @@ function createWeather(container, data) {
   container.appendChild(table);
 }
 
-function parseHtml(document) {
+// Weather parser for https://weather.gc.ca/city/pages/on-143_metric_e.html
+function parseHtml1(document) {
+
+  const items = [];
+
+  const xpath = '//*[@id="mainContent"]/details[1]/div[1]';
+  const day = 'Now';
+  const img = document.evaluate(xpath + '/div[1]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
+  const temp = document.evaluate(xpath + '/div[1]/p/span', document).iterateNext().textContent + 'C';
+  const cond = document.evaluate(xpath + '/div[2]/div[1]/dl/dd[1]/span', document).iterateNext().textContent;
+
+  items.push({ day: day, img: img, temp: temp, cond: cond });
+
+  for (let i = 2; i < 5; i++) {
+    const xpath = '//*[@id="mainContent"]/details[2]/div[1]/div/div[' + i + ']';
+    const day = document.evaluate(xpath + '/div[1]/strong', document).iterateNext().textContent;
+    const img = document.evaluate(xpath + '/div[2]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
+    const temp = document.evaluate(xpath + '/div[2]/p[1]/strong/span[1]', document).iterateNext().textContent + '°C';
+    const cond = document.evaluate(xpath + '/div[2]/p[3]', document).iterateNext().textContent;
+
+    items.push({ day: day, img: img, temp: temp, cond: cond });
+  }
+  return items;
+}
+
+// Weather parser for https://www.theweathernetwork.com/ca/weather/ontario/toronto
+function parseHtml2(document) {
 
   const items = [];
   
   for (let i = 1; i < 5; i++) {
-    const xpath = xpath + '//*[@id="seven-day-periods"]/div[2]/div[' + i + ']';
+    const xpath = '//*[@id="seven-day-periods"]/div[2]/div[' + i + ']';
     const day = document.evaluate(xpath + '/div[1]/span[1]', document).iterateNext().textContent;
     const cond = document.evaluate(xpath + '/div[2]/span[1]', document).iterateNext().textContent;
     const img = document.evaluate(xpath + '/div[3]/img[1]', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
