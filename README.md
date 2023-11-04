@@ -9,6 +9,9 @@ CORS Resolver:
 https://corsproxy.io/?[rss-url]
 const url = 'https://corsproxy.io/?' + encodeURIComponent('https://api.domain.com/...');
 
+Account on corsproxy.io:
+https://accounts.corsproxy.io/user
+
 Knopka RSS:
 https://cors-anywhere.herokuapp.com/https://news.knopka.ca/rss
 
