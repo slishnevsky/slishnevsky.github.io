@@ -3,11 +3,10 @@ function getWeather(container) {
 
   // const url = 'https://corsproxy.io/?' + encodeURIComponent('https://weather.gc.ca/city/pages/on-143_metric_e.html');
   const url = 'https://proxy.cors.sh/https://weather.gc.ca/city/pages/on-143_metric_e.html';
-  const apiKey = 'temp_12fb7bd3cfdc6cd2cd2ecef1751cf3dd';
 
   fetch(url, {
     headers: {
-      'x-cors-api-key': apiKey
+      'x-cors-api-key': 'temp_12fb7bd3cfdc6cd2cd2ecef1751cf3dd'
     }
   })
     .then(response => response.text())

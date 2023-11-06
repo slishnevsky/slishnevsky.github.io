@@ -50,9 +50,13 @@ function createTranslation(container, translation) {
 
 function getSuggestions(container, text) {
   // Fetch the JSON data
-  const url = 'https://corsproxy.io/?' + encodeURIComponent('https://suggestqueries.google.com/complete/search?client=firefox&q=' + text);
+  const url = 'https://proxy.cors.sh/https://suggestqueries.google.com/complete/search?client=firefox&q=' + text;
 
-  fetch(url)
+  fetch(url, {
+    headers: {
+      'x-cors-api-key': 'temp_12fb7bd3cfdc6cd2cd2ecef1751cf3dd'
+    }
+  })
     .then(response => response.json())
     .then(data => createSuggestions(container, data[1]))
     .catch(error => console.error(error));
@@ -66,7 +70,7 @@ function createSuggestions(container, items) {
 
   container.innerHTML = '';
   container.style.display = 'none';
-  
+
   if (items.length === 0) return;
 
   // Create a list of suggestions
@@ -98,7 +102,7 @@ function getUserProfile(container) {
 
   const listGroup = document.createElement('div');
   listGroup.className = 'list-group';
-  
+
   const listItem = document.createElement('div');
   listItem.className = 'list-group-item clearfix';
   listItem.style.backgroundColor = 'darksalmon';
@@ -107,7 +111,7 @@ function getUserProfile(container) {
   image.className = 'img-rounded pull-right ';
   image.style.width = '80px';
   image.src = profile.getImageUrl();
-  
+
   const name = document.createElement('h4');
   name.textContent = profile.getName();
 

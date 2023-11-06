@@ -82,8 +82,8 @@ function createCalendar(container, events) {
       const thisDate = new Date(today.getFullYear(), today.getMonth(), day);
 
       if(thisDate.getDay() == 6 || thisDate.getDay() == 0) {
-        cell.className = 'danger'; // cell.className = 'text-danger';
-        // cell.style.fontWeight = 'bold';
+        cell.className = 'text-danger';
+        cell.style.fontWeight = 'bold';
       }
 
       // Add the day number to the cell if it falls within the current month
