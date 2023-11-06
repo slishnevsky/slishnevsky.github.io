@@ -171,38 +171,41 @@
         return;
       }
 
-      switch (event.key) {
-        case 'Enter':
-          searchGoogle(search1.value);
-          break;
-        case ' ':
-          getSuggestions(suggestions1, search1.value);
-          getTranslation(suggestions1, search1.value);
-          break;
-        case 'ArrowUp':
-          index--;
-          if (index < 0) index = 9;
-          element = suggestions1.firstChild.children[index];
-          for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
-            suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
-          }
-          element.style.backgroundColor = '#667788';
-          search1.value = element.textContent;
-          break;
-        case 'ArrowDown':
-          index++;
-          if (index > 9) index = 0;
-          element = suggestions1.firstChild.children[index];
-          for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
-            suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
-          }
-          element.style.backgroundColor = '#667788';
-          search1.value = element.textContent;
-          break;
-        default:
-          getSuggestions(suggestions1, search1.value);
-          break;
-      }
+      if (event.key == 'Enter')
+        searchGoogle(search1.value);
+
+      // switch (event.key) {
+      //   case 'Enter':
+      //     searchGoogle(search1.value);
+      //     break;
+      //   case ' ':
+      //     getSuggestions(suggestions1, search1.value);
+      //     getTranslation(suggestions1, search1.value);
+      //     break;
+      //   case 'ArrowUp':
+      //     index--;
+      //     if (index < 0) index = 9;
+      //     element = suggestions1.firstChild.children[index];
+      //     for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
+      //       suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
+      //     }
+      //     element.style.backgroundColor = '#667788';
+      //     search1.value = element.textContent;
+      //     break;
+      //   case 'ArrowDown':
+      //     index++;
+      //     if (index > 9) index = 0;
+      //     element = suggestions1.firstChild.children[index];
+      //     for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
+      //       suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
+      //     }
+      //     element.style.backgroundColor = '#667788';
+      //     search1.value = element.textContent;
+      //     break;
+      //   default:
+      //     getSuggestions(suggestions1, search1.value);
+      //     break;
+      // }
     }
 
     function onClick() {
