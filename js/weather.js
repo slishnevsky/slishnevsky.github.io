@@ -1,9 +1,15 @@
 function getWeather(container) {
   // Fetch the HTML page from Weather forecast
-  const url = 'https://corsproxy.io/?' + encodeURIComponent('https://weather.gc.ca/city/pages/on-143_metric_e.html');
-  // const url = 'https://corsproxy.io/?' + encodeURIComponent('https://www.theweathernetwork.com/ca/weather/ontario/toronto');
 
-  fetch(url)
+  // const url = 'https://corsproxy.io/?' + encodeURIComponent('https://weather.gc.ca/city/pages/on-143_metric_e.html');
+  const url = 'https://proxy.cors.sh/https://weather.gc.ca/city/pages/on-143_metric_e.html';
+  const apiKey = 'temp_12fb7bd3cfdc6cd2cd2ecef1751cf3dd';
+
+  fetch(url, {
+    headers: {
+      'x-cors-api-key': apiKey
+    }
+  })
     .then(response => response.text())
     .then(data => createWeather(container, data))
     .catch(error => console.error(error));
@@ -91,7 +97,7 @@ function parseHtml1(document) {
 function parseHtml2(document) {
 
   const items = [];
-  
+
   for (let i = 1; i < 5; i++) {
     const xpath = '//*[@id="seven-day-periods"]/div[2]/div[' + i + ']';
     const day = document.evaluate(xpath + '/div[1]/span[1]', document).iterateNext().textContent;
