@@ -50,13 +50,9 @@ function createTranslation(container, translation) {
 
 function getSuggestions(container, text) {
   // Fetch the JSON data
-  const url = 'https://proxy.cors.sh/https://suggestqueries.google.com/complete/search?client=firefox&q=' + text;
+  const url = 'https://api.codetabs.com/v1/proxy/?quest=https://suggestqueries.google.com/complete/search?client=firefox&q=' + text;
 
-  fetch(url, {
-    headers: {
-      'x-cors-api-key': 'temp_12fb7bd3cfdc6cd2cd2ecef1751cf3dd'
-    }
-  })
+  fetch(url)
     .then(response => response.json())
     .then(data => createSuggestions(container, data[1]))
     .catch(error => console.error(error));

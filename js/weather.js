@@ -1,14 +1,8 @@
 function getWeather(container) {
   // Fetch the HTML page from Weather forecast
+  const url = 'https://api.codetabs.com/v1/proxy/?quest=https://weather.gc.ca/city/pages/on-143_metric_e.html';
 
-  // const url = 'https://corsproxy.io/?' + encodeURIComponent('https://weather.gc.ca/city/pages/on-143_metric_e.html');
-  const url = 'https://proxy.cors.sh/https://weather.gc.ca/city/pages/on-143_metric_e.html';
-
-  fetch(url, {
-    headers: {
-      'x-cors-api-key': 'temp_12fb7bd3cfdc6cd2cd2ecef1751cf3dd'
-    }
-  })
+  fetch(url)
     .then(response => response.text())
     .then(data => createWeather(container, data))
     .catch(error => console.error(error));

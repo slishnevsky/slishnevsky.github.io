@@ -1,12 +1,8 @@
 function getNews(container) {
   // Fetch the RSS data
-  const url = 'https://proxy.cors.sh/https://news.knopka.ca/rss';
+  const url = 'https://api.codetabs.com/v1/proxy/?quest=https://news.knopka.ca/rss';
 
-  fetch(url, {
-    headers: {
-      'x-cors-api-key': 'temp_12fb7bd3cfdc6cd2cd2ecef1751cf3dd'
-    }
-  })
+  fetch(url)
     .then(response => response.text())
     .then(data => createNews(container, data))
     .catch(error => console.error(error));
