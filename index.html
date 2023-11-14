@@ -73,9 +73,15 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div id="news" class="panel panel-default">
+        <div id="news1" class="panel panel-default">
           <div class="panel-heading">
-            <a href="https://news.knopka.ca/" target="_blank">Последние новости</a>
+            <a href="https://news.knopka.ca/" target="_blank">Последние новости от Knopka.ca</a>
+          </div>
+          <!-- News list inserted here -->
+        </div>
+        <div id="news2" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://news.knopka.ca/" target="_blank">Последние новости от Rebel News</a>
           </div>
           <!-- News list inserted here -->
         </div>
@@ -91,7 +97,8 @@
     const events1 = document.getElementById('events');
     const bookmarks1 = document.getElementById('bookmarks1');
     const bookmarks2 = document.getElementById('bookmarks2');
-    const news1 = document.getElementById('news');
+    const news1 = document.getElementById('news1');
+    const news2 = document.getElementById('news2');
     const suggestions1 = document.getElementById('suggestions');
 
     // Client ID and API key from the Google API Console
@@ -147,7 +154,8 @@
       getCalendar(calendar1, events1);
       getBookmarks(bookmarks1, 'Магазины');
       getBookmarks(bookmarks2, 'Сервисы');
-      getNews(news1);
+      getNews(news1, 'https://news.knopka.ca/rss');
+      getNews(news2, 'https://www.rebelnews.com/news.rss');
     }
 
     function removeAllContent() {

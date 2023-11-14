@@ -1,6 +1,6 @@
-function getNews(container) {
+function getNews(container, url) {
   // Fetch the RSS data
-  const url = 'https://api.codetabs.com/v1/proxy/?quest=https://news.knopka.ca/rss';
+  url = 'https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent(url);
 
   fetch(url)
     .then(response => response.text())
@@ -20,21 +20,11 @@ function createNews(container, data) {
   listGroup.className = 'list-group';
 
   // Loop through each item and display its title and link
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < 10; i++) {
     const title = items[i].getElementsByTagName('title')[0].textContent;
     const description = items[i].getElementsByTagName('description')[0].textContent;
     const link = items[i].getElementsByTagName('link')[0].textContent;
-    const enclosure = items[i].getElementsByTagName('enclosure')[0].attributes['url'].textContent;
-
-    const img = document.createElement('img');
-    img.src = enclosure;
-    img.className = 'pull-left';
-    img.style.width = '100px';
-    img.style.height = '70px';
-    img.style.margin = '-10px 10px -10px -15px';
-
-    const div = document.createElement('div');
-    div.textContent = title;
+    const images = items[i].getElementsByTagName('enclosure');
 
     // Create a list item element
     const listItem = document.createElement('a');
@@ -42,7 +32,17 @@ function createNews(container, data) {
     listItem.style.fontSize = 'smaller';
     listItem.href = link;
     listItem.target = 'blank';
+
+    const img = document.createElement('img');
+    img.src = (images.length > 0) ? images[0].attributes['url'].textContent : 'assets/news.jpg';
+    img.className = 'pull-left';
+    img.style.width = '100px';
+    img.style.height = '70px';
+    img.style.margin = '-10px 10px -10px -15px';
     listItem.appendChild(img);
+
+    const div = document.createElement('div');
+    div.textContent = title;
     listItem.appendChild(div);
 
     // Append the container div to the RSS feed div
