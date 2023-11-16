@@ -20,7 +20,7 @@ function createNews(container, data) {
   listGroup.className = 'list-group';
 
   // Loop through each item and display its title and link
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < items.length; i++) {
     const title = items[i].getElementsByTagName('title')[0].textContent;
     const description = items[i].getElementsByTagName('description')[0].textContent;
     const link = items[i].getElementsByTagName('link')[0].textContent;
