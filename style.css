@@ -1,8 +1,7 @@
 body {
   padding-top: 70px;
   padding-bottom: 30px;
-  background: url("assets/background.jpg") no-repeat fixed center;
-  display: none;
+  background: url("assets/bg.jpg") no-repeat fixed center;
 }
 
 .navbar {
