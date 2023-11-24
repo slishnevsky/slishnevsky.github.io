@@ -1,6 +1,6 @@
-function getNews(container, url) {
+function getNews(container) {
   // Fetch the RSS data
-  url = 'https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent(url);
+  const url = 'https://cors-anywhere.herokuapp.com/https://news.knopka.ca/rss';
 
   fetch(url)
     .then(response => response.text())

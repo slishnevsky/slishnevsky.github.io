@@ -1,6 +1,6 @@
 function getWeather(container) {
   // Fetch the HTML page from Weather forecast
-  const url = 'https://api.codetabs.com/v1/proxy/?quest=https://weather.gc.ca/city/pages/on-143_metric_e.html';
+  const url = 'https://cors-anywhere.herokuapp.com/https://weather.gc.ca/city/pages/on-143_metric_e.html';
 
   fetch(url)
     .then(response => response.text())
