@@ -1,53 +1,53 @@
 ﻿{
   "Флаерсы": [
     {
-      "title": "FreshCo Canada Flyers",
+      "title": "<b>FreshCo</b> Canada Flyers",
       "link": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada/"
     },
     {
-      "title": "No Frills Canada Flyers",
+      "title": "<b>No Frills</b> Canada Flyers",
       "link": "http://flyers.smartcanucks.ca/no-frills-canada/"
     },
     {
-      "title": "Shoppers Drugmart Canada Flyers",
+      "title": "<b>Shoppers Drug Mart</b> Canada Flyers",
       "link": "http://flyers.smartcanucks.ca/shoppers-drug-mart-canada/"
     },
     {
-      "title": "Superstore Canada Flyers",
+      "title": "<b>Superstore</b> Canada Flyers",
       "link": "http://flyers.smartcanucks.ca/real-canadian-superstore-canada/"
     },
     {
-      "title": "Coppa's Canada Flyers",
+      "title": "<b>Coppa's</b> Canada Flyers",
       "link": "http://flyers.smartcanucks.ca/coppas-fresh-market-canada/"
     },
     {
-      "title": "Walmart Canada Flyers",
+      "title": "<b>Walmart</b> Canada Flyers",
       "link": "http://flyers.smartcanucks.ca/walmart-canada/"
     }
   ],  
   "Магазины": [
     {
-      "title": "FreshCo Grocery Shopping",
+      "title": "<b>FreshCo</b> Grocery Shopping",
       "link": "https://freshco.com/"
     },
     {
-      "title": "No Frills Grocery Shopping",
+      "title": "<b>No Frills</b> Grocery Shopping",
       "link": "https://www.nofrills.ca/"
     },
     {
-      "title": "Shoppers Drug Mart",
+      "title": "<b>Shoppers Drug Mart</b> Superstore",
       "link": "https://www.shoppersdrugmart.ca/"
     },
     {
-      "title": "Real Canadian Superstore",
+      "title": "<b>Superstore</b> Supermarket",
       "link": "https://www.realcanadiansuperstore.ca/"
     },
     {
-      "title": "Coppa's Fresh Market",
+      "title": "<b>Coppa's</b> Grocery Shopping",
       "link": "https://www.coppas.com/"
     },
     {
-      "title": "Walmart Canada",
+      "title": "<b>Walmart Canada</b> Shopping",
       "link": "https://www.walmart.ca/"
     }
   ],

@@ -21,18 +21,23 @@ function createBookmarks(container, data, category) {
     listItem.className = 'list-group-item';
     listItem.href = bookmark.link;
     listItem.target = 'blank';
-    const splitstring = 'Canada Flyers';
-    if (bookmark.title.includes(splitstring)) {
-      listItem.innerHTML = '<strong>' + bookmark.title.split(splitstring)[0] + '</strong>' + splitstring;  
-    } else {
-      listItem.textContent = bookmark.title;
-    }
-  
+    // const splitstring1 = 'Canada Flyers';
+    // const splitstring2 = 'Canada Shopping';
+    // if (bookmark.title.includes(splitstring1)) {
+    //   listItem.innerHTML = '<strong>' + bookmark.title.split(splitstring1)[0] + '</strong>' + splitstring1;
+    // } else if (bookmark.title.includes(splitstring2)) {
+    //   listItem.innerHTML = '<strong>' + bookmark.title.split(splitstring2)[0] + '</strong>' + splitstring2;
+    // } else {
+    //   listItem.textContent = bookmark.title;
+    // }
+
+    listItem.innerHTML = bookmark.title;
+
     let img = document.createElement('img');
     img.className = 'icon pull-left';
     img.src = 'https://s2.googleusercontent.com/s2/favicons?domain=' + bookmark.link;
     listItem.appendChild(img);
-  
+
     // Append the list item to the unordered list
     listGroup.appendChild(listItem);
   });
