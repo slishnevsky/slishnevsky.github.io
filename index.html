@@ -64,11 +64,17 @@
       <div class="col-md-4">
         <div id="bookmarks1" class="panel panel-default">
           <div class="panel-heading">
-            <a href="https://flyers.smartcanucks.ca/" target="_blank">Магазины</a>
+            <a href="https://flyers.smartcanucks.ca/" target="_blank">Флаерсы</a>
           </div>
           <!-- Bookmarks list inserted here -->
         </div>
         <div id="bookmarks2" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://flyers.smartcanucks.ca/" target="_blank">Магазины</a>
+          </div>
+          <!-- Bookmarks list inserted here -->
+        </div>
+        <div id="bookmarks3" class="panel panel-default">
           <div class="panel-heading">Сервисы</div>
           <!-- Bookmarks list inserted here -->
         </div>
@@ -92,6 +98,7 @@
     const events1 = document.getElementById('events');
     const bookmarks1 = document.getElementById('bookmarks1');
     const bookmarks2 = document.getElementById('bookmarks2');
+    const bookmarks3 = document.getElementById('bookmarks3');
     const news1 = document.getElementById('news1');
     const suggestions1 = document.getElementById('suggestions');
 
@@ -146,8 +153,9 @@
       getDateTime(datetime1);
       getWeather(weather1);
       getCalendar(calendar1, events1);
-      getBookmarks(bookmarks1, 'Магазины');
-      getBookmarks(bookmarks2, 'Сервисы');
+      getBookmarks(bookmarks1, 'Флаерсы');
+      getBookmarks(bookmarks2, 'Магазины');
+      getBookmarks(bookmarks3, 'Сервисы');
       getNews(news1);
     }
 

@@ -1,32 +1,54 @@
 ﻿{
-  "Магазины": [
+  "Флаерсы": [
     {
       "title": "FreshCo Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada"
+      "link": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada/"
     },
     {
       "title": "No Frills Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/no-frills-canada"
+      "link": "http://flyers.smartcanucks.ca/no-frills-canada/"
     },
     {
       "title": "Shoppers Drugmart Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/shoppers-drug-mart-canada"
+      "link": "http://flyers.smartcanucks.ca/shoppers-drug-mart-canada/"
     },
     {
       "title": "Superstore Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/real-canadian-superstore-canada"
+      "link": "http://flyers.smartcanucks.ca/real-canadian-superstore-canada/"
     },
     {
       "title": "Coppa's Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/coppas-fresh-market-canada"
-    },
-    {
-      "title": "Metro Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/metro-canada"
+      "link": "http://flyers.smartcanucks.ca/coppas-fresh-market-canada/"
     },
     {
       "title": "Walmart Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/walmart-canada"
+      "link": "http://flyers.smartcanucks.ca/walmart-canada/"
+    }
+  ],  
+  "Магазины": [
+    {
+      "title": "FreshCo Grocery Shopping",
+      "link": "https://freshco.com/"
+    },
+    {
+      "title": "No Frills Grocery Shopping",
+      "link": "https://www.nofrills.ca/"
+    },
+    {
+      "title": "Shoppers Drug Mart",
+      "link": "https://www.shoppersdrugmart.ca/"
+    },
+    {
+      "title": "Real Canadian Superstore",
+      "link": "https://www.realcanadiansuperstore.ca/"
+    },
+    {
+      "title": "Coppa's Fresh Market",
+      "link": "https://www.coppas.com/"
+    },
+    {
+      "title": "Walmart Canada",
+      "link": "https://www.walmart.ca/"
     }
   ],
   "Сервисы": [
@@ -35,16 +57,12 @@
       "link": "https://www.canada.ca/en/revenue-agency.html"
     },
     {
-      "title": "Government of Canada (Official Website)",
-      "link": "https://www.canada.ca/"
-    },
-    {
       "title": "Service Canada (Programs for Canadians)",
       "link": "https://www.canada.ca/en/employment-social-development/corporate/portfolio/service-canada.html"
     },
     {
       "title": "Government of Ontario (Provincial Services)",
-      "link": "http://www.ontario.ca/government/services"
+      "link": "http://www.ontario.ca/government/services/"
     },
     {
       "title": "York Region (Regional Services)",
@@ -52,19 +70,19 @@
     },
     {
       "title": "City of Vaughan (Residential Services)",
-      "link": "https://www.vaughan.ca"
+      "link": "https://www.vaughan.ca/"
     },
     {
       "title": "Allstate Insurance (Home and Auto Insurance)",
-      "link": "http://www.allstate.ca"
+      "link": "http://www.allstate.ca/"
     },
     {
       "title": "Alectra Utilities (Home Electricity)",
-      "link": "https://www.powerstream.ca"
+      "link": "https://www.powerstream.ca/"
     },
     {
       "title": "Enbridge (Home Gas Services)",
-      "link": "https://www.enbridgegas.com"
+      "link": "https://www.enbridgegas.com/"
     },
     {
       "title": "Coextro (Internet Provider)",
@@ -72,11 +90,11 @@
     },
     {
       "title": "Fido (Mobile Phone Provider)",
-      "link": "https://www.fido.ca/self-serve/wireless"
+      "link": "https://www.fido.ca/self-serve/wireless/"
     },
     {
       "title": "VOIP.ms (VOIP Phone Provider)",
-      "link": "http://voip.ms"
+      "link": "http://voip.ms/"
     }
   ],
   "Работа": [
