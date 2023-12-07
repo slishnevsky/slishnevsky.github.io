@@ -12,6 +12,12 @@ body {
   color: salmon !important;
 }
 
+.btn-danger2 {
+  background-color: salmon !important;
+  color: #333;
+  font-weight: bold;
+}
+
 .navbar-form .form-control {
   display: inline-block;
   min-width: 285px;
