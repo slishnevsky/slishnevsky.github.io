@@ -2,27 +2,27 @@
   "Флаерсы": [
     {
       "title": "<b>FreshCo</b> Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada/"
+      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=freshco&page=freshco-flyer-sales/"
     },
     {
       "title": "<b>No Frills</b> Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/no-frills-canada/"
+      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=nofrills&page=no-frills-flyer-sales/"
     },
     {
       "title": "<b>Shoppers Drug Mart</b> Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/shoppers-drug-mart-canada/"
+      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=shoppers-drug-mart&page=shoppers-drug-mart-flyer/"
     },
     {
-      "title": "<b>Superstore</b> Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/real-canadian-superstore-canada/"
+      "title": "<b>Longos</b> Canada Flyers",
+      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=longos&page=longos-sales/"
     },
     {
       "title": "<b>Coppa's</b> Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/coppas-fresh-market-canada/"
+      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=coppas&page=coppas-deals/"
     },
     {
       "title": "<b>Walmart</b> Canada Flyers",
-      "link": "http://flyers.smartcanucks.ca/walmart-canada/"
+      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=walmart-canada&page=walmart-supercentre-deals/"
     }
   ],  
   "Магазины": [
@@ -39,8 +39,8 @@
       "link": "https://www.shoppersdrugmart.ca/"
     },
     {
-      "title": "<b>Superstore</b> Supermarket",
-      "link": "https://www.realcanadiansuperstore.ca/"
+      "title": "<b>Longos</b> Supermarket",
+      "link": "https://www.longos.com/"
     },
     {
       "title": "<b>Coppa's</b> Grocery Shopping",
