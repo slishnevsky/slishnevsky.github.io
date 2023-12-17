@@ -2,27 +2,43 @@
   "Флаерсы": [
     {
       "title": "<b>FreshCo</b> Canada Flyers",
-      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=freshco&page=freshco-flyer-sales/"
+      "link": "https://freshco.com/",
+      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=freshco&page=freshco-flyer-sales/"
     },
     {
       "title": "<b>No Frills</b> Canada Flyers",
-      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=nofrills&page=no-frills-flyer-sales/"
+      "link": "https://www.nofrills.ca/",
+      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=nofrills&page=no-frills-flyer-sales/"
+      
     },
     {
       "title": "<b>Shoppers Drug Mart</b> Canada Flyers",
-      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=shoppers-drug-mart&page=shoppers-drug-mart-flyer/"
+      "link": "https://www.shoppersdrugmart.ca/",
+      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=shoppers-drug-mart&page=shoppers-drug-mart-flyer/"
+      
+    },    
+    {
+      "title": "<b>Real Canadian Superstore</b> Flyers",
+      "link": "https://www.realcanadiansuperstore.ca/",
+      "link2": "https://www.circulars.ca/real-canadian-superstore/"
+      
     },
     {
       "title": "<b>Longos</b> Canada Flyers",
-      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=longos&page=longos-sales/"
+      "link": "https://www.longos.com/",
+      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=longos&page=longos-sales/"
+      
     },
     {
       "title": "<b>Coppa's</b> Canada Flyers",
-      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=coppas&page=coppas-deals/"
+      "link": "https://www.coppas.com/",
+      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=coppas&page=coppas-deals/"
+      
     },
     {
       "title": "<b>Walmart</b> Canada Flyers",
-      "link": "https://circulars.ca/flyer/?ref=circulars.ca&sname=walmart-canada&page=walmart-supercentre-deals/"
+      "link": "https://www.walmart.ca/",
+      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=walmart-canada&page=walmart-supercentre-deals/"
     }
   ],  
   "Магазины": [
@@ -37,6 +53,10 @@
     {
       "title": "<b>Shoppers Drug Mart</b> Superstore",
       "link": "https://www.shoppersdrugmart.ca/"
+    },
+    {
+      "title": "<b>Real Canadian Superstore</b>",
+      "link": "https://www.realcanadiansuperstore.ca/"
     },
     {
       "title": "<b>Longos</b> Supermarket",

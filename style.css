@@ -43,6 +43,8 @@ td {
   border-radius: 4px;
   padding: 2px;
   border: 1px solid #BBB;
+  width: 22px;
+  height: 22px;
 }
 
 .today {
