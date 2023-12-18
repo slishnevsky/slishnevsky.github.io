@@ -44,6 +44,14 @@ td {
   height: 20px;
 }
 
+.btn-xs {
+  padding: 1px 4px;
+  font-size: 10px;
+  border-radius: 3px;
+  float: left;
+  margin-right: 5px;
+}
+
 .today {
   border-radius: 4px;
   background-color: #5CB85C;
