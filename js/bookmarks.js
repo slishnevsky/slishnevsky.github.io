@@ -26,9 +26,9 @@ function createBookmarks(container, data, category) {
     let img = document.createElement('img');
     img.className = 'icon pull-left';
     // img.src = 'https://s2.googleusercontent.com/s2/favicons?domain=https://www.circulars.ca/real-canadian-superstore/'; // + bookmark.link;
-    if (category == 'Флаерсы') img.src = 'assets/icon1.png';
-    if (category == 'Магазины') img.src = 'assets/icon2.png';
-    if (category == 'Сервисы') img.src = 'assets/icon3.png';
+    if (category == 'Флаерсы') img.src = 'assets/icon1b.png';
+    if (category == 'Магазины') img.src = 'assets/icon2b.png';
+    if (category == 'Сервисы') img.src = 'assets/icon3b.png';
       
     
     
