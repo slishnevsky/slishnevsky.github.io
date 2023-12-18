@@ -22,9 +22,9 @@ function createBookmarks(container, data, category) {
     listItem.href = (category == 'Флаерсы') ? bookmark.link2 : bookmark.link;
     listItem.target = 'blank';
 
-    if (category == 'Флаерсы') listItem.innerHTML = '<span class="btn btn-xs btn-danger glyphicon glyphicon-usd"></span>';
-    if (category == 'Магазины') listItem.innerHTML = '<span class="btn btn-xs btn-success glyphicon glyphicon-shopping-cart"></span>';
-    if (category == 'Сервисы') listItem.innerHTML = '<span class="btn btn-xs btn-primary glyphicon glyphicon-cog"></span>';
+    if (category == 'Флаерсы') listItem.innerHTML = '<span class="btn btn-xs icon btn-danger glyphicon glyphicon-usd"></span>';
+    if (category == 'Магазины') listItem.innerHTML = '<span class="btn btn-xs icon btn-success glyphicon glyphicon-shopping-cart"></span>';
+    if (category == 'Сервисы') listItem.innerHTML = '<span class="btn btn-xs icon btn-primary glyphicon glyphicon-cog"></span>';
 
     listItem.innerHTML += bookmark.title;
 
