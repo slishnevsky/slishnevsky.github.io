@@ -24,6 +24,10 @@ body {
   vertical-align: middle;
 }
 
+.form-control:focus {
+  box-shadow: none;
+}
+
 .panel-heading {
   font-weight: bold;
 }
