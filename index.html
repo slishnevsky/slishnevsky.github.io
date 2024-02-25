@@ -120,14 +120,12 @@
 		}
 
 		async function initClient() {
-			const credentials = {
+			const response = await gapi.client.init({
 				apiKey: API_KEY,
 				clientId: CLIENT_ID,
 				discoveryDocs: DISCOVERY_DOCS,
 				scope: SCOPES
-			};
-
-			const response = await gapi.client.init(credentials);
+			});
 
 			gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
