@@ -90,14 +90,10 @@ function getUserProfile(container) {
 
 	const listItem = document.createElement('div');
 	listItem.className = 'list-group-item clearfix';
-	listItem.style.backgroundColor = '#313C4C';
-	listItem.style.color = '#DDDDDD';
-	listItem.style.textShadow = '';
 
 	const image = document.createElement('img');
 	image.className = 'img-rounded pull-right ';
 	image.style.width = '74px';
-	// image.style.border = 'solid #DDDDDD 1px';
 	image.src = profile.getImageUrl();
 
 	const name = document.createElement('h4');
