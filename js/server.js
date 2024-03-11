@@ -7,7 +7,7 @@ const app = express()
 
 app.use(cors())
 
-app.get('/api', async (req, res) => {
+app.get('/', async (req, res) => {
   const response = await fetch('https://news.knopka.ca/rss')
   const data = response.json()
   res.json(data)

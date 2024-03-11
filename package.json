@@ -1,6 +1,7 @@
 {
   "name": "slishnevsky.github.io",
   "version": "1.0.0",
+  "type": "module",
   "description": "**Written using HTML, Javascript, Bootstrap 3 and Google API**",
   "main": "index.js",
   "scripts": {
