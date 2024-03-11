@@ -11,7 +11,7 @@ app.get('/', async (req, res) => {
   const response = await fetch('https://news.knopka.ca/rss');
   const data = await response.text();
   const json = convert.xml2json(data);
-  return json;
+  res.json(json);
 })
 
 app.listen(3000, () => {

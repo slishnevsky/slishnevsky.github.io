@@ -5,7 +5,8 @@
   "description": "**Written using HTML, Javascript, Bootstrap 3 and Google API**",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node js/server.js"
   },
   "author": "",
   "license": "ISC",
