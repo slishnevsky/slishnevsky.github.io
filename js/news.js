@@ -1,6 +1,6 @@
 async function getNews(container) {
 	// Fetch the RSS data
-	const response = await fetch('https://cors-anywhere.herokuapp.com/https://news.knopka.ca/rss');
+	const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=https://news.knopka.ca/rss');
 	const data = await response.text();
 	createNews(container, data)
 }

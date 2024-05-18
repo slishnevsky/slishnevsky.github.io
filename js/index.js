@@ -42,7 +42,7 @@ function createTranslation(container, translation) {
 
 async function getSuggestions(container, text) {
   // Fetch the JSON data
-  const response = await fetch('https://cors-anywhere.herokuapp.com/https://suggestqueries.google.com/complete/search?client=firefox&q=' + text);
+  const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=https://suggestqueries.google.com/complete/search?client=firefox&q=' + text);
   const data = await response.json();
   createSuggestions(container, data[1])
 }
