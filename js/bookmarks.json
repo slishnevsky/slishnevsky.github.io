@@ -3,37 +3,32 @@
     {
       "title": "<b>FreshCo</b> Canada Flyers",
       "link": "https://freshco.com/",
-      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=freshco&page=freshco-flyer-sales/"
+      "link2": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada"
     },
     {
       "title": "<b>No Frills</b> Canada Flyers",
       "link": "https://www.nofrills.ca/",
-      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=nofrills&page=no-frills-flyer-sales/"
+      "link2": "https://flyers.smartcanucks.ca/no-frills-canada"
     },
     {
       "title": "<b>Shoppers Drug Mart</b> Canada Flyers",
       "link": "https://www.shoppersdrugmart.ca/",
-      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=shoppers-drug-mart&page=shoppers-drug-mart-flyer/"
+      "link2": "https://flyers.smartcanucks.ca/shoppers-drug-mart-canada"
     },
     {
       "title": "<b>Real Canadian Superstore</b> Flyers",
       "link": "https://www.realcanadiansuperstore.ca/",
-      "link2": "https://www.circulars.ca/real-canadian-superstore/"
-    },
-    {
-      "title": "<b>Longos</b> Canada Flyers",
-      "link": "https://www.longos.com/",
-      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=longos&page=longos-sales/"
-    },
-    {
-      "title": "<b>Coppa's</b> Canada Flyers",
-      "link": "https://www.coppas.com/",
-      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=coppas&page=coppas-deals/"
+      "link2": "https://flyers.smartcanucks.ca/real-canadian-superstore-canada"
     },
     {
       "title": "<b>Walmart</b> Canada Flyers",
       "link": "https://www.walmart.ca/",
-      "link2": "https://circulars.ca/flyer/?ref=circulars.ca&sname=walmart-canada&page=walmart-supercentre-deals/"
+      "link2": "https://flyers.smartcanucks.ca/walmart-canada"
+    },
+    {
+      "title": "<b>Coppa's</b> Canada Flyers",
+      "link": "https://www.coppas.com/",
+      "link2": "https://flyers.smartcanucks.ca/coppas-fresh-market-canada"
     }
   ],
   "Магазины": [
@@ -54,16 +49,12 @@
       "link": "https://www.realcanadiansuperstore.ca/"
     },
     {
-      "title": "<b>Coppa's</b> Grocery Shopping",
-      "link": "https://www.coppas.com/"
-    },
-    {
       "title": "<b>Walmart Canada</b> Shopping",
       "link": "https://www.walmart.ca/"
     },
     {
-      "title": "<b>Canadian Tire</b> Superstore",
-      "link": "https://www.canadiantire.ca/en.html"
+      "title": "<b>Coppa's</b> Grocery Shopping",
+      "link": "https://www.coppas.com/"
     }
   ],
   "Сервисы": [
