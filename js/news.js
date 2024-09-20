@@ -1,11 +1,11 @@
-async function getNews(container) {
+async function getNews(container, feedUrl, count) {
 	// Fetch the RSS data
-	const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=https://news.knopka.ca/rss');
+	const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=' + feedUrl);
 	const data = await response.text();
-	createNews(container, data)
+	createNews(container, data, count)
 }
 
-function createNews(container, data) {
+function createNews(container, data, count) {
 	// Parse the XML into JavaScript object
 	const parser = new window.DOMParser();
 	const xmlDoc = parser.parseFromString(data, 'text/xml');
@@ -15,13 +15,14 @@ function createNews(container, data) {
 
 	const listGroup = document.createElement('div');
 	listGroup.className = 'list-group';
+	if(items.length < count) count = items.length;
 
 	// Loop through each item and display its title and link
-	for (let i = 0; i < items.length; i++) {
+	for (let i = 0; i < count; i++) {
 		const title = items[i].getElementsByTagName('title')[0].textContent;
 		const description = items[i].getElementsByTagName('description')[0].textContent;
 		const link = items[i].getElementsByTagName('link')[0].textContent;
-		const images = items[i].getElementsByTagName('enclosure');
+		const image = items[i].getElementsByTagName('enclosure')[0] ?? items[i].getElementsByTagName('media:content')[0];
 
 		// Create a list item element
 		const listItem = document.createElement('a');
@@ -31,7 +32,7 @@ function createNews(container, data) {
 		listItem.target = 'blank';
 
 		const img = document.createElement('img');
-		img.src = (images.length > 0) ? images[0].attributes['url'].textContent : 'assets/news.jpg';
+		img.src = image.attributes['url'].textContent;
 		img.className = 'pull-left';
 		img.style.width = '100px';
 		img.style.height = '70px';

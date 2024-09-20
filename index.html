@@ -87,6 +87,12 @@
         </div>
         <div id="news1" class="panel panel-default">
           <div class="panel-heading">
+            <a href="https://news.knopka.ca/" target="_blank">Канадские новости</a>
+          </div>
+          <!-- News list inserted here -->
+        </div>
+        <div id="news2" class="panel panel-default">
+          <div class="panel-heading">
             <a href="https://news.knopka.ca/" target="_blank">Последние новости</a>
           </div>
           <!-- News list inserted here -->
@@ -105,6 +111,7 @@
     const bookmarks2 = document.getElementById('bookmarks2');
     const bookmarks3 = document.getElementById('bookmarks3');
     const news1 = document.getElementById('news1');
+    const news2 = document.getElementById('news2');
     const suggestions1 = document.getElementById('suggestions');
 
     // Credentials to authenticate with Google API 
@@ -158,7 +165,8 @@
       getBookmarks(bookmarks1, 'Флаерсы');
       getBookmarks(bookmarks2, 'Магазины');
       getBookmarks(bookmarks3, 'Сервисы');
-      getNews(news1);
+      getNews(news1, 'https://news.knopka.ca/rss', 7);
+      getNews(news2, 'http://feeds.foxnews.com/foxnews/politics', 7);
     }
 
     function removeAllContent() {
