@@ -79,12 +79,6 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div id="profile1" class="panel panel-default" style="display: none;">
-          <div class="panel-heading">
-            <a href="https://myaccount.google.com/" target="_blank">Профиль пользователя</a>
-          </div>
-          <!-- News list inserted here -->
-        </div>
         <div id="news1" class="panel panel-default">
           <div class="panel-heading">
             <a href="https://news.knopka.ca/" target="_blank">Канадские новости</a>
@@ -103,7 +97,6 @@
   <script type="text/javascript">
     const datetime1 = document.getElementById('datetime');
     const search1 = document.getElementById('search');
-    const profile1 = document.getElementById('profile1');
     const weather1 = document.getElementById('weather');
     const calendar1 = document.getElementById('calendar');
     const events1 = document.getElementById('events');
@@ -158,7 +151,6 @@
 
     function createAllContent() {
       document.body.style.display = 'block';
-      getUserProfile(profile1);
       getDateTime(datetime1);
       getWeather(weather1);
       getCalendar(calendar1, events1);
