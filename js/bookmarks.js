@@ -11,14 +11,13 @@ function createBookmarks(container, data, category) {
   const listGroup = document.createElement('div');
   listGroup.className = 'list-group';
 
-
   // Iterate over the JSON data and create list items
 
   data[category].forEach(bookmark => {
     // Create a list item element
     const listItem = document.createElement('a');
     listItem.className = 'list-group-item';
-    listItem.href = (category == 'Флаерсы') ? bookmark.link2 : bookmark.link;
+    listItem.href = bookmark.link;
     listItem.target = 'blank';
 
     if (category == 'Флаерсы') listItem.innerHTML = '<span class="btn btn-xs icon btn-danger glyphicon glyphicon-usd"></span>';
@@ -26,13 +25,6 @@ function createBookmarks(container, data, category) {
     if (category == 'Сервисы') listItem.innerHTML = '<span class="btn btn-xs icon btn-primary glyphicon glyphicon-cog"></span>';
 
     listItem.innerHTML += bookmark.title;
-
-    // let img = document.createElement('img');
-    // img.className = 'icon pull-left';
-    // if (category == 'Флаерсы') img.src = 'assets/icon1b.png';
-    // if (category == 'Магазины') img.src = 'assets/icon2b.png';
-    // if (category == 'Сервисы') img.src = 'assets/icon3b.png';
-    // listItem.appendChild(img);
 
     // Append the list item to the unordered list
     listGroup.appendChild(listItem);
