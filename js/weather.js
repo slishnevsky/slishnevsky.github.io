@@ -2,7 +2,6 @@ async function getWeather(container) {
   // Fetch the HTML page from Weather forecast
   const corsProxy = 'https://api.codetabs.com/v1/proxy/?quest=';
   const response = await fetch(corsProxy + 'https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383');
-
   const data = await response.text();
   createWeather(container, data)
 }
