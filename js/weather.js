@@ -1,7 +1,8 @@
 async function getWeather(container) {
   // Fetch the HTML page from Weather forecast
-  const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383');
-  
+  const corsProxy = 'https://api.codetabs.com/v1/proxy/?quest=';
+  const response = await fetch(corsProxy + 'https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383');
+
   const data = await response.text();
   createWeather(container, data)
 }
@@ -61,7 +62,6 @@ function createWeather(container, data) {
   container.appendChild(table);
 }
 
-// Weather parser for https://weather.gc.ca/city/pages/on-143_metric_e.html
 function parseHtml(document) {
 
   const items = [];
