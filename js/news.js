@@ -1,7 +1,7 @@
 async function getNews(container, feedUrl, count) {
   // Fetch the RSS data
-  // const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=' + feedUrl);
-  const response = await fetch(feedUrl);
+  const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=' + feedUrl);
+  // const response = await fetch(feedUrl);
   const data = await response.text();
   createNews(container, data, count)
 }
@@ -27,9 +27,12 @@ function createNews(container, data, count) {
 
     let imageSrc = 'assets/news.png';
 
-    if (items[i].querySelector('enclosure')) imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
-    if (items[i].querySelector('content')) items[i].querySelector('content').attributes['url'].value;
-    if (items[i].querySelector('thumbnail')) imageSrc = items[i].querySelector('thumbnail').attributes['url'].value;
+    if (items[i].querySelector('enclosure')) 
+      imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
+    if (items[i].querySelector('content')) 
+      imageSrc = items[i].querySelector('content').attributes['url'].value;
+    if (items[i].querySelector('thumbnail')) 
+      imageSrc = items[i].querySelector('thumbnail').attributes['url'].value;
 
     // Create a list item element
     const listItem = document.createElement('a');
