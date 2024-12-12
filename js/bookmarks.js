@@ -1,20 +1,17 @@
+// Fetch bookmarks from JSON file and display them
 async function getBookmarks(container, category) {
-  // Fetch the JSON data from a file
   const response = await fetch('js/bookmarks.json');
   const data = await response.json();
   createBookmarks(container, data, category);
 }
 
 function createBookmarks(container, data, category) {
-
   // Create an unordered list element
   const listGroup = document.createElement('div');
   listGroup.className = 'list-group';
 
   // Iterate over the JSON data and create list items
-
   data[category].forEach(bookmark => {
-    // Create a list item element
     const listItem = document.createElement('a');
     listItem.className = 'list-group-item';
     listItem.href = bookmark.link;

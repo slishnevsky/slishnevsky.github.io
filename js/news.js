@@ -1,13 +1,14 @@
 async function getNews(container, feedUrl, count) {
-  // Fetch the RSS data
-  const response = await fetch('https://api.codetabs.com/v1/proxy/?quest=' + feedUrl);
-  // const response = await fetch(feedUrl);
+  // Fetch the RSS data from a proxy server to bypass CORS restrictions
+  const corsProxy = 'https://corsproxy.io/?url=';
+  const response = await fetch(corsProxy + feedUrl);
   const data = await response.text();
   createNews(container, data, count)
 }
 
+// Display the news items in the specified container
 function createNews(container, data, count) {
-  // Parse the XML into JavaScript object
+  // Parse the XML into JavaScript object using DOMParser()
   const parser = new window.DOMParser();
   const xmlDoc = parser.parseFromString(data, 'text/xml');
 
@@ -20,13 +21,13 @@ function createNews(container, data, count) {
 
   // Loop through each item and display its title and link
   for (let i = 0; i < count; i++) {
-    // const title = items[i].getElementsByTagName('title')[0].textContent;
     const title = items[i].querySelector('title').textContent;
     const description = items[i].querySelector('description').textContent;
     const link = items[i].querySelector('link').textContent;
 
     let imageSrc = 'assets/news.png';
 
+    // Fetch and display the image for each news item
     if (items[i].querySelector('enclosure')) 
       imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
     if (items[i].querySelector('content')) 
