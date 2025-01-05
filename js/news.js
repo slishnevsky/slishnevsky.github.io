@@ -22,7 +22,6 @@ function createNews(container, data, count) {
   // Loop through each item and display its title and link
   for (let i = 0; i < count; i++) {
     const title = items[i].querySelector('title').textContent;
-    const description = items[i].querySelector('description').textContent;
     const link = items[i].querySelector('link').textContent;
 
     let imageSrc = 'assets/news.png';

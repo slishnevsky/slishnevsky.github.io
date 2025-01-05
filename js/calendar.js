@@ -27,7 +27,6 @@ async function getCalendar(container1, container2) {
   createEvents(container2, events);
 };
 
-
 function createCalendar(container, events) {
   // Create a new date object for the specified month and year
   const today = new Date();
@@ -36,22 +35,22 @@ function createCalendar(container, events) {
   // Get the number of days in the specified month
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
-  // Get the index of the first day of the month (0 - Sunday, 1 - Monday, etc.)
+  // Get the first day of the week for the specified month and year
   const firstDayIndex = date.getDay();
 
   // Create an array of weekday names
-  const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-  // const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  // const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+  const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
-  // Create a table
+  // Create a table element to display the calendar data
   const table = document.createElement('table');
   table.className = 'table table-bordered';
 
-  // Create a table header
+  // Create a table header element to display the day names
   const thead = document.createElement('thead');
   const row = document.createElement('tr');
 
-  // Create the weekday name cells
+  // Create the table header with day names
   for (let i = 0; i < 7; i++) {
     const cell = document.createElement('th');
     cell.textContent = weekdays[i];
@@ -62,18 +61,18 @@ function createCalendar(container, events) {
   thead.appendChild(row);
   table.appendChild(thead);
 
-  // Create the table body
+  // Create the table body element to display the calendar data
   const tbody = document.createElement('tbody');
 
-  // Create the calendar rows
-  const numRows = Math.ceil((daysInMonth + firstDayIndex) / 7); // Calculate the number of rows needed
-  let day = 1; // Initialize the day counter
+  // Populate the table body with calendar data
+  const numRows = Math.ceil((daysInMonth + firstDayIndex) / 7);
+  let day = 1;
 
   for (let i = 0; i < numRows; i++) {
-    // Create table row
+    // Create a new row for each week
     const row = document.createElement('tr');
 
-    // Create the cells for each row
+    // Create a new cell for each day of the week
     for (let j = 1; j <= 7; j++) {
       const cell = document.createElement('td');
       const thisDate = new Date(today.getFullYear(), today.getMonth(), day);
@@ -83,7 +82,7 @@ function createCalendar(container, events) {
         cell.style.fontWeight = 'bold';
       }
 
-      // Add the day number to the cell if it falls within the current month
+      // Check if the current cell is within the specified month and year, and if it's not a weekend day
       if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
         cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
       } else {
@@ -119,7 +118,6 @@ function createCalendar(container, events) {
 function isEventDay(thisDate, events) {
   return events.find(event => {
     const eventDate = (event.start.hasOwnProperty('dateTime')) ? new Date(event.start.dateTime) : new Date(event.start.date);
-    // const eventUtcDate = new Date(eventDate.getTime() + eventDate.getTimezoneOffset() * 60000); // not needed
     if (thisDate.toISOString().split('T')[0] === eventDate.toISOString().split('T')[0])
       return true;
   });
@@ -157,6 +155,7 @@ function createEvents(container, events) {
   container.appendChild(eventList);
 }
 
+// Helper function to compare dates in ascending order
 function compareDates(a, b) {
   let date1 = (a.start.hasOwnProperty('dateTime')) ? new Date(a.start.dateTime) : new Date(a.start.date);
   let date2 = (b.start.hasOwnProperty('dateTime')) ? new Date(b.start.dateTime) : new Date(b.start.date);

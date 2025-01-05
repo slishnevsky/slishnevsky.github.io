@@ -80,7 +80,6 @@ function parseHtml(document) {
   // Extract weather data for the next three days
   xpath = '//*[@id="mainContent"]/details[2]/div[1]/div/div[1]';
   day = 'Today'
-  // day = document.evaluate(xpath + '/div[1]/a/strong', document).iterateNext().textContent;
   img = document.evaluate(xpath + '/a/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
   temp = document.evaluate(xpath + '/a/p[1]/strong/span[1]', document).iterateNext().textContent + '°C';
   cond = document.evaluate(xpath + '/a/p[3]', document).iterateNext().textContent;

@@ -32,7 +32,6 @@
           </div>
           <button type="button" class="btn btn-success" onclick="searchGoogle(this.form.search.value)">Search</button>
           <div id="suggestions" class="panel panel-default">
-            <!-- Suggestion list inserted here -->
           </div>
         </form>
       </div>
@@ -45,19 +44,16 @@
           <div class="panel-heading">
             <a href="https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383" target="_blank">Погода</a>
           </div>
-          <!-- Weather table inserted here -->
         </div>
         <div id="calendar" class="panel panel-default">
           <div class="panel-heading">
             <a href="https://calendar.google.com/calendar/u/0/r" target="_blank">Календарь</a>
           </div>
-          <!-- Calendar table inserted here -->
         </div>
         <div id="events" class="panel panel-default">
           <div class="panel-heading">
             <a href="https://calendar.google.com/calendar/u/0/r" target="_blank">Запланированные события</a>
           </div>
-          <!-- Events list inserted here -->
         </div>
       </div>
       <div class="col-md-4">
@@ -65,17 +61,14 @@
           <div class="panel-heading">
             <a href="https://www.circulars.ca/" target="_blank">Флаерсы</a>
           </div>
-          <!-- Bookmarks list inserted here -->
         </div>
         <div id="bookmarks2" class="panel panel-default">
           <div class="panel-heading">
             <a href="https://flyers.smartcanucks.ca/" target="_blank">Магазины</a>
           </div>
-          <!-- Bookmarks list inserted here -->
         </div>
         <div id="bookmarks3" class="panel panel-default">
           <div class="panel-heading">Сервисы</div>
-          <!-- Bookmarks list inserted here -->
         </div>
       </div>
       <div class="col-md-4">
@@ -83,13 +76,11 @@
           <div class="panel-heading">
             <a href="https://news.knopka.ca/" target="_blank">Канадские новости</a>
           </div>
-          <!-- News list inserted here -->
         </div>
         <div id="news2" class="panel panel-default">
           <div class="panel-heading">
-            <a href="https://www.foxnews.com/" target="_blank">Последние новости</a>
+            <a href="https://www.oann.com/" target="_blank">Последние новости</a>
           </div>
-          <!-- News list inserted here -->
         </div>
       </div>
     </div>
@@ -116,17 +107,19 @@
 
     // Load the API client and authenticate the user
     function handleClientLoad() {
-      gapi.load('client:auth2', initClient);
+      gapi.load('client', initClient);
     }
 
-    // Initialize GAPI client
-    async function initClient() {
-      const response = await gapi.client.init({
+    const config = {
         apiKey: API_KEY,
         clientId: CLIENT_ID,
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES
-      });
+      }
+
+    // Initialize GAPI client
+    async function initClient() {
+      const response = await gapi.client.init(config);
 
       // Listen for sign-in state changes
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
@@ -162,7 +155,7 @@
       getBookmarks(bookmarks2, 'Магазины');
       getBookmarks(bookmarks3, 'Сервисы');
       getNews(news1, 'https://news.knopka.ca/rss', 7);
-      getNews(news2, 'https://moxie.foxnews.com/google-publisher/latest.xml', 7);
+      getNews(news2, 'https://www.oann.com/feed/', 7);
     }
 
     // Remove all content
