@@ -24,14 +24,21 @@ function createNews(container, data, count) {
 
   // Loop through each item and display its title and link
   for (let i = 0; i < count; i++) {
-    const title = items[i].querySelector('title').textContent;
-    const link = items[i].querySelector('link').textContent ?? items[i].querySelector('link').attributes['href'].value;
+    let title = items[i].querySelector('title').textContent;
+    let link = items[i].querySelector('link').textContent;
+
+    if (items[i].querySelector('link').attributes['href']) 
+      link = items[i].querySelector('link').attributes['href'].value;
 
     // Fetch and display the image for each news item
-    if (items[i].querySelector('enclosure')) imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
-    if (items[i].querySelector('content')) imageSrc = items[i].querySelector('content').attributes['url'].value;
-    if (items[i].querySelector('thumbnail')) imageSrc = items[i].querySelector('thumbnail').attributes['url'].value;
-    if (items[i].querySelector('group > thumbnail')) imageSrc = items[i].querySelector('group > thumbnail').attributes['url'].value;
+    if (items[i].querySelector('enclosure')) 
+      imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
+    if (items[i].querySelector('content')) 
+      imageSrc = items[i].querySelector('content').attributes['url'].value;
+    if (items[i].querySelector('thumbnail')) 
+      imageSrc = items[i].querySelector('thumbnail').attributes['url'].value;
+    if (items[i].querySelector('group > thumbnail')) 
+      imageSrc = items[i].querySelector('group > thumbnail').attributes['url'].value;
 
     // Create a list item element
     const listItem = document.createElement('a');
