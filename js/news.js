@@ -13,7 +13,10 @@ function createNews(container, data, count) {
   const xmlDoc = parser.parseFromString(data, 'text/xml');
 
   // Get the <item> elements from the RSS feed
-  const items = xmlDoc.getElementsByTagName('item');
+  let items = xmlDoc.getElementsByTagName('item');
+  if (items.length === 0) {
+    items = xmlDoc.getElementsByTagName('entry');
+  }
 
   const listGroup = document.createElement('div');
   listGroup.className = 'list-group';
@@ -22,17 +25,13 @@ function createNews(container, data, count) {
   // Loop through each item and display its title and link
   for (let i = 0; i < count; i++) {
     const title = items[i].querySelector('title').textContent;
-    const link = items[i].querySelector('link').textContent;
-
-    let imageSrc = 'assets/news.png';
+    const link = items[i].querySelector('link').textContent ?? items[i].querySelector('link').attributes['href'].value;
 
     // Fetch and display the image for each news item
-    if (items[i].querySelector('enclosure')) 
-      imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
-    if (items[i].querySelector('content')) 
-      imageSrc = items[i].querySelector('content').attributes['url'].value;
-    if (items[i].querySelector('thumbnail')) 
-      imageSrc = items[i].querySelector('thumbnail').attributes['url'].value;
+    if (items[i].querySelector('enclosure')) imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
+    if (items[i].querySelector('content')) imageSrc = items[i].querySelector('content').attributes['url'].value;
+    if (items[i].querySelector('thumbnail')) imageSrc = items[i].querySelector('thumbnail').attributes['url'].value;
+    if (items[i].querySelector('group > thumbnail')) imageSrc = items[i].querySelector('group > thumbnail').attributes['url'].value;
 
     // Create a list item element
     const listItem = document.createElement('a');
