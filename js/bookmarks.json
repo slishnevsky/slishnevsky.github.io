@@ -1,0 +1,162 @@
+﻿{
+  "Флаерсы": [
+    {
+      "title": "<b>FreshCo</b> Canada Flyers",
+      "link": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada"
+    },
+    {
+      "title": "<b>No Frills</b> Canada Flyers",
+      "link": "https://flyers.smartcanucks.ca/no-frills-canada"
+    },
+    {
+      "title": "<b>Shoppers Drug Mart</b> Canada Flyers",
+      "link": "https://flyers.smartcanucks.ca/shoppers-drug-mart-canada"
+    },
+    {
+      "title": "<b>Walmart</b> Canada Flyers",
+      "link": "https://flyers.smartcanucks.ca/walmart-canada"
+    },
+    {
+      "title": "<b>Coppa's</b> Canada Flyers",
+      "link": "https://flyers.smartcanucks.ca/coppas-fresh-market-canada"
+    },
+    {
+      "title": "<b>Real Canadian Superstore</b> Flyers",
+      "link": "https://flyers.smartcanucks.ca/real-canadian-superstore-canada"
+    }
+  ],
+  "Магазины": [
+    {
+      "title": "<b>FreshCo</b> Grocery Shopping",
+      "link": "https://freshco.com/"
+    },
+    {
+      "title": "<b>No Frills</b> Grocery Shopping",
+      "link": "https://www.nofrills.ca/"
+    },
+    {
+      "title": "<b>Shoppers Drug Mart</b> Superstore",
+      "link": "https://www.shoppersdrugmart.ca/"
+    },
+    {
+      "title": "<b>Walmart Canada</b> Shopping",
+      "link": "https://www.walmart.ca/"
+    },
+    {
+      "title": "<b>Coppa's</b> Grocery Shopping",
+      "link": "https://www.coppas.com/"
+    },
+    {
+      "title": "<b>Real Canadian Superstore</b> Grocery Shopping",
+      "link": "https://www.realcanadiansuperstore.ca/en"
+    }
+  ],
+  "Сервисы": [
+    {
+      "title": "Canada Revenue Agency (CRA)",
+      "link": "https://www.canada.ca/en/revenue-agency.html"
+    },
+    {
+      "title": "Service Canada (Programs for Canadians)",
+      "link": "https://www.canada.ca/en/employment-social-development/corporate/portfolio/service-canada.html"
+    },
+    {
+      "title": "Government of Ontario (Provincial Services)",
+      "link": "https://www.ontario.ca/page/government-ontario"
+    },
+    {
+      "title": "York Region (Regional Services)",
+      "link": "https://www.york.ca/"
+    },
+    {
+      "title": "City of Vaughan (Residential Services)",
+      "link": "https://www.vaughan.ca/"
+    },
+    {
+      "title": "Allstate Insurance (Home and Auto Insurance)",
+      "link": "http://www.allstate.ca/"
+    },
+    {
+      "title": "Alectra Utilities (Home Electricity)",
+      "link": "https://www.powerstream.ca/"
+    },
+    {
+      "title": "Enbridge (Home Gas Services)",
+      "link": "https://www.enbridgegas.com/"
+    },
+    {
+      "title": "Enercare (Home Gas Services)",
+      "link": "https://myaccount.enercare.ca/"
+    },
+    {
+      "title": "Coextro (Internet Provider)",
+      "link": "https://www.coextro.com/"
+    },
+    {
+      "title": "Public Mobile (Mobile Phone Provider)",
+      "link": "https://www.publicmobile.ca/"
+    },
+    {
+      "title": "VOIP.ms (VOIP Phone Provider)",
+      "link": "http://voip.ms/"
+    }
+  ],
+  "Работа": [
+    {
+      "title": "Stack Overflow Community",
+      "link": "https://stackoverflow.com/users/610422/monstro"
+    },
+    {
+      "title": "ASP.NET Documentation",
+      "link": "https://docs.microsoft.com/en-us/aspnet/core"
+    },
+    {
+      "title": "Angular Documentation",
+      "link": "https://angular.io/docs"
+    },
+    {
+      "title": "TypeScript Documentation",
+      "link": "http://www.typescriptlang.org"
+    },
+    {
+      "title": "Azure Documentation",
+      "link": "https://docs.microsoft.com/en-us/azure"
+    },
+    {
+      "title": "Visual Studio Code Documentation",
+      "link": "https://code.visualstudio.com/docs"
+    },
+    {
+      "title": "Bootstrap Documentation",
+      "link": "https://getbootstrap.com/docs/3.4"
+    },
+    {
+      "title": "Google Developers Console",
+      "link": "https://console.cloud.google.com/apis/credentials?project=homepage-307915"
+    },
+    {
+      "title": "Google Identity Platform",
+      "link": "https://developers.google.com/identity"
+    },
+    {
+      "title": "Google API Explorer",
+      "link": "https://developers.google.com/apis-explorer"
+    },
+    {
+      "title": "Gmail API Reference",
+      "link": "https://developers.google.com/gmail/api/reference/rest"
+    },
+    {
+      "title": "Calendar API Reference",
+      "link": "https://developers.google.com/calendar/api/v3/reference"
+    },
+    {
+      "title": "YouTube API Reference",
+      "link": "https://developers.google.com/youtube/v3/docs"
+    },
+    {
+      "title": "Pluralsight Video Tutorials",
+      "link": "https://app.pluralsight.com/library"
+    }
+  ]
+}

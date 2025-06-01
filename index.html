@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Homepage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="assets/home1.png" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/bookmarks.js"></script>
+  <script src="js/news.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <div id="datetime" class="navbar-brand"></div>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <form class="navbar-form navbar-right" onsubmit="return false">
+          <div class="form-group">
+            <input type="text" id="search" name="search" class="form-control" onkeyup="if (event.key == 'Enter')
+            searchGoogle(this.form.search.value);" placeholder="Search" autofocus>
+          </div>
+          <button type="button" class="btn btn-success" onclick="searchGoogle(this.form.search.value)">Search</button>
+          <div id="suggestions" class="panel panel-default">
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div id="weather" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383" target="_blank">Погода</a>
+          </div>
+        </div>
+        <div id="calendar" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://calendar.google.com/calendar/u/0/r" target="_blank">Календарь</a>
+          </div>
+        </div>
+        <div id="events" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://calendar.google.com/calendar/u/0/r" target="_blank">Запланированные события</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div id="bookmarks1" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://www.circulars.ca/" target="_blank">Флаерсы</a>
+          </div>
+        </div>
+        <div id="bookmarks2" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://flyers.smartcanucks.ca/" target="_blank">Магазины</a>
+          </div>
+        </div>
+        <div id="bookmarks3" class="panel panel-default">
+          <div class="panel-heading">Сервисы</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div id="news1" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://news.knopka.ca/" target="_blank">Канадские новости</a>
+          </div>
+        </div>
+        <div id="news2" class="panel panel-default">
+          <div class="panel-heading">
+            <a href="https://www.youtube.com/@TwoCatsVideoProduction/videos" target="_blank">Видео новости</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    // Get elements by ID
+    const datetime1 = document.getElementById('datetime');
+    const search1 = document.getElementById('search');
+    const weather1 = document.getElementById('weather');
+    const calendar1 = document.getElementById('calendar');
+    const events1 = document.getElementById('events');
+    const bookmarks1 = document.getElementById('bookmarks1');
+    const bookmarks2 = document.getElementById('bookmarks2');
+    const bookmarks3 = document.getElementById('bookmarks3');
+    const news1 = document.getElementById('news1');
+    const news2 = document.getElementById('news2');
+    const suggestions1 = document.getElementById('suggestions');
+
+    // Credentials to authenticate with Google API 
+    const CLIENT_ID = '84522859201-slrv8op1uu6h1v48kl9emla38ft78ois.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyBCIyH5szmkAwnMtNqGsjdruUvmnCEdSH8';
+    const DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
+    const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
+    // Load the API client and authenticate the user
+    function handleClientLoad() {
+      gapi.load('client', initClient);
+    }
+
+    const config = {
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES
+    }
+
+    // Initialize GAPI client
+    async function initClient() {
+      const response = await gapi.client.init(config);
+
+      // Listen for sign-in state changes
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+      // Handle the initial sign-in state
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    }
+
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        createAllContent();
+      } else {
+        removeAllContent();
+        handleSignin();
+      }
+    }
+
+    function handleSignin() {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function handleSignout() {
+      gapi.auth2.getAuthInstance().signOut();
+    }
+
+    // Create all content
+    function createAllContent() {
+      document.body.style.display = 'block';
+      getDateTime(datetime1);
+      getWeather(weather1);
+      getCalendar(calendar1, events1);
+      getBookmarks(bookmarks1, 'Флаерсы');
+      getBookmarks(bookmarks2, 'Магазины');
+      getBookmarks(bookmarks3, 'Сервисы');
+      getNews(news1, 'https://news.knopka.ca/rss', 10);
+      // getNews(news2, 'https://www.youtube.com/feeds/videos.xml?channel_id=UCw115y6cPAlGxq84rt64PHQ', 7); // YouTube channel: TWO CATS  U.S. POLITICAL NEWS
+      getNews(news2, 'https://www.youtube.com/feeds/videos.xml?channel_id=UCFzJjgVicCtFxJ5B0P_ei8A', 10); // YouTube channel: Euronews по-русски 
+      // getNews(news2, 'https://www.rebelnews.com/news.rss', 7);
+      // getNews(news2, 'https://ru.euronews.com/rss', 7);
+    }
+
+    // Remove all content
+    function removeAllContent() {
+      const panels = document.getElementsByClassName('panel');
+      for (let index = 0; index < panels.length; index++) {
+        const panel = panels[index];
+        while (panel.children.length > 1) {
+          panel.removeChild(panel.lastChild);
+        }
+      }
+      document.body.style.display = 'none';
+    }
+
+    let index = search1.attributes['index'] = -1;
+    let element;
+
+    /*
+    function onKeyUp(event) {
+      if (search1.value === '') {
+        suggestions1.innerHTML = '';
+        suggestions1.style.display = 'none';
+        return;
+      }
+
+      if (event.key == 'Enter')
+        searchGoogle(search1.value);
+
+      switch (event.key) {
+        case 'Enter':
+        searchGoogle(search1.value);
+        break;
+        case ' ':
+        getSuggestions(suggestions1, search1.value);
+        getTranslation(suggestions1, search1.value);
+        break;
+        case 'ArrowUp':
+        index--;
+        if (index < 0) index = 9;
+        element = suggestions1.firstChild.children[index];
+        for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
+          suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
+        }
+        element.style.backgroundColor = '#667788';
+        search1.value = element.textContent;
+        break;
+        case 'ArrowDown':
+        index++;
+        if (index > 9) index = 0;
+        element = suggestions1.firstChild.children[index];
+        for (let i = 0; i < suggestions1.firstChild.children.length; i++) {
+          suggestions1.firstChild.children[i].style.backgroundColor = '#778899';
+        }
+        element.style.backgroundColor = '#667788';
+        search1.value = element.textContent;
+        break;
+        default:
+        getSuggestions(suggestions1, search1.value);
+        break;
+      }
+    }
+    */
+
+  </script>
+  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background: url("assets/bg.jpg") no-repeat fixed;
+  font-family: "Arial" !important;
+  background-position: 0px -160px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  color: salmon !important;
+}
+
+.navbar-form .form-control {
+  display: inline-block;
+  min-width: 285px;
+  vertical-align: middle;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.panel-heading {
+  font-weight: bold;
+}
+
+.panel-heading a {
+  text-decoration: none;
+  color: #333;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+.icon {
+  padding: 1px 4px !important;
+  font-size: 10px !important;
+  border-radius: 3px !important;
+  float: left !important;
+  margin-right: 5px !important;
+}
+
+.today {
+  border-radius: 4px;
+  background-color: #5CB85C;
+  color: white;
+}
+
+.event {
+  border-radius: 4px;
+  background-color: #778899;
+  color: white;
+}
+
+.badge {
+  background-color: #778899;
+  border-radius: 4px;
+}
+
+#suggestions {
+  position: absolute;
+  z-index: 1;
+  margin-top: 2px;
+  display: none;
+}
+
+.translation {
+  background-color: #337AB7 !important;
+}
+
+#suggestions .list-group-item {
+  background-color: #778899;
+  color: white;
+  cursor: pointer;
+}
+
+#suggestions .list-group-item:hover {
+  background-color: #667788;
+  color: white;
+  cursor: pointer;
+}
+
+input[type=text]:focus {
+  border: 1px solid #ccc !important;
+}
