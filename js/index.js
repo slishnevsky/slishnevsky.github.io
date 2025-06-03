@@ -7,7 +7,13 @@ function getDateTime(container) {
   const date = new Date();
   const day = date.toLocaleString('ru-RU', { weekday: 'long', day: '2-digit', month: 'long' });
   const time = date.toLocaleString('en-En', { hour12: true, hour: '2-digit', minute: '2-digit' });
-  container.innerHTML = day.toTitleCase() + ' <a class="btn btn-xs btn-primary" href="https://www.youtube.com/@euronewsru/videos" target="_blank">последние новости</a>';
+  // container.innerHTML = day.toTitleCase() + ' <a class="btn btn-xs btn-primary" href="https://www.youtube.com/@euronewsru/videos" target="_blank">последние новости</a>';
+  // container.textContent = (day + ' ' + time).toTitleCase();
+  container.textContent = date.toLocaleString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+    .replace(/ г\.?$/i, '')
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
 // Get Google translation for the specified text and display it in the specified container

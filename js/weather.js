@@ -15,6 +15,16 @@ function createWeather(container, data) {
   // Extract the weather data from the parsed HTML
   const items = parseHtml(document);
 
+  const header = container.querySelector('.panel-heading');
+  let tempNow = document.createElement('span');
+  tempNow.className = 'badge';
+  tempNow.textContent += 'сейчас ' + items[0].temp;
+  tempNow.style.backgroundColor = '#D9534F';
+  tempNow.style.fontSize = '14px';
+  tempNow.style.fontWeight = 'bold';
+  tempNow.style.float = 'right';
+  header.appendChild(tempNow);
+
   // Create a table element to display the weather data
   const table = document.createElement('table');
   table.className = 'table table-bordered';
@@ -25,6 +35,7 @@ function createWeather(container, data) {
 
   // Create the table header with day names
   items.forEach(item => {
+    if (item == items[0]) return; // Skip the first item as it is handled separately
     const cell = document.createElement('th');
     cell.style.width = '25%';
     cell.textContent = item.day;
@@ -41,6 +52,7 @@ function createWeather(container, data) {
 
   // Create the weather data cells for each day
   items.forEach(item => {
+    if (item == items[0]) return; // Skip the first item as it is handled separately
     const cell = document.createElement('td');
     if (item == items[0]) cell.style.border = '2px solid #D9534F';
     let img = document.createElement('img');
@@ -79,14 +91,14 @@ function parseHtml(document) {
 
   // Extract weather data for the next three days
   xpath = '//*[@id="mainContent"]/details[2]/div[1]/div/div[1]';
-  day = 'Today'
+  day = 'Today';
   img = document.evaluate(xpath + '/a/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
   temp = document.evaluate(xpath + '/a/p[1]/strong/span[1]', document).iterateNext().textContent + '°C';
   cond = document.evaluate(xpath + '/a/p[3]', document).iterateNext().textContent;
 
   items.push({ day: day, img: img, temp: temp, cond: cond });
 
-  for (let i = 2; i < 4; i++) {
+  for (let i = 2; i < 5; i++) {
     const xpath = '//*[@id="mainContent"]/details[2]/div[1]/div/div[' + i + ']';
     const day = document.evaluate(xpath + '/div[1]/strong', document).iterateNext().textContent;
     const img = document.evaluate(xpath + '/div[2]/img', document).iterateNext().src.replace(window.location.host, 'weather.gc.ca');
