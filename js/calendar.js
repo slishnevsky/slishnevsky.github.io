@@ -36,11 +36,11 @@ function createCalendar(container, events) {
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
   // Get the first day of the week for the specified month and year
-  const firstDayIndex = date.getDay();
+  let firstDayIndex = date.getDay();
+  firstDayIndex = (firstDayIndex === 0) ? 6 : firstDayIndex - 1;
 
-  // Create an array of weekday names
-  const weekdays = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-  // const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+  // Set weekdays to start with Monday
+  const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
   // Create a table element to display the calendar data
   const table = document.createElement('table');
@@ -69,24 +69,21 @@ function createCalendar(container, events) {
   let day = 1;
 
   for (let i = 0; i < numRows; i++) {
-    // Create a new row for each week
     const row = document.createElement('tr');
-
-    // Create a new cell for each day of the week
-    for (let j = 1; j <= 7; j++) {
+    for (let j = 0; j < 7; j++) {
       const cell = document.createElement('td');
+      const cellIndex = i * 7 + j;
       const thisDate = new Date(today.getFullYear(), today.getMonth(), day);
 
-      if (thisDate.getDay() == 6 || thisDate.getDay() == 0) {
+      // Highlight weekends: Saturday (j==5) and Sunday (j==6)
+      if (j === 5 || j === 6) {
         cell.className = 'text-danger';
         cell.style.fontWeight = 'bold';
       }
 
-      // Check if the current cell is within the specified month and year, and if it's not a weekend day
-      if ((i === 0 && j < firstDayIndex) || day > daysInMonth) {
-        cell.innerHTML = '&nbsp;'; // Add a non-breaking space if the cell is empty
+      if (cellIndex < firstDayIndex || day > daysInMonth) {
+        cell.innerHTML = '&nbsp;';
       } else {
-
         if (day === today.getDate()) {
           const div = document.createElement('div');
           div.className = 'today';
@@ -102,10 +99,8 @@ function createCalendar(container, events) {
         }
         day++;
       }
-      // Append the cell to table row
       row.appendChild(cell);
     }
-    // Append the row to table body
     tbody.appendChild(row);
   }
 
