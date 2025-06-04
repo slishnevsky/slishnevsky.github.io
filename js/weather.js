@@ -1,7 +1,8 @@
 async function getWeather(container) {
   // Fetch the HTML page from Weather forecast using a CORS proxy
-  const corsProxy = 'https://corsproxy.io/?url=';
-  const response = await fetch(corsProxy + 'https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383');
+  const targetUrl = 'https://weather.gc.ca/api/app/v3/en/Location/43.655,-79.383';
+  const proxyUrl = "https://corsproxy.io/?url=" + encodeURIComponent(targetUrl);
+  const response = await fetch(proxyUrl);
   const data = await response.text();
   createWeather(container, data)
 }
