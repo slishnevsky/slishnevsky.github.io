@@ -23,15 +23,15 @@ function createWeather(container, data) {
     };
   });
 
-  const header = container.querySelector('.panel-heading');
-  const tempNow = document.createElement('span');
-  tempNow.className = 'badge';
-  tempNow.textContent += 'сейчас ' + temp;
-  tempNow.style.backgroundColor = '#D9534F';
-  tempNow.style.fontSize = '14px';
-  tempNow.style.fontWeight = 'bold';
-  tempNow.style.float = 'right';
-  header.appendChild(tempNow);
+  // const header = container.querySelector('.panel-heading');
+  // const tempNow = document.createElement('span');
+  // tempNow.className = 'badge';
+  // tempNow.textContent += 'сейчас ' + temp;
+  // tempNow.style.backgroundColor = '#D9534F';
+  // tempNow.style.fontSize = '14px';
+  // tempNow.style.fontWeight = 'bold';
+  // tempNow.style.float = 'right';
+  // header.appendChild(tempNow);
 
   // Create a table element to display the weather data
   const table = document.createElement('table');
