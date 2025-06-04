@@ -79,7 +79,7 @@
         </div>
         <div id="news2" class="panel panel-default">
           <div class="panel-heading">
-            <a href="https://www.youtube.com/@TwoCatsVideoProduction/videos" target="_blank">Видео новости</a>
+            <a href="https://www.youtube.com/@TwoCatsVideoProduction/videos" target="_blank">Мировые новости</a>
           </div>
         </div>
       </div>
@@ -155,12 +155,11 @@
       getBookmarks(bookmarks2, 'Магазины');
       getBookmarks(bookmarks3, 'Сервисы');
       getNews(news1, 'https://news.knopka.ca/rss', 7);
-      // getNews(news2, 'https://www.youtube.com/feeds/videos.xml?channel_id=UCw115y6cPAlGxq84rt64PHQ', 7); // YouTube channel: TWO CATS  U.S. POLITICAL NEWS
-      getNews(news2, 'https://www.youtube.com/feeds/videos.xml?channel_id=UCfk00Ng1VLt21CPQLI6VVDA', 7); // YouTube channel: Отличные Новости
-      // getNews(news2, 'https://www.youtube.com/feeds/videos.xml?channel_id=UCFzJjgVicCtFxJ5B0P_ei8A', 10); // YouTube channel: Euronews по-русски 
-      // getNews(news2, 'https://www.rebelnews.com/news.rss', 7);
+      getNews(news2, 'https://api.axios.com/feed/', 7); // YouTube channel: Отличные Новости
       // getNews(news2, 'https://ru.euronews.com/rss', 7);
-      
+      // getNews(news2, 'https://www.rebelnews.com/news.rss', 7);
+      // getNews(news2, 'https://www.youtube.com/feeds/videos.xml?channel_id=UCw115y6cPAlGxq84rt64PHQ', 7); // YouTube channel: TWO CATS  U.S. POLITICAL NEWS
+      // getNews(news2, 'https://www.youtube.com/feeds/videos.xml?channel_id=UCFzJjgVicCtFxJ5B0P_ei8A', 10); // YouTube channel: Euronews по-русски 
     }
 
     // Remove all content
