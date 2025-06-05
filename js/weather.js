@@ -12,9 +12,9 @@ function createWeather(container, data) {
   const temp = data.observation.temperature.metric + '°C';
   const cond = data.observation.condition;
   const forecast = data.dailyFcst.daily
-  .filter((_, i) => i % 2 === 1)
-  .slice(0, 4)
-  .map(day => {
+  .filter((day, i) => i % 2 !== 0) // Get every second day (today and next three days)
+  .slice(0, 4) // Limit to 4 days (today + next 3 days)
+  .map(day => { // Map the data to a simpler format
     return {
       day: day.date.slice(0, 3),
       img: `https://weather.gc.ca/weathericons/${day.iconCode}.gif`,
@@ -22,16 +22,6 @@ function createWeather(container, data) {
       cond: day.summary
     };
   });
-
-  // const header = container.querySelector('.panel-heading');
-  // const tempNow = document.createElement('span');
-  // tempNow.className = 'badge';
-  // tempNow.textContent += 'сейчас ' + temp;
-  // tempNow.style.backgroundColor = '#D9534F';
-  // tempNow.style.fontSize = '14px';
-  // tempNow.style.fontWeight = 'bold';
-  // tempNow.style.float = 'right';
-  // header.appendChild(tempNow);
 
   // Create a table element to display the weather data
   const table = document.createElement('table');
