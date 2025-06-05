@@ -1,8 +1,8 @@
 async function getWeather(container) {
   // Fetch the HTML page from Weather forecast using a CORS proxy
-  const targetUrl = 'https://weather.gc.ca/api/app/v3/en/Location/43.655,-79.383?type=city';
-  const proxyUrl = "https://corsproxy.io/?url=" + encodeURIComponent(targetUrl);
-  const response = await fetch(proxyUrl);
+  // const targetUrl = 'https://weather.gc.ca/api/app/v3/en/Location/43.655,-79.383?type=city';
+  // const proxyUrl = 'https://cors-anywhere.herokuapp.com/' + encodeURIComponent(targetUrl);
+  const response = await fetch('https://cors-anywhere.herokuapp.com/https://weather.gc.ca/api/app/v3/en/Location/43.655,-79.383?type=city');
   const data = await response.json();
   createWeather(container, data[0])
 }
@@ -12,7 +12,7 @@ function createWeather(container, data) {
   const temp = data.observation.temperature.metric + '°C';
   const cond = data.observation.condition;
   const forecast = data.dailyFcst.daily
-  .filter((_, i) => i % 2 === 1)
+  .filter((_, i) => i % 2 !== 1)
   .slice(0, 4)
   .map(day => {
     return {
