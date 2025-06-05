@@ -47,13 +47,13 @@ td {
 }
 
 .today {
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: #5CB85C;
   color: white;
 }
 
 .event {
-  border-radius: 4px;
+  border-radius: 10px;
   background-color: #778899;
   color: white;
 }

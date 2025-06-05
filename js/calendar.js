@@ -54,6 +54,7 @@ function createCalendar(container, events) {
   for (let i = 0; i < 7; i++) {
     const cell = document.createElement('th');
     cell.textContent = weekdays[i];
+    cell.style.width = '14.28%'; // 100% / 7 days
     row.appendChild(cell);
   }
 
