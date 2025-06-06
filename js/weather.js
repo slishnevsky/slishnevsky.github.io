@@ -12,7 +12,7 @@ function createWeather(container, data) {
   const temp = data.observation.temperature.metric + '°C';
   const cond = data.observation.condition;
   const forecast = data.dailyFcst.daily
-  .filter((day, i) => i % 2 !== 0) // Get every second day (today and next three days)
+  .filter((day, i) => i % 2 !== 1) // Get every second day (today and next three days)
   .slice(0, 4) // Limit to 4 days (today + next 3 days)
   .map(day => { // Map the data to a simpler format
     return {
