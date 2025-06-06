@@ -9,19 +9,20 @@ async function getWeather(container) {
 
 // Function to parse the HTML and extract weather data
 function createWeather(container, data) {
-  const temp = data.observation.temperature.metric + '°C';
-  const cond = data.observation.condition;
+  // const nowTemp = data.observation.temperature.metric + '°C'; // Get the current temperature
+  // container.firstElementChild.textContent = 'Температура сейчас: ' + nowTemp; // Display the current temperature
+
   const forecast = data.dailyFcst.daily
-  .filter((day, i) => i % 2 !== 1) // Get every second day (today and next three days)
-  .slice(0, 4) // Limit to 4 days (today + next 3 days)
-  .map(day => { // Map the data to a simpler format
-    return {
-      day: day.date.slice(0, 3),
-      img: `https://weather.gc.ca/weathericons/${day.iconCode}.gif`,
-      temp: day.temperature.metric + '°C',
-      cond: day.summary
-    };
-  });
+    .filter(day => day.periodLabel !== 'Night' && day.periodLabel !== 'Tonight') // Filter out night periods
+    .slice(0, 4) // Limit to 4 days (today + next 3 days)
+    .map(day => { // Map the data to a simpler format
+      return {
+        day: day.periodLabel === 'Today' ? 'Today' : day.date.slice(0, 3), // Use the first three letters of the day for display
+        img: `https://weather.gc.ca/weathericons/${day.iconCode}.gif`, // Use the icon code to get the image URL
+        temp: day.temperature.metric + '°C',
+        cond: day.summary
+      };
+    });
 
   // Create a table element to display the weather data
   const table = document.createElement('table');
