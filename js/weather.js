@@ -19,8 +19,9 @@ function createWeather(container, data) {
       return {
         day: day.periodLabel === 'Today' ? 'Today' : day.date.slice(0, 3), // Use the first three letters of the day for display
         img: `https://weather.gc.ca/weathericons/${day.iconCode}.gif`, // Use the icon code to get the image URL
-        temp: day.temperature.metric + '°C',
-        cond: day.summary
+        temp: day.temperature.metric + '°C', // Get the temperature in Celsius
+        cond: day.summary, // Use the summary for the condition
+        precip: day.precip === '' ? '' : day.precip + '%', // Add precipitation percentage
       };
     });
 
@@ -50,15 +51,18 @@ function createWeather(container, data) {
   // Create the weather data cells for each day
   forecast.forEach(day => {
     const cell = document.createElement('td');
-    let img = document.createElement('img');
+    const img = document.createElement('img');
     img.src = day.img;
-    let temp = document.createElement('h4');
+    const temp = document.createElement('h4');
     temp.textContent = day.temp;
-    let cond = document.createElement('span');
+    const precip = document.createElement('span');
+    precip.textContent = day.precip;
+    const cond = document.createElement('div');
     cond.textContent = day.cond;
 
     cell.appendChild(img);
     cell.appendChild(temp);
+    cell.appendChild(precip);
     cell.appendChild(cond);
     row.appendChild(cell);
   });
