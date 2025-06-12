@@ -86,7 +86,31 @@
     </div>
   </div>
   <script type="text/javascript">
+    function updateContainerClass() {
+      var $container = $('.container, .container-fluid'); // Select elements with either class
+      var windowWidth = $(window).width();
+
+      // Tablet range: 768px to 991px (Bootstrap 3's sm to md breakpoint)
+      if (windowWidth >= 768 && windowWidth < 992) {
+        $container.removeClass('container').addClass('container-fluid');
+      } else {
+        // Desktop (≥992px) or Phone (<768px)
+        $container.removeClass('container-fluid').addClass('container');
+      }
+    }
+
+    // Run on page load
+    $(document).ready(function () {
+      updateContainerClass();
+    });
+
+    // Run on window resize
+    $(window).resize(function () {
+      updateContainerClass();
+    });
+
     // Get elements by ID
+    // These elements are used to display various content on the homepage
     const datetime1 = document.getElementById('datetime');
     const search1 = document.getElementById('search');
     const weather1 = document.getElementById('weather');
