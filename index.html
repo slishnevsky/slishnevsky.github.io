@@ -39,7 +39,7 @@
   </nav>
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <div id="weather" class="panel panel-default">
           <div class="panel-heading">
             <a href="https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383" target="_blank">Погода</a>
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <div id="bookmarks1" class="panel panel-default">
           <div class="panel-heading">
             <a href="https://www.circulars.ca/" target="_blank">Флаерсы</a>
@@ -71,7 +71,7 @@
           <div class="panel-heading">Сервисы</div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <div id="news1" class="panel panel-default">
           <div class="panel-heading">
             <a href="https://news.knopka.ca/" target="_blank">Канадские новости</a>
@@ -223,6 +223,28 @@
       }
     }
     */
+
+    function updateContainerClass() {
+      const elements = document.querySelectorAll('.container, .container-fluid');
+      const isSmallScreen = window.innerWidth < 768;
+
+      elements.forEach(el => {
+        if (isSmallScreen) {
+          el.classList.remove('container');
+          el.classList.add('container-fluid');
+        } else {
+          el.classList.remove('container-fluid');
+          el.classList.add('container');
+        }
+      });
+    }
+
+    // Run on page load
+    updateContainerClass();
+
+    // Run on window resize
+    window.addEventListener('resize', updateContainerClass);
+
 
   </script>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
