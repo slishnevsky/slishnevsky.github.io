@@ -11,10 +11,17 @@ async function getWeather(container) {
 function createWeather(container, data) {
   // const nowTemp = data.observation.temperature.metric + '°C'; // Get the current temperature
   // container.firstElementChild.textContent = 'Температура сейчас: ' + nowTemp; // Display the current temperature
+  const current = {
+    day: 'Now', // Use the first three letters of the day for display
+    img: `https://weather.gc.ca/weathericons/${data.observation.iconCode}.gif`, // Use the icon code to get the image URL
+    temp: data.observation.temperature.metric + '°C', // Get the temperature in Celsius
+    cond: data.observation.condition, // Use the condition for the current weather
+    precip: data.observation.humidity === '' ? '' : data.observation.humidity + '%', // Add precipitation percentage
+  }
 
   const forecast = data.dailyFcst.daily
     .filter(day => day.periodLabel !== 'Night' && day.periodLabel !== 'Tonight') // Filter out night periods
-    .slice(0, 4) // Limit to 4 days (today + next 3 days)
+    .slice(0, 3) // Limit to 4 days (today + next 3 days)
     .map(day => { // Map the data to a simpler format
       return {
         day: day.periodLabel === 'Today' ? 'Today' : day.date.slice(0, 3), // Use the first three letters of the day for display
@@ -24,6 +31,8 @@ function createWeather(container, data) {
         precip: day.precip === '' ? '' : day.precip + '%', // Add precipitation percentage
       };
     });
+
+  forecast.unshift(current); // Add the current weather data to the beginning of the forecast array
 
   // Create a table element to display the weather data
   const table = document.createElement('table');
