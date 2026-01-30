@@ -1,6 +1,6 @@
 async function getNews(container, targetUrl, count) {
   // Fetch the RSS data from a proxy server to bypass CORS restrictions
-  const proxyUrl = 'https://corsproxy.io/?url=' + encodeURIComponent(targetUrl);
+  const proxyUrl = 'https://api.cors.lol/?url=' + encodeURIComponent(targetUrl);
   const response = await fetch(proxyUrl);
   const data = await response.text();
   createNews(container, data, count)
