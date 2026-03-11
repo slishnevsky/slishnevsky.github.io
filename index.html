@@ -119,14 +119,33 @@
     // Loads the token from localStorage if available and attempts to load events
     // If no token is found, it will attempt silent authorization using the token client
     // This function is called after both the Google API client and the Google Identity Services client are initialized.
-    // If a token is found in localStorage, it sets the token for the Google API client and creates all content.
-    // If no token is found, it attempts to request an access token silently. If the user has previously authorized the application, it will succeed and create all content. If not, it will display a message prompting the user to refresh the page and authorize.
+    // If a token is found in localStorage, it checks if it's expired. If expired, requests a new one.
+    // If not expired, sets the token and creates content.
+    // If no token is found, it attempts to request an access token silently.
     function loadToken() {
       if (gapiInited && gisInited) {
         const token = localStorage.getItem('google_access_token');
         if (token) {
-          gapi.client.setToken({ access_token: token });
-          createAllContent();
+          // Check if token is expired
+          const tokenObj = JSON.parse(localStorage.getItem('google_token_obj') || '{}');
+          const now = Date.now() / 1000;
+          if (tokenObj.expires_at && tokenObj.expires_at < now) {
+            // Token expired, request new one
+            tokenClient.callback = async (resp) => {
+              if (resp.error !== undefined) {
+                document.getElementById('content').innerText = 'Authorization required. Please refresh the page and authorize.';
+                return;
+              }
+              const newToken = gapi.client.getToken();
+              localStorage.setItem('google_access_token', newToken.access_token);
+              localStorage.setItem('google_token_obj', JSON.stringify(newToken));
+              await createAllContent();
+            };
+            tokenClient.requestAccessToken({ prompt: '' });
+          } else {
+            gapi.client.setToken(tokenObj);
+            createAllContent();
+          }
         } else {
           // If no token, attempt silent authorization
           if (tokenClient) {
@@ -137,6 +156,7 @@
               }
               const token = gapi.client.getToken();
               localStorage.setItem('google_access_token', token.access_token);
+              localStorage.setItem('google_token_obj', JSON.stringify(token));
               await createAllContent();
             };
             tokenClient.requestAccessToken({ prompt: '' });
