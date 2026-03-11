@@ -87,7 +87,7 @@
     </div>
   </div>
   <script type="text/javascript">
-    // Get elements by ID
+    // Get references to all the content sections
     const datetime1 = document.getElementById('datetime');
     const search1 = document.getElementById('search');
     const weather1 = document.getElementById('weather');
@@ -100,60 +100,73 @@
     const news2 = document.getElementById('news2');
     const suggestions1 = document.getElementById('suggestions');
 
-    // Set to client ID and API key from the Developer Console
+    // Google API credentials
     const CLIENT_ID = "84522859201-u0bemvmn44b552j4j2eq7j5smdn32et8.apps.googleusercontent.com";
     const API_KEY = "AIzaSyBDfHg7DWRW8ruNA7E90swUJpEJ_IiLqNo";
 
     // Discovery doc URL for APIs used by the quickstart
+    // For a full list of discovery doc URLs, see https://developers.google.com/discovery/v1/apis.
     const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
 
-    // Authorization scopes required by the API; multiple scopes can be
-    // included, separated by spaces.
+    // Authorization scopes required by the API; multiple scopes can be included, separated by spaces
+    // If using the Google Calendar API, the scope is 'https://www.googleapis.com/auth/calendar.readonly'
     const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
-    let tokenClient;
-    let gapiInited = false;
-    let gisInited = false;
+    let tokenClient; // Google Identity Services token client
+    let gapiInited = false; // Flag to indicate if the Google API client is loaded
+    let gisInited = false; // Flag to indicate if the Google Identity Services client is loaded
 
-    // Loads the token from localStorage if available and attempts to load events.
+    // Loads the token from localStorage if available and attempts to load events
+    // If no token is found, it will attempt silent authorization using the token client
+    // This function is called after both the Google API client and the Google Identity Services client are initialized.
+    // If a token is found in localStorage, it sets the token for the Google API client and creates all content.
+    // If no token is found, it attempts to request an access token silently. If the user has previously authorized the application, it will succeed and create all content. If not, it will display a message prompting the user to refresh the page and authorize.
     function loadToken() {
-      const token = localStorage.getItem('google_access_token');
-      if (token) {
-        gapi.client.setToken({ access_token: token });
-        createAllContent();
-      } else {
-        // If no token, attempt silent authorization
-        if (tokenClient) {
-          tokenClient.callback = async (resp) => {
-            if (resp.error !== undefined) {
-              document.getElementById('content').innerText = 'Authorization required. Please refresh the page and authorize.';
-              return;
-            }
-            const token = gapi.client.getToken();
-            localStorage.setItem('google_access_token', token.access_token);
-            await createAllContent();
-          };
-          tokenClient.requestAccessToken({ prompt: '' });
+      if (gapiInited && gisInited) {
+        const token = localStorage.getItem('google_access_token');
+        if (token) {
+          gapi.client.setToken({ access_token: token });
+          createAllContent();
+        } else {
+          // If no token, attempt silent authorization
+          if (tokenClient) {
+            tokenClient.callback = async (resp) => {
+              if (resp.error !== undefined) {
+                document.getElementById('content').innerText = 'Authorization required. Please refresh the page and authorize.';
+                return;
+              }
+              const token = gapi.client.getToken();
+              localStorage.setItem('google_access_token', token.access_token);
+              await createAllContent();
+            };
+            tokenClient.requestAccessToken({ prompt: '' });
+          }
         }
       }
     }
 
-    // Callback after api.js is loaded.
+    // Callback after api.js is loaded
+    // Loads the API client and auth2 library. Will be called when the APIs are loaded and ready to be used.
+    // This function is called when the Google API client library is loaded. It initializes the API client with the API key and discovery document, and sets the gapiInited flag to true. After initialization, it calls tryToLoadToken to attempt to load the token and create content if both APIs are initialized.
     function gapiLoaded() {
       gapi.load('client', initializeGapiClient);
     }
 
     // Callback after the API client is loaded. Loads the discovery doc to initialize the API.
+    // After loading, the API is ready to be used.
+    // This function initializes the Google API client with the API key and discovery document. It sets the gapiInited flag to true and calls tryToLoadToken to attempt to load the token and create content if both APIs are initialized.
     async function initializeGapiClient() {
       await gapi.client.init({
         apiKey: API_KEY,
         discoveryDocs: [DISCOVERY_DOC],
       });
       gapiInited = true;
-      maybeEnableButtons();
+      loadToken();
     }
 
     // Callback after Google Identity Services are loaded.
+    // Initializes the token client. Will be called when the Google Identity Services library is loaded.
+    // This function initializes the Google Identity Services token client with the client ID, scope, and a callback function that will be defined later. It sets the gisInited flag to true and calls tryToLoadToken to attempt to load the token and create content if both APIs are initialized.
     function gisLoaded() {
       tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: CLIENT_ID,
@@ -161,19 +174,11 @@
         callback: '', // defined later
       });
       gisInited = true;
-      maybeEnableButtons();
+      loadToken();
     }
 
-    // Enables user interaction after all libraries are loaded.
-    function maybeEnableButtons() {
-      if (gapiInited && gisInited) {
-        loadToken();
-      }
-    }
-
-    // Create all content
+    // Function to create all content on the page after successful authentication
     function createAllContent() {
-
       getDateTime(datetime1);
       getWeather(weather1);
       getCalendar(calendar1, events1);
