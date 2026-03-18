@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Google Calendar Events</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <h1>Google Calendar Events</h1>
+      <button id="signinButton" class="btn btn-success" style="display: none;">Sign In</button>
+      <button id="signoutButton" class="btn btn-danger" style="display: none;">Sign Out</button>
+      <br>
+      <div id="eventContainer"></div>
+    </div>
+  </div>
+  <!-- Include the Google API library -->
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    // Client ID and API key from the Google API Console
+    var CLIENT_ID = '84522859201-slrv8op1uu6h1v48kl9emla38ft78ois.apps.googleusercontent.com';
+    var API_KEY = 'AIzaSyBCIyH5szmkAwnMtNqGsjdruUvmnCEdSH8';
+
+    // Array of API discovery doc URLs for APIs used
+    var DISCOVERY_DOCS = ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'];
+
+    // Authorization scopes required by the API
+    var SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
+    var signinButton = document.getElementById('signinButton');
+    var signoutButton = document.getElementById('signoutButton');
+    var eventContainer = document.getElementById('eventContainer');
+
+    // Load the API client and authenticate the user
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+
+    function initClient() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+      }).then(function () {
+        // Listen for sign-in state changes
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+        // Handle the initial sign-in state
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+        signinButton.onclick = handleSigninClick;
+        signoutButton.onclick = handleSignoutClick;
+      });
+    }
+
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        signinButton.style.display = 'none';
+        signoutButton.style.display = 'block';
+        getEvents(eventContainer);
+      } else {
+        signinButton.style.display = 'block';
+        signoutButton.style.display = 'none';
+        eventContainer.innerHTML = '';
+      }
+    }
+
+    function handleSigninClick() {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function handleSignoutClick() {
+      gapi.auth2.getAuthInstance().signOut();
+    }
+
+    // Retrieve and display the upcoming calendar events
+
+    function createEventList(container, events) {
+      const eventList = document.createElement('div');
+      eventList.className = 'list-group';
+
+      events.forEach(event => {
+        const eventItem = document.createElement('a');
+        eventItem.className = 'list-group-item';
+        eventItem.href = event.htmlLink;
+        eventItem.target = 'blank';
+        let eventDate;
+        let eventStart = document.createElement('span');
+        eventStart.className = 'badge';
+
+        if (event.start.hasOwnProperty('dateTime')) {
+          eventDate = new Date(event.start.dateTime);
+          eventStart.textContent = eventDate.toLocaleString('en-En', { day: '2-digit', month: 'long', hour12: true, hour: '2-digit', minute: '2-digit' });
+        } else {
+          eventDate = new Date(event.start.date);
+          eventStart.textContent = eventDate.toLocaleString('en-En', { timeZone: 'UTC', day: '2-digit', month: 'long' });
+        }
+
+        eventItem.appendChild(eventStart);
+        eventSummary = event.summary;
+        eventItem.appendChild(document.createTextNode(eventSummary));
+
+        eventList.appendChild(eventItem);
+
+      });
+
+      container.appendChild(eventList);
+    }
+
+    function compareDates(a, b) {
+      let date1 = (a.start.hasOwnProperty('dateTime')) ? new Date(a.start.dateTime) : new Date(a.start.date);
+      let date2 = (b.start.hasOwnProperty('dateTime')) ? new Date(b.start.dateTime) : new Date(b.start.date);
+      return date1 - date2;
+    }
+
+    function getEvents(container) {
+      gapi.client.calendar.calendarList.list()
+        .then(response => {
+          const calendars = response.result.items;
+          const requests = [];
+          calendars.forEach(calendar => {
+            requests.push(
+              gapi.client.calendar.events.list({
+                'calendarId': calendar.id, // 'primary' for only my personal calendar
+                'timeMin': (new Date()).toISOString(),
+                'showDeleted': false,
+                'singleEvents': true,
+                'maxResults': 10,
+                'orderBy': 'startTime'
+              }));
+          });
+
+          Promise.all(requests)
+            .then(calendars => {
+              let events = [];
+              calendars.forEach(calendar => {
+                events = events.concat(calendar.result.items);
+              });
+
+              // Sorting events by date and taking first (most recent) 10 events
+              events = events.sort(compareDates).slice(0, 10);
+
+              createEventList(container, events);
+            })
+        });
+    };
+  </script>
+  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+</body>
+
+</html>
