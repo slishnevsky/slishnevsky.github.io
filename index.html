@@ -149,11 +149,11 @@
         tokenClient.requestAccessToken({ prompt: '' });
 
         // Fallback to consent if silent fails
-        setTimeout(() => {
-          if (gapi.client.getToken() === null) {
-            tokenClient.requestAccessToken({ prompt: 'consent' });
-          }
-        }, 3000);
+        // setTimeout(() => {
+        //   if (gapi.client.getToken() === null) {
+        //     tokenClient.requestAccessToken({ prompt: 'consent' });
+        //   }
+        // }, 3000);
       } else {
         // Already signed in
         createAllContent();
