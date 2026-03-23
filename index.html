@@ -30,7 +30,7 @@
             searchGoogle(this.form.search.value);" placeholder="Search" autofocus>
           </div>
           <button type="button" class="btn btn-success" onclick="searchGoogle(this.form.search.value)">Search</button>
-          <button onclick="tokenClient.requestAccessToken({ prompt: 'consent' })">Sign in</button>
+          <button type="button" class="btn btn-primary" onclick="tokenClient.requestAccessToken({ prompt: 'consent' })">Sign in</button>
         </form>
       </div>
     </div>
@@ -165,6 +165,7 @@
     // Create all content
     function createAllContent() {
       try {
+        removeAllContent();
         getDateTime(datetime1);
         getWeather(weather1);
         getCalendar(calendar1, events1);
@@ -177,6 +178,16 @@
         if (err.status === 401) {
           localStorage.removeItem('gapi_token');
           authorize();
+        }
+      }
+    }
+
+    function removeAllContent() {
+      const panels = document.getElementsByClassName('panel');
+      for (let index = 0; index < panels.length; index++) {
+        const panel = panels[index];
+        while (panel.children.length > 1) {
+          panel.removeChild(panel.lastChild);
         }
       }
     }
