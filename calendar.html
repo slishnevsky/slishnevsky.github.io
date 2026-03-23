@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Calendar Events</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    ul { list-style-type: none; padding-left: 0; }
+    li { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h1>My Upcoming Google Calendar Events</h1>
+  <ul id="events"></ul>
+
+  <script>
+    const CLIENT_ID = '84522859201-u0bemvmn44b552j4j2eq7j5smdn32et8.apps.googleusercontent.com';
+    const API_KEY = 'AIzaSyBDfHg7DWRW8ruNA7E90swUJpEJ_IiLqNo';
+    const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
+
+    let tokenClient;
+    let gapiInited = false;
+    let gisInited = false;
+
+    // 1️⃣ Load GAPI client
+    function gapiLoaded() {
+      gapi.load('client', initializeGapiClient);
+    }
+
+    async function initializeGapiClient() {
+      await gapi.client.init({
+        apiKey: API_KEY,
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+      });
+      gapiInited = true;
+      maybeEnableSignIn();
+    }
+
+    // 2️⃣ Load Google Identity Services
+    function gisLoaded() {
+      tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: CLIENT_ID,
+        scope: SCOPES,
+        callback: async (resp) => {
+          if (resp.error) {
+            console.error('Token error:', resp);
+            return;
+          }
+          // Token acquired, store flag for silent sign-in next time
+          localStorage.setItem('calendarAccessGranted', 'true');
+          listUpcomingEvents();
+        }
+      });
+      gisInited = true;
+      maybeEnableSignIn();
+    }
+
+    // 3️⃣ Trigger sign-in
+    function maybeEnableSignIn() {
+      if (gapiInited && gisInited) {
+        const alreadyGranted = localStorage.getItem('calendarAccessGranted') === 'true';
+        tokenClient.requestAccessToken({
+          prompt: alreadyGranted ? 'none' : 'consent'
+        });
+      }
+    }
+
+    // 4️⃣ Fetch and display events
+    async function listUpcomingEvents() {
+      try {
+        const response = await gapi.client.calendar.events.list({
+          calendarId: 'primary',
+          timeMin: new Date().toISOString(),
+          showDeleted: false,
+          singleEvents: true,
+          maxResults: 10,
+          orderBy: 'startTime'
+        });
+
+        const events = response.result.items;
+        const eventsList = document.getElementById('events');
+        eventsList.innerHTML = '';
+
+        if (!events || events.length === 0) {
+          eventsList.innerHTML = '<li>No upcoming events found.</li>';
+          return;
+        }
+
+        events.forEach(event => {
+          const start = event.start.dateTime || event.start.date;
+          const li = document.createElement('li');
+          li.textContent = `${start} — ${event.summary}`;
+          eventsList.appendChild(li);
+        });
+      } catch (err) {
+        console.error('Error fetching events:', err);
+        document.getElementById('events').innerHTML = '<li>Error fetching events.</li>';
+      }
+    }
+
+    // 5️⃣ Initialize on page load
+    window.onload = () => {
+      gapiLoaded();
+      gisLoaded();
+    };
+  </script>
+</body>
+</html>

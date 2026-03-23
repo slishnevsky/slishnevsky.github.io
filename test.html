@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Sign-In Demo</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+  <h2>Google Sign-In Demo</h2>
+  <div id="status">Not signed in</div>
+  <div id="g_id_onload"></div>
+  <div id="g_id_button"></div>
+
+  <script>
+    const CLIENT_ID = '84522859201-u0bemvmn44b552j4j2eq7j5smdn32et8.apps.googleusercontent.com';
+
+    function handleCredentialResponse(response) {
+      if (!response.credential) return;
+
+      const payload = JSON.parse(atob(response.credential.split('.')[1]));
+      console.log("JWT:", response.credential);
+      console.log("User info:", payload);
+
+      // Display user info
+      document.getElementById('status').innerText = 'Signed in as: ' + payload.email;
+
+      // Store token in localStorage for automatic login
+      localStorage.setItem('google_token', response.credential);
+    }
+
+    function tryAutoSignIn() {
+      const token = localStorage.getItem('google_token');
+      if (!token) return false;
+
+      // Decode token to display info
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      document.getElementById('status').innerText = 'Signed in as: ' + payload.email;
+      console.log('Auto signed in with stored token:', payload);
+      return true;
+    }
+
+    window.onload = function () {
+      if (!tryAutoSignIn()) {
+        // Initialize the Google Sign-In button
+        google.accounts.id.initialize({
+          client_id: CLIENT_ID,
+          callback: handleCredentialResponse,
+          auto_select: false
+        });
+
+        google.accounts.id.renderButton(
+          document.getElementById('g_id_button'),
+          { theme: 'outline', size: 'large' } // customization
+        );
+
+        google.accounts.id.prompt(); // optional One Tap prompt
+      }
+    };
+  </script>
+</body>
+</html>

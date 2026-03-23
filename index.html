@@ -125,11 +125,12 @@
         scope: SCOPES,
         callback: async (resp) => {
           if (resp.error) {
-            console.error(resp);
-            document.getElementById('content').innerText = 'Authorization failed.';
             console.error('Error during authorization:', resp);
             return;
           }
+          // Save token
+          localStorage.setItem('gapi_token', JSON.stringify(resp));
+          gapi.client.setToken(resp);
           createAllContent();
         },
       });
@@ -144,33 +145,33 @@
     }
 
     function authorize() {
-      if (gapi.client.getToken() === null) {
-        // First try silent auth (no UI)
-        tokenClient.requestAccessToken({ prompt: '' });
-
-        // Fallback to consent if silent fails
-        // setTimeout(() => {
-        //   if (gapi.client.getToken() === null) {
-        //     tokenClient.requestAccessToken({ prompt: 'consent' });
-        //   }
-        // }, 3000);
-      } else {
-        // Already signed in
+      // Try restoring a saved token
+      const saved = JSON.parse(localStorage.getItem('gapi_token'));
+      if (saved) {
+        gapi.client.setToken(saved);
         createAllContent();
+      } else {
+        tokenClient.requestAccessToken({ prompt: '' });
       }
     }
 
     // Create all content
     function createAllContent() {
-      document.body.style.display = 'block';
-      getDateTime(datetime1);
-      getWeather(weather1);
-      getCalendar(calendar1, events1);
-      getBookmarks(bookmarks1, 'Флаерсы');
-      getBookmarks(bookmarks2, 'Магазины');
-      getBookmarks(bookmarks3, 'Сервисы');
-      getNews(news1, 'https://news.knopka.ca/rss', 7); // Canadian news
-      getNews(news2, 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
+      try {
+        getDateTime(datetime1);
+        getWeather(weather1);
+        getCalendar(calendar1, events1);
+        getBookmarks(bookmarks1, 'Флаерсы');
+        getBookmarks(bookmarks2, 'Магазины');
+        getBookmarks(bookmarks3, 'Сервисы');
+        getNews(news1, 'https://news.knopka.ca/rss', 7); // Canadian news
+        getNews(news2, 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
+      } catch (err) {
+        if (err.status === 401) {
+          localStorage.removeItem('gapi_token');
+          authorize();
+        }
+      }
     }
 
   </script>
