@@ -127,7 +127,7 @@
         callback: async (resp) => {
           if (resp.error) {
             console.warn('Silent auth failed, retrying with consent...');
-            tokenClient.requestAccessToken({ prompt: 'consent' });
+            // tokenClient.requestAccessToken({ prompt: 'consent' });
             return;
           }
           // Save token
@@ -165,7 +165,7 @@
     // Create all content
     function createAllContent() {
       try {
-        removeAllContent();
+        deleteAllContent();
         getDateTime(datetime1);
         getWeather(weather1);
         getCalendar(calendar1, events1);
@@ -177,12 +177,12 @@
       } catch (err) {
         if (err.status === 401) {
           localStorage.removeItem('gapi_token');
-          authorize();
+          tokenClient.requestAccessToken({ prompt: 'consent' });
         }
       }
     }
 
-    function removeAllContent() {
+    function deleteAllContent() {
       const panels = document.getElementsByClassName('panel');
       for (let index = 0; index < panels.length; index++) {
         const panel = panels[index];
