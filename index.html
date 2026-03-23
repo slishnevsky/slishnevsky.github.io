@@ -8,7 +8,6 @@
   <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="js/index.js"></script>
@@ -31,6 +30,7 @@
             searchGoogle(this.form.search.value);" placeholder="Search" autofocus>
           </div>
           <button type="button" class="btn btn-success" onclick="searchGoogle(this.form.search.value)">Search</button>
+          <button onclick="tokenClient.requestAccessToken({ prompt: 'consent' })">Sign in</button>
         </form>
       </div>
     </div>
@@ -105,6 +105,7 @@
     let tokenClient;
     let gapiInited = false;
     let gisInited = false;
+    let authStarted = false;
 
     function gapiLoaded() {
       gapi.load('client', initializeGapiClient);
@@ -141,9 +142,10 @@
     }
 
     function maybeAuthorize() {
-      if (!gapiInited || !gisInited) {
+      if (!gapiInited || !gisInited || authStarted) {
         return;
       }
+      authStarted = true;
       // Try restoring a saved token
       const saved = JSON.parse(localStorage.getItem('gapi_token'));
       if (saved && !isTokenExpired(saved)) {
