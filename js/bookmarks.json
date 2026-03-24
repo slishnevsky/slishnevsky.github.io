@@ -1,54 +1,54 @@
 ﻿{
-  "Флаерсы": [
+  "Магазины": [
     {
       "title": "<b>FreshCo</b> Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada"
+      "link": "https://flyers.smartcanucks.ca/freshco-chalo-freshco-canada",
+      "flyer": true
     },
     {
       "title": "<b>No Frills</b> Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/no-frills-canada"
+      "link": "https://flyers.smartcanucks.ca/no-frills-canada",
+      "flyer": true
     },
     {
       "title": "<b>Shoppers Drug Mart</b> Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/shoppers-drug-mart-canada"
+      "link": "https://flyers.smartcanucks.ca/shoppers-drug-mart-canada",
+      "flyer": true
     },
     {
       "title": "<b>Walmart</b> Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/walmart-canada"
-    },
-    {
-      "title": "<b>Coppa's</b> Canada Flyers",
-      "link": "https://flyers.smartcanucks.ca/coppas-fresh-market-canada"
+      "link": "https://flyers.smartcanucks.ca/walmart-canada",
+      "flyer": true
     },
     {
       "title": "<b>Real Canadian Superstore</b> Flyers",
-      "link": "https://flyers.smartcanucks.ca/real-canadian-superstore-canada"
-    }
-  ],
-  "Магазины": [
-    {
-      "title": "<b>FreshCo</b> Grocery Shopping",
-      "link": "https://freshco.com/"
+      "link": "https://flyers.smartcanucks.ca/real-canadian-superstore-canada",
+      "flyer": true
     },
     {
-      "title": "<b>No Frills</b> Grocery Shopping",
-      "link": "https://www.nofrills.ca/"
+      "title": "<b>FreshCo</b> Grocery Store",
+      "link": "https://freshco.com/",
+      "flyer": false
+    },
+    {
+      "title": "<b>No Frills</b> Grocery Store",
+      "link": "https://www.nofrills.ca/",
+      "flyer": false
     },
     {
       "title": "<b>Shoppers Drug Mart</b> Superstore",
-      "link": "https://www.shoppersdrugmart.ca/"
+      "link": "https://www.shoppersdrugmart.ca/",
+      "flyer": false
     },
     {
-      "title": "<b>Walmart Canada</b> Shopping",
-      "link": "https://www.walmart.ca/"
+      "title": "<b>Walmart Canada</b> Superstore",
+      "link": "https://www.walmart.ca/",
+      "flyer": false
     },
     {
-      "title": "<b>Coppa's</b> Grocery Shopping",
-      "link": "https://www.coppas.com/"
-    },
-    {
-      "title": "<b>Real Canadian Superstore</b> Grocery Shopping",
-      "link": "https://www.realcanadiansuperstore.ca/en"
+      "title": "<b>Real Canadian Superstore</b> Grocery Store",
+      "link": "https://www.realcanadiansuperstore.ca/en",
+      "flyer": false
     }
   ],
   "Сервисы": [

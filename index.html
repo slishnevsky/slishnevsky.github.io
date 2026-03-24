@@ -57,15 +57,10 @@
       <div class="col-sm-4">
         <div id="bookmarks1" class="panel panel-default">
           <div class="panel-heading">
-            <a href="https://www.circulars.ca/" target="_blank">Флаерсы</a>
-          </div>
-        </div>
-        <div id="bookmarks2" class="panel panel-default">
-          <div class="panel-heading">
             <a href="https://flyers.smartcanucks.ca/" target="_blank">Магазины</a>
           </div>
         </div>
-        <div id="bookmarks3" class="panel panel-default">
+        <div id="bookmarks2" class="panel panel-default">
           <div class="panel-heading">Сервисы</div>
         </div>
       </div>
@@ -163,9 +158,8 @@
       getDateTime(document.getElementById('datetime'));
       getWeather(document.getElementById('weather'));
       getCalendar(document.getElementById('calendar'), document.getElementById('events'));
-      getBookmarks(document.getElementById('bookmarks1'), 'Флаерсы');
-      getBookmarks(document.getElementById('bookmarks2'), 'Магазины');
-      getBookmarks(document.getElementById('bookmarks3'), 'Сервисы');
+      getBookmarks(document.getElementById('bookmarks1'), 'Магазины');
+      getBookmarks(document.getElementById('bookmarks2'), 'Сервисы');
       getNews(document.getElementById('news1'), 'https://news.knopka.ca/rss', 7); // Canadian news
       getNews(document.getElementById('news2'), 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
     }
