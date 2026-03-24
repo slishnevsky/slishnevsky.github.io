@@ -26,8 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <form class="navbar-form navbar-right" onsubmit="return false">
           <div class="form-group">
-            <input type="text" id="search" name="search" class="form-control" onkeyup="if (event.key == 'Enter')
-            searchGoogle(this.form.search.value);" placeholder="Search" autofocus>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search" autofocus>
           </div>
           <button type="button" class="btn btn-success" onclick="searchGoogle(this.form.search.value)">Search</button>
           <button type="button" class="btn btn-primary" onclick="tokenClient.requestAccessToken({ prompt: 'consent' })">Sign in</button>
@@ -84,42 +83,33 @@
     </div>
   </div>
   <script type="text/javascript">
-    // These elements are used to display various content on the homepage
-    const datetime1 = document.getElementById('datetime');
-    const search1 = document.getElementById('search');
-    const weather1 = document.getElementById('weather');
-    const calendar1 = document.getElementById('calendar');
-    const events1 = document.getElementById('events');
-    const bookmarks1 = document.getElementById('bookmarks1');
-    const bookmarks2 = document.getElementById('bookmarks2');
-    const bookmarks3 = document.getElementById('bookmarks3');
-    const news1 = document.getElementById('news1');
-    const news2 = document.getElementById('news2');
-
-    // Credentials to authenticate with Google API 
+    // Google API configuration
     const CLIENT_ID = '84522859201-u0bemvmn44b552j4j2eq7j5smdn32et8.apps.googleusercontent.com';
     const API_KEY = 'AIzaSyBDfHg7DWRW8ruNA7E90swUJpEJ_IiLqNo';
     const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
     const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
 
-    let tokenClient;
-    let gapiInited = false;
-    let gisInited = false;
-    let authStarted = false;
+    let tokenClient; // Declare tokenClient in the global scope
+    let gapiInited = false; // Track if gapi is initialized
+    let gisInited = false; // Track if GIS is initialized
+    let authStarted = false; // Track if authorization has started
 
-    function gapiLoaded() {
+    // Load the API client and auth2 library
+    function gapiLoaded() { 
       gapi.load('client', initializeGapiClient);
     }
 
+    // Initialize the API client library
     async function initializeGapiClient() {
       await gapi.client.init({
         apiKey: API_KEY,
         discoveryDocs: [DISCOVERY_DOC],
       });
-      gapiInited = true;
+      gapiInited = true; // Mark gapi as initialized
       maybeAuthorize();
     }
 
+    // Initialize the Google Identity Services client
     function gisLoaded() {
       tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: CLIENT_ID,
@@ -127,7 +117,6 @@
         callback: async (resp) => {
           if (resp.error) {
             console.warn('Silent auth failed, retrying with consent...');
-            // tokenClient.requestAccessToken({ prompt: 'consent' });
             return;
           }
           // Save token
@@ -137,17 +126,21 @@
           createAllContent();
         },
       });
-      gisInited = true;
+      gisInited = true; // Mark GIS as initialized
       maybeAuthorize();
     }
 
+    // Attempt to authorize the user if both libraries are initialized
     function maybeAuthorize() {
-      if (!gapiInited || !gisInited || authStarted) {
-        return;
-      }
+      if (!(gapiInited && gisInited) || authStarted) return;
       authStarted = true;
-      // Try restoring a saved token
+      authorize();
+    }
+
+    // Authorize the user
+    function authorize() {
       const saved = JSON.parse(localStorage.getItem('gapi_token'));
+
       if (saved && !isTokenExpired(saved)) {
         gapi.client.setToken(saved);
         createAllContent();
@@ -157,15 +150,25 @@
       }
     }
 
+    // Check if the token is expired
     function isTokenExpired(token) {
       const now = Date.now() / 1000;
       return !token.expires_in || (token.created_at + token.expires_in) <= now;
     }
 
-    // Create all content
+    // Create all content for the panels
     function createAllContent() {
       try {
         deleteAllContent();
+        const datetime1 = document.getElementById('datetime');
+        const weather1 = document.getElementById('weather');
+        const calendar1 = document.getElementById('calendar');
+        const events1 = document.getElementById('events');
+        const bookmarks1 = document.getElementById('bookmarks1');
+        const bookmarks2 = document.getElementById('bookmarks2');
+        const bookmarks3 = document.getElementById('bookmarks3');
+        const news1 = document.getElementById('news1');
+        const news2 = document.getElementById('news2');
         getDateTime(datetime1);
         getWeather(weather1);
         getCalendar(calendar1, events1);
@@ -175,21 +178,23 @@
         getNews(news1, 'https://news.knopka.ca/rss', 7); // Canadian news
         getNews(news2, 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
       } catch (err) {
-        if (err.status === 401) {
+        const code = err?.status || err?.result?.error?.code;
+        if (code === 401) {
           localStorage.removeItem('gapi_token');
           tokenClient.requestAccessToken({ prompt: 'consent' });
+        } else {
+          console.error('Unhandled error:', err);
         }
       }
     }
 
+    // Delete all content from the panels except the headings
     function deleteAllContent() {
-      const panels = document.getElementsByClassName('panel');
-      for (let index = 0; index < panels.length; index++) {
-        const panel = panels[index];
+      document.querySelectorAll('.panel').forEach(panel => {
         while (panel.children.length > 1) {
-          panel.removeChild(panel.lastChild);
+          panel.lastElementChild.remove();
         }
-      }
+      });
     }
 
   </script>
