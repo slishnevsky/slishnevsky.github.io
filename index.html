@@ -29,7 +29,8 @@
             <input type="text" id="search" name="search" class="form-control" placeholder="Search" autofocus>
           </div>
           <button type="button" class="btn btn-success" onclick="searchGoogle(this.form.search.value)">Search</button>
-          <button type="button" class="btn btn-primary" onclick="tokenClient.requestAccessToken({ prompt: 'consent' })">Sign in</button>
+          <button type="button" class="btn btn-primary"
+            onclick="tokenClient.requestAccessToken({ prompt: 'consent' })">Sign in</button>
         </form>
       </div>
     </div>
@@ -95,7 +96,7 @@
     let authStarted = false; // Track if authorization has started
 
     // Load the API client and auth2 library
-    function gapiLoaded() { 
+    function gapiLoaded() {
       gapi.load('client', initializeGapiClient);
     }
 
@@ -119,10 +120,9 @@
             console.warn('Silent auth failed, retrying with consent...');
             return;
           }
-          // Save token
-          resp.created_at = Math.floor(Date.now() / 1000);
-          localStorage.setItem('gapi_token', JSON.stringify(resp));
-          gapi.client.setToken(resp);
+          resp.created_at = Math.floor(Date.now() / 1000); // Add created_at timestamp to the token response
+          localStorage.setItem('gapi_token', JSON.stringify(resp)); // Save token to localStorage
+          gapi.client.setToken(resp); // Set the token for gapi client
           createAllContent();
         },
       });
@@ -133,68 +133,41 @@
     // Attempt to authorize the user if both libraries are initialized
     function maybeAuthorize() {
       if (!(gapiInited && gisInited) || authStarted) return;
-      authStarted = true;
+      authStarted = true; // Ensure authorization is only attempted once
       authorize();
     }
 
     // Authorize the user
     function authorize() {
-      const saved = JSON.parse(localStorage.getItem('gapi_token'));
-
-      if (saved && !isTokenExpired(saved)) {
-        gapi.client.setToken(saved);
+      const saved = JSON.parse(localStorage.getItem('gapi_token')); // Get the saved token from localStorage
+      if (saved && !isTokenExpired(saved)) { // If token exists and is not expired
+        gapi.client.setToken(saved); // Set the token for gapi client
         createAllContent();
       } else {
-        localStorage.removeItem('gapi_token');
-        tokenClient.requestAccessToken({ prompt: '' });
+        localStorage.removeItem('gapi_token'); // Remove expired token from localStorage
+        tokenClient.requestAccessToken({ prompt: '' }); // Request a new token without prompting the user (silent auth)
       }
     }
 
     // Check if the token is expired
     function isTokenExpired(token) {
-      const now = Date.now() / 1000;
-      return !token.expires_in || (token.created_at + token.expires_in) <= now;
+      const now = Date.now() / 1000; // Get the current time in seconds
+      return !token.expires_in || (token.created_at + token.expires_in) <= now; // Check if the token is expired
     }
 
-    // Create all content for the panels
     function createAllContent() {
-      try {
-        deleteAllContent();
-        const datetime1 = document.getElementById('datetime');
-        const weather1 = document.getElementById('weather');
-        const calendar1 = document.getElementById('calendar');
-        const events1 = document.getElementById('events');
-        const bookmarks1 = document.getElementById('bookmarks1');
-        const bookmarks2 = document.getElementById('bookmarks2');
-        const bookmarks3 = document.getElementById('bookmarks3');
-        const news1 = document.getElementById('news1');
-        const news2 = document.getElementById('news2');
-        getDateTime(datetime1);
-        getWeather(weather1);
-        getCalendar(calendar1, events1);
-        getBookmarks(bookmarks1, 'Флаерсы');
-        getBookmarks(bookmarks2, 'Магазины');
-        getBookmarks(bookmarks3, 'Сервисы');
-        getNews(news1, 'https://news.knopka.ca/rss', 7); // Canadian news
-        getNews(news2, 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
-      } catch (err) {
-        const code = err?.status || err?.result?.error?.code;
-        if (code === 401) {
-          localStorage.removeItem('gapi_token');
-          tokenClient.requestAccessToken({ prompt: 'consent' });
-        } else {
-          console.error('Unhandled error:', err);
-        }
-      }
-    }
-
-    // Delete all content from the panels except the headings
-    function deleteAllContent() {
-      document.querySelectorAll('.panel').forEach(panel => {
-        while (panel.children.length > 1) {
-          panel.lastElementChild.remove();
-        }
-      });
+      // Delete all content from the panels except the headings
+      const panels = document.querySelectorAll('.panel');
+      panels.forEach(panel => { while (panel.children.length > 1) panel.lastElementChild.remove(); });
+      // Create content for each panel
+      getDateTime(document.getElementById('datetime'));
+      getWeather(document.getElementById('weather'));
+      getCalendar(document.getElementById('calendar'), document.getElementById('events'));
+      getBookmarks(document.getElementById('bookmarks1'), 'Флаерсы');
+      getBookmarks(document.getElementById('bookmarks2'), 'Магазины');
+      getBookmarks(document.getElementById('bookmarks3'), 'Сервисы');
+      getNews(document.getElementById('news1'), 'https://news.knopka.ca/rss', 7); // Canadian news
+      getNews(document.getElementById('news2'), 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
     }
 
   </script>
