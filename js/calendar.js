@@ -20,12 +20,20 @@ async function getCalendar(container1, container2) {
     events = events.concat(calendar.result.items);
   });
 
-  // Sorting events by date and taking first (most recent) 10 events
-  events = events.sort(compareDates).slice(0, 10);
+  events = events.sort(compareDates).slice(0, 10); // Sort events by date and take the first 10 events
+  events = events.map(event => ({ ...event, summary: localizeEventTitle(event) })); // Localize event titles
 
   createCalendar(container1, events);
   createEvents(container2, events);
 };
+
+function localizeEventTitle(event) {
+  if (event.summary && event.summary.endsWith("'s birthday")) {
+    const name = event.summary.replace("'s birthday", "");
+    return `День рождения: ${name}`;
+  }
+  return event.summary;
+}
 
 function createCalendar(container, events) {
   // Create a new date object for the specified month and year
