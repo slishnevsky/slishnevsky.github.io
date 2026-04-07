@@ -26,7 +26,8 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <form class="navbar-form navbar-right" onsubmit="return false">
           <div class="form-group">
-            <input type="text" id="search" name="search" class="form-control" placeholder="Search" autofocus>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search"
+              onkeypress="if(event.key === 'Enter') { searchGoogle(this.form.search.value); }" autofocus>
           </div>
           <button type="button" class="btn btn-success" onclick="searchGoogle(this.form.search.value)">Search</button>
           <button type="button" class="btn btn-primary"
