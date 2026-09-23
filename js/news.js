@@ -20,7 +20,7 @@ function createNews(container, data, count) {
 
   const listGroup = document.createElement('div');
   listGroup.className = 'list-group';
-  if (items.length < count) count = items.length;
+  count = count ? Math.min(count, items.length) : items.length;
 
   // Loop through each item and display its title and link
   for (let i = 0; i < count; i++) {
@@ -28,19 +28,19 @@ function createNews(container, data, count) {
     let link = items[i].querySelector('link').textContent;
     let imageSrc = ''; // Declare imageSrc before using it
 
-    if (items[i].querySelector('link').attributes['href']) 
+    if (items[i].querySelector('link').attributes['href'])
       link = items[i].querySelector('link').attributes['href'].value;
 
     imageSrc = './assets/news.png'; // Default image if none found
 
     // Fetch and display the image for each news item
-    if (items[i].querySelector('enclosure')) 
+    if (items[i].querySelector('enclosure'))
       imageSrc = items[i].querySelector('enclosure').attributes['url'].value;
-    if (items[i].querySelector('content')) 
+    if (items[i].querySelector('content'))
       imageSrc = items[i].querySelector('content').attributes['url'].value;
-    if (items[i].querySelector('thumbnail')) 
+    if (items[i].querySelector('thumbnail'))
       imageSrc = items[i].querySelector('thumbnail').attributes['url'].value;
-    if (items[i].querySelector('group > thumbnail')) 
+    if (items[i].querySelector('group > thumbnail'))
       imageSrc = items[i].querySelector('group > thumbnail').attributes['url'].value;
 
     // Create a list item element

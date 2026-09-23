@@ -68,10 +68,10 @@
       <div class="col-sm-4">
         <div id="news1" class="panel panel-default">
           <div class="panel-heading">
-            <a href="https://news.knopka.ca/" target="_blank">Канадские новости</a>
+            <a href="https://www.youtube.com/@KinomanTrailers/videos" target="_blank">Киноман - Новые фильмы и сериалы</a>
           </div>
         </div>
-        <div id="news2" class="panel panel-default">
+        <div id="news2" class="panel panel-default" style="display: none;">
           <div class="panel-heading">
             <a href="https://www.foxnews.com/" target="_blank">Мировые новости</a>
           </div>
@@ -161,8 +161,8 @@
       getCalendar(document.getElementById('calendar'), document.getElementById('events'));
       getBookmarks(document.getElementById('bookmarks1'), 'Магазины');
       getBookmarks(document.getElementById('bookmarks2'), 'Сервисы');
-      getNews(document.getElementById('news1'), 'https://news.knopka.ca/rss', 7); // Canadian news
-      getNews(document.getElementById('news2'), 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
+      getNews(document.getElementById('news1'), 'https://www.youtube.com/feeds/videos.xml?channel_id=UC6A-Z0jDKemh9-CwGbj5yog'); // Canadian news
+      // getNews(document.getElementById('news2'), 'https://moxie.foxnews.com/google-publisher/world.xml', 7); // Fox News World
     }
 
   </script>
